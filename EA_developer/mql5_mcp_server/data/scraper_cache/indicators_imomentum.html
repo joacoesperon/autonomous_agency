@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://c.mql5.com">
+  <meta name="description" content="The function returns the handle of the Momentum indicator. It has only one buffer. Parameters symbol [in] The symbol name of the security, the data...">
+  <meta property="og:url" content="https://www.mql5.com/en/docs/indicators/imomentum">
+  <meta property="og:title" content="Documentation on MQL5: iMomentum / Technical Indicators">
+  <meta property="og:description" content="The function returns the handle of the Momentum indicator. It has only one buffer. Parameters symbol [in] The symbol name of the security, the data...">
+      <meta property="og:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+      <meta property="og:image:secure_url" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@mql5com">
+  <meta name="twitter:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta name="theme-color" content="#4a76b8">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="https://www.mql5.com/manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://www.mql5.com/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://www.mql5.com/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://www.mql5.com/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://www.mql5.com/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="https://www.mql5.com/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.mql5.com/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="https://www.mql5.com/apple-touch-icon-192x192.png">
+  <link rel="icon" sizes="192x192" href="https://www.mql5.com/android-touch-icon-192x192.png">
+  <link rel="icon" sizes="128x128" href="https://www.mql5.com/android-touch-icon-128x128.png">
+  <link rel="shortcut icon" href="https://c.mql5.com/i/favicon4.ico">
+  <meta name="msapplication-config" content="none"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta property="qc:admins" content="36367170677651456375"/>
+  <meta property="wb:webmaster" content="073d7690269bcd81"/>
+  <link href="https://c.mql5.com/styles/core.5d0909a86560d548a4987680437be48c.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/all.65023a0db01c5ab7ceb59789bcf40c80.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/help.607fabd1d981f58fa5fb84b1020b666e.css" type="text/css" rel="stylesheet" media="all">
+  <link rel="canonical" href="https://www.mql5.com/en/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="en" href="https://www.mql5.com/en/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="ru" href="https://www.mql5.com/ru/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="zh" href="https://www.mql5.com/zh/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="es" href="https://www.mql5.com/es/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="pt" href="https://www.mql5.com/pt/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="ja" href="https://www.mql5.com/ja/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="de" href="https://www.mql5.com/de/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="ko" href="https://www.mql5.com/ko/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="fr" href="https://www.mql5.com/fr/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="it" href="https://www.mql5.com/it/docs/indicators/imomentum">
+  <link rel="alternate" hreflang="tr" href="https://www.mql5.com/tr/docs/indicators/imomentum">
+  <title>iMomentum - Technical Indicators - MQL5 Reference</title>
+  <script type='text/javascript'>
+  (function(a,e,f,g,b,c,d){a[b]||(a.FintezaCoreObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=!0,c.defer=!0,c.src=g,d&&d.parentNode&&d.parentNode.insertBefore(c,d))})
+      (window, document, "script", "/ff/core.js", "fz");
+  window.fz("register", "website", {
+      id: "sqjxkxkswybhifrohpyooonwgbvsfzmayq",
+    trackLinks: true,
+    sendEventsByBeacon: true,
+  });
+  </script>
+
+
+<script type="text/javascript">
+  !function(){window.mqGlobal={};var t=!1,n=!1,e=[],o=[],i=[];function d(t){var n;for(n=0;n<t.length;n+=1)t[n]()}function c(){t||(t=!0,d(e),d(o),o=[],e=[])}function a(){c(),n||(n=!0,d(i),i=[])}if(mqGlobal.AddOnReady=function(n,i){t?n(document):i?e.push(n):o.push(n)},mqGlobal.AddOnLoad=function(t){n?t(document):i.push(t)},mqGlobal.AddOnActiveWindowChange=function(t){this._onvisibility||(this._onvisibility=[]),this._onvisibility[this._onvisibility.length]=t},document.addEventListener)document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",a,!1);else if(document.attachEvent&&(document.attachEvent("onreadystatechange",(function(){switch(document.readyState){case"interactive":c();break;case"complete":a()}})),window.attachEvent("onload",a),document.documentElement.doScroll&&window==window.top)){!function n(){if(!t&&document.body)try{document.documentElement.doScroll("left"),c()}catch(t){setTimeout(n,0)}}()}}();
+  mqGlobal.CookieDomain = ".mql5.com";
+  mqGlobal.Language = 'en';
+  mqGlobal.IsMobile = false;
+  mqGlobal.ClearRteStorage = function (e) { if (window.GStorage || (window.GStorage = globalStorage()), window.GStorage.supported) try { var o = e; window.GStorage.getItem("rte_autosave_uid", function (e, t) { t == o && (window.GStorage.removeItem("rte_autosave_text"), window.GStorage.removeItem("rte_autosave_date"), window.GStorage.removeItem("rte_autosave_uid")) }) } catch (e) { } };
+</script>
+  
+
+
+    <script src="https://c.mql5.com/js/all.62ce17e8cf0163510ff0616f628b63a5.js" type="text/javascript" defer="defer"></script>
+  <script src="https://c.mql5.com/js/vendor.878aea2c110ed989c5508cf1babe9772.js" type="text/javascript" defer="defer"></script>
+
+
+</head>
+
+<body>
+
+<div class="cover" id="cover">
+
+    <header class="head">
+      <a href="https://www.mql5.com" class="head__logo" title="MQL5 - Language of trade strategies built-in the MetaTrader 5 client terminal"></a>
+        <div class="head__content">
+          <nav class="main-menu" id="mainmenu">
+            
+                    <ul class="main-menu__top-level" id="menuTopLevel">
+                    <li><a href="/en/forum" data-fz-event="MQL5+Menu+Forum">Forum</a></li>
+                    <li><a href="/en/market" data-fz-event="MQL5+Menu+Market">Market</a></li>
+                    <li><a href="/en/signals" data-fz-event="MQL5+Menu+Signals">Signals</a></li>
+                    <li><a href="/en/job" data-fz-event="MQL5+Menu+Job">Freelance</a></li>
+                    <li><a href="/en/vps" data-fz-event="MQL5+Menu+VPS">VPS</a></li>
+                    <li><a href="/en/quotes/overview" data-fz-event="MQL5+Menu+Overview">Quotes</a></li>
+                  </ul><ul class="main-menu__second-level" id="menuSecondLevel">
+                    <li><a href="/en/articles" data-fz-event="MQL5+Menu+Articles"><img src="https://c.mql5.com/i/menu/icon-articles4.svg" alt="" width="16" height="16"/>Articles</a></li>
+                    <li><a href="/en/code" data-fz-event="MQL5+Menu+CodeBase"><img src="https://c.mql5.com/i/menu/icon-code4.svg" alt="" width="16" height="16"/>CodeBase</a></li>
+                    <li><a href="https://forge.mql5.io/?lang=en" target="_blank" rel="noopener" data-fz-event="MQL5+Menu+AlgoForge"><img src="https://c.mql5.com/i/menu/icon-algoforge4.svg" alt="" width="16" height="16"/>Algo Forge</a></li>
+                    <li class="main-menu__selected"><a href="/en/docs" data-fz-event="MQL5+Menu+Docs"><img src="https://c.mql5.com/i/menu/icon-docs4.svg" alt="" width="16" height="16"/>Documentation</a></li>
+                    <li><a href="/en/book" data-fz-event="MQL5+Menu+Book"><img src="https://c.mql5.com/i/menu/icon-book4.svg" alt="" width="16" height="16"/>AlgoBook</a></li>
+                    <li><a href="/en/neurobook" data-fz-event="MQL5+Menu+Neurobook"><img src="https://c.mql5.com/i/menu/icon-neurobook4.svg" alt="" width="16" height="16"/>NeuroBook</a></li>
+                    <li><a href="/en/economic-calendar" data-fz-event="MQL5+Menu+Economic+Calendar"><img src="https://c.mql5.com/i/menu/icon-economic-calendar4.svg" alt="" width="16" height="16"/>Calendar</a></li>
+                    <li><a href="https://web.metatrader.app/terminal?mode=demo&lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Menu+Trading"><img src="https://c.mql5.com/i/menu/icon-trading4.svg" alt="" width="16" height="16"/>WebTerminal</a></li>
+                    <li class="main-menu__mobile"><a href="/en/about">About</a></li>
+                    <li class="main-menu__second-tools"><a rel="noopener" href="/en/vps" title="Reliable trader hosting for uninterrupted operation of robots and instant copying of trades" class="button-mt" data-vars-fz="Start+VPS+Trial+Submenu"><img width="18" height="18" src="https://c.mql5.com/i/sidebar/vpstrial2.svg" alt="" loading="lazy">Start VPS Trial</a></li>
+                    </ul>
+          </nav>
+            <div class="main-menu__active">
+              <a id="mainMenuSelected" href="#">
+                <span class="main-menu__primary">Documentation</span><span class="main-menu__secondary">Sections</span>
+              </a>
+            </div>
+<form action="https://www.mql5.com/en/search" onsubmit="return false;" autocomplete="off" id="headerSearchForm" class="header-search" method="post">
+<button type="button" id="headerSearchButton" title="Search" class="header-search__button"></button><div class="header-search__input"><input name="keyword" type="text" enterkeyhint="search" title="Enter search text" placeholder="Search" id="headerSearchKeyword"/><label for="headerSearchKeyword" class="header-search__placeholder">Type <span>/</span> to search:  @user, $symbol, ...</label><button id="headerSearchSubmit" class="header-search__submit"></button></div><button type="button" id="headerSearchClean" title="Close" class="header-search__clean"></button></form>          <input class="blurHandler" id="mainMenuBlurHandler" type="checkbox">
+        </div>
+        <div class="head__toolbar" id="headerToolbar">
+            <div class="container loginRegister">
+              <nav>
+                <ul id="loginRegisterButtons"><li><a class="login" title="Please sign in. OpenID supported" href="https://www.mql5.com/en/auth_login" rel="nofollow" data-fz-event="MQL5+Menu+Siginin">Log in</a></li><li><a class="registration en" title="Please register" href="https://www.mql5.com/en/auth_register" rel="nofollow" data-fz-event="MQL5+Menu+Register" onclick="window.fpush('MQL5+Button+Click');">Create an account</a></li></ul>
+              </nav>
+            </div>
+          <div class="container">
+            <div class="toggle-button" id="sidebarToggleButton">
+              <i></i>
+            </div>
+          </div>
+
+          <div class="group-menu" id="groupMenu">
+
+
+            <div class="container lang-menu-container">
+              <div id="langMenuContainer" class="lang-menu">
+                <input class="blurHandler" id="langmenuBlurHandler" type="checkbox">
+                <nav>
+                  <ul class="lang-menu__list" id="langmenu">
+                    <li class="lang-menu__list-item lang-menu__list-item_selected"><a href="/en/docs/indicators/imomentum" aria-label="English (English)"><i class="icons-languages icons-languages_en"></i><span>English</span></a></li>
+<li class="lang-menu__list-item"><a href="/ru/docs/indicators/imomentum" aria-label="Русский (Russian)"><i class="icons-languages icons-languages_ru"></i><span>Русский</span></a></li>
+<li class="lang-menu__list-item"><a href="/zh/docs/indicators/imomentum" aria-label="中文 (Chinese)"><i class="icons-languages icons-languages_zh"></i><span>中文</span></a></li>
+<li class="lang-menu__list-item"><a href="/es/docs/indicators/imomentum" aria-label="Español (Spanish)"><i class="icons-languages icons-languages_es"></i><span>Español</span></a></li>
+<li class="lang-menu__list-item"><a href="/pt/docs/indicators/imomentum" aria-label="Português (Portuguese)"><i class="icons-languages icons-languages_pt"></i><span>Português</span></a></li>
+<li class="lang-menu__list-item"><a href="/ja/docs/indicators/imomentum" aria-label="日本語 (Japanese)"><i class="icons-languages icons-languages_ja"></i><span>日本語</span></a></li>
+<li class="lang-menu__list-item"><a href="/de/docs/indicators/imomentum" aria-label="Deutsch (German)"><i class="icons-languages icons-languages_de"></i><span>Deutsch</span></a></li>
+<li class="lang-menu__list-item"><a href="/ko/docs/indicators/imomentum" aria-label="한국어 (Korean)"><i class="icons-languages icons-languages_ko"></i><span>한국어</span></a></li>
+<li class="lang-menu__list-item"><a href="/fr/docs/indicators/imomentum" aria-label="Français (French)"><i class="icons-languages icons-languages_fr"></i><span>Français</span></a></li>
+<li class="lang-menu__list-item"><a href="/it/docs/indicators/imomentum" aria-label="Italiano (Italian)"><i class="icons-languages icons-languages_it"></i><span>Italiano</span></a></li>
+<li class="lang-menu__list-item"><a href="/tr/docs/indicators/imomentum" aria-label="Türkçe (Turkish)"><i class="icons-languages icons-languages_tr"></i><span>Türkçe</span></a></li>
+
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+  <main>
+<div id='bfogggabsofabcpxuzmgaibarmaxasdrj' class="r7ba6qbuhkqj830as gc3c8mam3"></div>
+    <article class="body" id="bodyContent">
+      <header class="top-band">
+        
+  <div class="path"><div class="shortlinks"><a href="/en/docs" class="boldenPath" title="MQL5 Reference">MQL5 Reference</a><span class="arrow_right" style="margin: 0 6px;"></span><a href="/en/docs/indicators" class="boldenPath" title="Technical Indicators">Technical Indicators</a><span class="arrow_right" style="margin: 0 6px;"></span><span class="boldenPath nowrap">iMomentum</span>&nbsp;</div></div>
+
+      </header>
+
+      
+
+
+
+<div style="overflow: hidden;">
+    <div class="left-panel docsTree" style="width: 253px;">
+      <ul class="docsMenu"><li class="docsMenuNode"><a href="/en/docs/indicators/iac" class="nowrap" title="iAC">iAC</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iad" class="nowrap" title="iAD">iAD</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iadx" class="nowrap" title="iADX">iADX</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iadxwilder" class="nowrap" title="iADXWilder">iADXWilder</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ialligator" class="nowrap" title="iAlligator">iAlligator</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iama" class="nowrap" title="iAMA">iAMA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iao" class="nowrap" title="iAO">iAO</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iatr" class="nowrap" title="iATR">iATR</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ibearspower" class="nowrap" title="iBearsPower">iBearsPower</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ibands" class="nowrap" title="iBands">iBands</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ibullspower" class="nowrap" title="iBullsPower">iBullsPower</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/icci" class="nowrap" title="iCCI">iCCI</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ichaikin" class="nowrap" title="iChaikin">iChaikin</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/icustom" class="nowrap" title="iCustom">iCustom</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/idema" class="nowrap" title="iDEMA">iDEMA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/idemarker" class="nowrap" title="iDeMarker">iDeMarker</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ienvelopes" class="nowrap" title="iEnvelopes">iEnvelopes</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iforce" class="nowrap" title="iForce">iForce</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ifractals" class="nowrap" title="iFractals">iFractals</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iframa" class="nowrap" title="iFrAMA">iFrAMA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/igator" class="nowrap" title="iGator">iGator</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iichimoku" class="nowrap" title="iIchimoku">iIchimoku</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ibwmfi" class="nowrap" title="iBWMFI">iBWMFI</a></li><li class="docsMenuNode"><span class="boldenPath nowrap">iMomentum</span></li><li class="docsMenuNode"><a href="/en/docs/indicators/imfi" class="nowrap" title="iMFI">iMFI</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ima" class="nowrap" title="iMA">iMA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iosma" class="nowrap" title="iOsMA">iOsMA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/imacd" class="nowrap" title="iMACD">iMACD</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iobv" class="nowrap" title="iOBV">iOBV</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/isar" class="nowrap" title="iSAR">iSAR</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/irsi" class="nowrap" title="iRSI">iRSI</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/irvi" class="nowrap" title="iRVI">iRVI</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/istddev" class="nowrap" title="iStdDev">iStdDev</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/istochastic" class="nowrap" title="iStochastic">iStochastic</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/itema" class="nowrap" title="iTEMA">iTEMA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/itrix" class="nowrap" title="iTriX">iTriX</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/iwpr" class="nowrap" title="iWPR">iWPR</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ividya" class="nowrap" title="iVIDyA">iVIDyA</a></li><li class="docsMenuNode"><a href="/en/docs/indicators/ivolumes" class="nowrap" title="iVolumes">iVolumes</a></li></ul>
+      
+      
+      
+        <div class="directHelp">
+        </div>
+    </div>
+
+
+<div class="docsContainer">
+  <div id="help">
+<H1>iMomentum</H1>
+<p class="p_Function"><span class="f_Function">The function returns the handle of the Momentum indicator. It has only one buffer.</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_Keywords">int&nbsp;&nbsp;</span><span class="f_Indicators">iMomentum</span><span class="f_CodeExample">(</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">string</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">symbol</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;symbol&nbsp;name</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">ENUM_TIMEFRAMES</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">period</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;period</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">mom_period</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;averaging&nbsp;period</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">ENUM_APPLIED_PRICE&nbsp;</span><span class="f_CodeExample">&nbsp;&nbsp;</span><span class="f_Param">applied_price</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;type&nbsp;of&nbsp;price&nbsp;or&nbsp;handle</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;);</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Parameters</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">symbol</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] The symbol name of the security, the data of which should be used to calculate the indicator. The <a href="/en/docs/basis/types/void" class="topiclink">NULL</a> value means the current symbol.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">period</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] The value of the period can be one of the <a href="/en/docs/constants/chartconstants/enum_timeframes" class="topiclink">ENUM_TIMEFRAMES</a> values, 0 means the current timeframe.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">mom_period</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Averaging period (bars count) for the calculation of the price change.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">applied_price</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;The price used. Can be any of the price constants <a href="/en/docs/constants/indicatorconstants/prices#enum_applied_price_enum" class="topiclink">ENUM_APPLIED_PRICE</a> or a handle of another indicator.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Return Value</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">Returns the handle of a specified technical indicator, &nbsp;in case of failure returns <a href="/en/docs/constants/namedconstants/otherconstants" class="topiclink">INVALID_HANDLE</a>. The computer memory can be freed from an indicator that is no more utilized, using the <a href="/en/docs/series/indicatorrelease" class="topiclink">IndicatorRelease()</a> function, to which the indicator handle is passed.</span></p>
+<p class="p_Text"><span class="f_Text" style="font-weight: bold;">Example:</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demo_iMomentum.mq5&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copyright&nbsp;2011,&nbsp;MetaQuotes&nbsp;Software&nbsp;Corp.&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.mql5.com&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">copyright</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;Copyright&nbsp;2000-2024,&nbsp;MetaQuotes&nbsp;Ltd.&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">link</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;https://www.mql5.com&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">version</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;1.00&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;The&nbsp;indicator&nbsp;demonstrates&nbsp;how&nbsp;to&nbsp;obtain&nbsp;data&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;of&nbsp;indicator&nbsp;buffers&nbsp;for&nbsp;the&nbsp;iMomentum&nbsp;technical&nbsp;indicator.&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;A&nbsp;symbol&nbsp;and&nbsp;timeframe&nbsp;used&nbsp;for&nbsp;calculation&nbsp;of&nbsp;the&nbsp;indicator,&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;are&nbsp;set&nbsp;by&nbsp;the&nbsp;symbol&nbsp;and&nbsp;period&nbsp;parameters.&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;The&nbsp;method&nbsp;of&nbsp;creation&nbsp;of&nbsp;the&nbsp;handle&nbsp;is&nbsp;set&nbsp;through&nbsp;the&nbsp;'type'&nbsp;parameter&nbsp;(function&nbsp;type).&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;All&nbsp;the&nbsp;other&nbsp;parameters&nbsp;are&nbsp;similar&nbsp;to&nbsp;the&nbsp;standard&nbsp;Momentum.&quot;</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">indicator_separate_window</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">indicator_buffers</span><span class="f_CodeExample">&nbsp;1</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">indicator_plots</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;1</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;plot&nbsp;iMomentum</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;indicator_label1&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;iMomentum&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;indicator_type1&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">DRAW_LINE</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;indicator_color1&nbsp;&nbsp;clrDodgerBlue</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;indicator_style1&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">STYLE_SOLID</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;indicator_width1&nbsp;&nbsp;1</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Enumeration&nbsp;of&nbsp;the&nbsp;methods&nbsp;of&nbsp;handle&nbsp;creation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">enum</span><span class="f_CodeExample">&nbsp;Creation</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;Call_iMomentum,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;use&nbsp;iMomentum</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;Call_IndicatorCreate&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;use&nbsp;IndicatorCreate</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;};</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;input&nbsp;parameters</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;Creation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type=Call_iMomentum;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;type&nbsp;of&nbsp;the&nbsp;function&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mom_period=14;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;period&nbsp;of&nbsp;Momentum</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ENUM_APPLIED_PRICE</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;applied_price=</span><span class="f_CodeExample" style="color: #0000ff;">PRICE_CLOSE</span><span class="f_CodeExample">;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;type&nbsp;of&nbsp;price</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;&nbsp;&quot;</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;symbol&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ENUM_TIMEFRAMES</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">PERIOD_CURRENT</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;timeframe</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;indicator&nbsp;buffer</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iMomentumBuffer[];</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;variable&nbsp;for&nbsp;storing&nbsp;the&nbsp;handle&nbsp;of&nbsp;the&nbsp;iMomentum&nbsp;indicator</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;handle;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;variable&nbsp;for&nbsp;storing</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;name=</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;name&nbsp;of&nbsp;the&nbsp;indicator&nbsp;on&nbsp;a&nbsp;chart</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;short_name;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;we&nbsp;will&nbsp;keep&nbsp;the&nbsp;number&nbsp;of&nbsp;values&nbsp;in&nbsp;the&nbsp;Momentum&nbsp;indicator</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;bars_calculated=0;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Custom&nbsp;indicator&nbsp;initialization&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnInit</span><span class="f_CodeExample">()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;assignment&nbsp;of&nbsp;array&nbsp;to&nbsp;indicator&nbsp;buffer</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">SetIndexBuffer</span><span class="f_CodeExample">(0,iMomentumBuffer,</span><span class="f_CodeExample" style="color: #0000ff;">INDICATOR_DATA</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;determine&nbsp;the&nbsp;symbol&nbsp;the&nbsp;indicator&nbsp;is&nbsp;drawn&nbsp;for</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;name=</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;delete&nbsp;spaces&nbsp;to&nbsp;the&nbsp;right&nbsp;and&nbsp;to&nbsp;the&nbsp;left</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">StringTrimRight</span><span class="f_CodeExample">(name);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">StringTrimLeft</span><span class="f_CodeExample">(name);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;it&nbsp;results&nbsp;in&nbsp;zero&nbsp;length&nbsp;of&nbsp;the&nbsp;'name'&nbsp;string</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">StringLen</span><span class="f_CodeExample">(name)==0)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;take&nbsp;the&nbsp;symbol&nbsp;of&nbsp;the&nbsp;chart&nbsp;the&nbsp;indicator&nbsp;is&nbsp;attached&nbsp;to</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=_Symbol;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;create&nbsp;handle&nbsp;of&nbsp;the&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(type==Call_iMomentum)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handle=</span><span class="f_CodeExample" style="color: #0000ff;">iMomentum</span><span class="f_CodeExample">(name,</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">,mom_period,applied_price);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">else</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;fill&nbsp;the&nbsp;structure&nbsp;with&nbsp;parameters&nbsp;of&nbsp;the&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MqlParam&nbsp;pars[2];</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;period</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pars[0].type=</span><span class="f_CodeExample" style="color: #0000ff;">TYPE_INT</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pars[0].integer_value=mom_period;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;type&nbsp;of&nbsp;price</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pars[1].type=</span><span class="f_CodeExample" style="color: #0000ff;">TYPE_INT</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pars[1].integer_value=applied_price;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handle=</span><span class="f_CodeExample" style="color: #0000ff;">IndicatorCreate</span><span class="f_CodeExample">(name,</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">IND_MOMENTUM</span><span class="f_CodeExample">,2,pars);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;handle&nbsp;is&nbsp;not&nbsp;created</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(handle==INVALID_HANDLE)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;tell&nbsp;about&nbsp;the&nbsp;failure&nbsp;and&nbsp;output&nbsp;the&nbsp;error&nbsp;code</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Failed&nbsp;to&nbsp;create&nbsp;handle&nbsp;of&nbsp;the&nbsp;iMomentum&nbsp;indicator&nbsp;for&nbsp;the&nbsp;symbol&nbsp;%s/%s,&nbsp;error&nbsp;code&nbsp;%d&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">),</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;the&nbsp;indicator&nbsp;is&nbsp;stopped&nbsp;early</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">INIT_FAILED</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;show&nbsp;the&nbsp;symbol/timeframe&nbsp;the&nbsp;Momentum&nbsp;indicator&nbsp;is&nbsp;calculated&nbsp;for</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;short_name=</span><span class="f_CodeExample" style="color: #0000ff;">StringFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;iMomentum(%s/%s,&nbsp;%d,&nbsp;%s)&quot;</span><span class="f_CodeExample">,name,</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">),</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mom_period,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(applied_price));</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">IndicatorSetString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">INDICATOR_SHORTNAME</span><span class="f_CodeExample">,short_name);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;normal&nbsp;initialization&nbsp;of&nbsp;the&nbsp;indicator&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">INIT_SUCCEEDED</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Custom&nbsp;indicator&nbsp;iteration&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnCalculate</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;rates_total,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;prev_calculated,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">datetime</span><span class="f_CodeExample">&nbsp;&amp;time[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;&amp;open[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;&amp;high[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;&amp;low[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;&amp;close[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">long</span><span class="f_CodeExample">&nbsp;&amp;tick_volume[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">long</span><span class="f_CodeExample">&nbsp;&amp;volume[],</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&amp;spread[])</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;number&nbsp;of&nbsp;values&nbsp;copied&nbsp;from&nbsp;the&nbsp;iMomentum&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;values_to_copy;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;determine&nbsp;the&nbsp;number&nbsp;of&nbsp;values&nbsp;calculated&nbsp;in&nbsp;the&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;calculated=</span><span class="f_CodeExample" style="color: #0000ff;">BarsCalculated</span><span class="f_CodeExample">(handle);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(calculated&lt;=0)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;BarsCalculated()&nbsp;returned&nbsp;%d,&nbsp;error&nbsp;code&nbsp;%d&quot;</span><span class="f_CodeExample">,calculated,</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(0);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;it&nbsp;is&nbsp;the&nbsp;first&nbsp;start&nbsp;of&nbsp;calculation&nbsp;of&nbsp;the&nbsp;indicator&nbsp;or&nbsp;if&nbsp;the&nbsp;number&nbsp;of&nbsp;values&nbsp;in&nbsp;the&nbsp;iMomentum&nbsp;indicator&nbsp;changed</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---or&nbsp;if&nbsp;it&nbsp;is&nbsp;necessary&nbsp;to&nbsp;calculated&nbsp;the&nbsp;indicator&nbsp;for&nbsp;two&nbsp;or&nbsp;more&nbsp;bars&nbsp;(it&nbsp;means&nbsp;something&nbsp;has&nbsp;changed&nbsp;in&nbsp;the&nbsp;price&nbsp;history)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(prev_calculated==0&nbsp;||&nbsp;calculated!=bars_calculated&nbsp;||&nbsp;rates_total&gt;prev_calculated+1)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;iMomentumBuffer&nbsp;array&nbsp;is&nbsp;greater&nbsp;than&nbsp;the&nbsp;number&nbsp;of&nbsp;values&nbsp;in&nbsp;the&nbsp;iMomentum&nbsp;indicator&nbsp;for&nbsp;symbol/period,&nbsp;then&nbsp;we&nbsp;don't&nbsp;copy&nbsp;everything&nbsp;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;otherwise,&nbsp;we&nbsp;copy&nbsp;less&nbsp;than&nbsp;the&nbsp;size&nbsp;of&nbsp;indicator&nbsp;buffers</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(calculated&gt;rates_total)&nbsp;values_to_copy=rates_total;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">else</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values_to_copy=calculated;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">else</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;it&nbsp;means&nbsp;that&nbsp;it's&nbsp;not&nbsp;the&nbsp;first&nbsp;time&nbsp;of&nbsp;the&nbsp;indicator&nbsp;calculation,&nbsp;and&nbsp;since&nbsp;the&nbsp;last&nbsp;call&nbsp;of&nbsp;OnCalculate()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;for&nbsp;calculation&nbsp;not&nbsp;more&nbsp;than&nbsp;one&nbsp;bar&nbsp;is&nbsp;added</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values_to_copy=(rates_total-prev_calculated)+1;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;fill&nbsp;the&nbsp;iMomentumBuffer&nbsp;array&nbsp;with&nbsp;values&nbsp;of&nbsp;the&nbsp;Momentum&nbsp;indicator</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;FillArrayFromBuffer&nbsp;returns&nbsp;false,&nbsp;it&nbsp;means&nbsp;the&nbsp;information&nbsp;is&nbsp;nor&nbsp;ready&nbsp;yet,&nbsp;quit&nbsp;operation</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!FillArrayFromBuffer(iMomentumBuffer,handle,values_to_copy))&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(0);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;form&nbsp;the&nbsp;message</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;comm=</span><span class="f_CodeExample" style="color: #0000ff;">StringFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%s&nbsp;==&gt;&nbsp;&nbsp;Updated&nbsp;value&nbsp;in&nbsp;the&nbsp;indicator&nbsp;%s:&nbsp;%d&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">TimeToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">TimeCurrent</span><span class="f_CodeExample">(),TIME_DATE|TIME_SECONDS),</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;short_name,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values_to_copy);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;service&nbsp;message&nbsp;on&nbsp;the&nbsp;chart</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Comment</span><span class="f_CodeExample">(comm);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;memorize&nbsp;the&nbsp;number&nbsp;of&nbsp;values&nbsp;in&nbsp;the&nbsp;Momentum&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;bars_calculated=calculated;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;return&nbsp;the&nbsp;prev_calculated&nbsp;value&nbsp;for&nbsp;the&nbsp;next&nbsp;call</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(rates_total);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Filling&nbsp;indicator&nbsp;buffers&nbsp;from&nbsp;the&nbsp;iMomentum&nbsp;indicator&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">bool</span><span class="f_CodeExample">&nbsp;FillArrayFromBuffer(</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;&amp;values[],&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;indicator&nbsp;buffer&nbsp;of&nbsp;Momentum&nbsp;values</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;ind_handle,&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;handle&nbsp;of&nbsp;the&nbsp;iMomentum&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;number&nbsp;of&nbsp;copied&nbsp;values</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;reset&nbsp;error&nbsp;code</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ResetLastError</span><span class="f_CodeExample">();</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;fill&nbsp;a&nbsp;part&nbsp;of&nbsp;the&nbsp;iMomentumBuffer&nbsp;array&nbsp;with&nbsp;values&nbsp;from&nbsp;the&nbsp;indicator&nbsp;buffer&nbsp;that&nbsp;has&nbsp;0&nbsp;index</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">CopyBuffer</span><span class="f_CodeExample">(ind_handle,0,0,amount,values)&lt;0)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;copying&nbsp;fails,&nbsp;tell&nbsp;the&nbsp;error&nbsp;code</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Failed&nbsp;to&nbsp;copy&nbsp;data&nbsp;from&nbsp;the&nbsp;iMomentum&nbsp;indicator,&nbsp;error&nbsp;code&nbsp;%d&quot;</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;quit&nbsp;with&nbsp;zero&nbsp;result&nbsp;-&nbsp;it&nbsp;means&nbsp;that&nbsp;the&nbsp;indicator&nbsp;is&nbsp;considered&nbsp;as&nbsp;not&nbsp;calculated</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(false);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;everything&nbsp;is&nbsp;fine</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(true);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Indicator&nbsp;deinitialization&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnDeinit</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;reason)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">handle</span><span class="f_CodeExample">!=</span><span class="f_CodeExample" style="color: #0000ff;">INVALID_HANDLE</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">IndicatorRelease</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">handle</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;clear&nbsp;the&nbsp;chart&nbsp;after&nbsp;deleting&nbsp;the&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Comment</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}&nbsp;&nbsp;</span></p>
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+    
+  <div style="height: 1px; overflow: hidden; clear: both;"></div>
+</div>
+
+
+  <div class="docsNav">
+        <div style="float: left;">
+          <span class="arrow_left" style="margin-right: 4px;"></span><a href="/en/docs/indicators/ibwmfi" class="nowrap" title="iBWMFI">iBWMFI</a>
+        </div>
+        <div style="float: right; margin-right: 4px;">
+          <a href="/en/docs/indicators/imfi" class="nowrap" title="iMFI">iMFI</a><span class="arrow_right" style="margin-left: 4px;"></span>
+        </div>
+  </div>
+
+  <div class="docsNav docsNav__sub">
+    
+
+<div id='wdausxxqrpvhekbwjrjlhqjghyhesrqqau' class="r9w6hoig2sjfewv65 r9w6hoig2sjfewv65_docs gc3c8mam3"></div>  </div>
+
+
+</div>
+<!-- Docs file updated: 2026.03.10 -->
+
+
+    </article>
+  </main>
+
+    <footer aria-hidden="true">
+
+
+<div aria-hidden="true" class="footer  desktop" id="footer">
+  <ul class="links  links_desktop">
+      <li id="navFooterCommunity">
+        <nav>
+          <ul>
+            <li><a href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Footer+Trading">Online trading / WebTerminal</a></li>
+            <li><a href="/en/code" data-fz-event="MQL5+Footer+CodeBase">Free technical indicators and robots</a></li>
+            <li><a href="/en/articles" data-fz-event="MQL5+Footer+Articles">Articles about programming and trading</a></li>
+            <li><a href="/en/job" data-fz-event="MQL5+Footer+Job">Order trading robots on the Freelance</a></li>
+            <li><a href="/en/market" data-fz-event="MQL5+Footer+Market">Market of Expert Advisors and applications&#x9;</a></li>
+            <li><a href="/en/signals" data-fz-event="MQL5+Footer+Signals">Follow forex signals</a></li>
+            <li><a href="/en/vps" data-fz-event="MQL5+Footer+VPS">Low latency forex VPS</a></li>
+            <li><a href="/en/forum" data-fz-event="MQL5+Footer+Forum">Traders forum</a></li>
+            <li><a href="/en/blogs" data-fz-event="MQL5+Footer+Blogs">Trading blogs</a></li>
+            <li><a rel="nofollow" href="/en/charts" data-fz-event="MQL5+Footer+Charts">Charts</a></li>
+            <li><a href="/en/widgets" data-fz-event="MQL5+Footer+Widgets">Free widgets</a></li>
+          </ul>
+        </nav>
+      </li>
+      <li id="navFooterMt5">
+        <nav>
+          <ul>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> Trading Platform</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/releasenotes" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> latest updates</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/news" data-fz-event="MQL5+Footer+MetaTrader+5">News, implementations and technology</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> User Manual</a></li>
+            <li><a href="/en/docs" data-fz-event="MQL5+Footer+Docs">MQL5 language of trading strategies</a></li>
+            <li><a rel="nofollow noopener" href="https://cloud.mql5.com" data-fz-event="MQL5+Footer+Cloud">MQL5 Cloud Network</a></li>
+            <li><a rel="noopener" href="https://forge.mql5.io/?lang=en" data-fz-event="MQL5+Footer+Forge" target="_blank">MQL5 Algo Forge</a></li>
+              <li><a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MetaTrader+5+Desktop+Download+Footer">Download <span class="nobr">MetaTrader 5</span></a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/installation" data-fz-event="MQL5+Footer+MetaTrader+5">Install Platform</a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/deinstallation" data-fz-event="MQL5+Footer+MetaTrader+5">Uninstall Platform</a></li>
+          </ul>
+        </nav>
+
+      </li>
+    <li id="navFooterWebsite">
+        <nav>
+          <ul>
+            <li><a rel="nofollow" href="/en/about" data-fz-event="MQL5+Footer+About">About</a></li>
+              <li><a href="/en/wall" data-fz-event="MQL5+Footer+Wall">Timeline</a></li>
+            <li><a rel="nofollow" href="/en/about/terms" data-fz-event="MQL5+Footer+About">Terms and Conditions</a></li>
+            <li><a rel="nofollow" href="/en/about/autopayments" data-fz-event="MQL5+Footer+About">Recurring Payment Agreement</a></li>
+            <li><a rel="nofollow" href="/en/about/agencyagreement" data-fz-event="MQL5+Footer+About">Agency Agreement – Offer</a></li>
+            <li><a rel="nofollow" href="/en/about/privacy" data-fz-event="MQL5+Footer+About">Privacy and Data Protection Policy</a></li>
+            <li><a rel="nofollow" href="/en/about/cookies" data-fz-event="MQL5+Footer+About">Cookies Policy</a></li>
+            <li>
+                <a rel="nofollow" href="/en/contact" data-fz-event="MQL5+Footer+Contacts">Contacts and requests</a>
+            </li>
+          </ul>
+        </nav>
+    </li>
+
+      <li>
+        <div class="footer__products">
+            <div class="footer__product">
+              <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com" class="footer__product-name">MetaTrader 5</a>
+              <div class="footer__product-links">
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon windows" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Windows</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/MetaTrader5.pkg.zip?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon macos" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for MacOS</div></a>
+              <a rel="nofollow noopener" href="https://www.mql5.com/en/articles/625?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon linux" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Linux</div></a>
+              <a rel="nofollow noopener" href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" class="icon web"><div  class="footer__product-link-hint footer__product-link-hint-short">Open MetaTrader 5 WebTerminal</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/ios?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon ios" data-fz-event="MetaTrader+5+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/jhZn8Ed1I1d.png)">Scan to install from App Store</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon android" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/kiF2Io6W-9d.png)">Scan to install from Google Play</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon huawei" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/ZRt&#x2B;zI1l&#x2B;8O.png)">Scan to install from Huawei AppGallery</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mt5/metatrader5.apk?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon ark" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/L0Q9oag&#x2B;3eE.png)">Scan to get Android APK file</div></a>
+              </div>
+            </div>
+            <div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com/en/news/2270" class="footer__product-name">MQL5 Channels</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="MQL5+Channels+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/bZVfOJnYpcO.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/32MJFgw7BVs.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Su&#x2B;fe4n374e.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mql5channels/mql5channels.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/G6Mg4NfCPzO.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.tradays.com/en/download?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MQL5+Footer+Download+Tradays" class="footer__product-name">Economic Calendar</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="Tradays+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CpD&#x2B;mhIw-1E.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Bgyx8UcmYap.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CrS7bbDAdAO.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/tradays/tradays.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/VZi8YPIb2op.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer__networks">
+            <div class="footer__networks-list">
+            <a href="https://www.facebook.com/mql5.community/" target="_blank" rel="nofollow" title="Facebook"><i class="icons-networks icons-networks_fb"></i></a><a href="https://t.me/mql5dev" target="_blank" rel="nofollow" title="Telegram"><i class="icons-networks icons-networks_tg"></i></a><a href="https://x.com/mql5com" target="_blank" rel="nofollow" title="X (Twitter)"><i class="icons-networks icons-networks_tw"></i></a>
+            </div>
+            <span>Follow us on socials for top articles and CodeBase updates</span>
+          </div>
+  
+        <div class="footer__other">
+          <div class="footer__not-a-broker">Not a broker, no real trading accounts</div>
+          <div class="copyright">35 Dodekanisou str, Germasogeia, 4043,&nbsp;Limassol,&nbsp;Cyprus</div>
+          <div class="copyright">Copyright 2000-2026, <span class="nobr">MetaQuotes Ltd</span></div>
+        </div>
+      </li>
+  </ul>
+</div>
+
+
+    </footer>
+
+  <div class="shadow-layer" id="layer"></div>
+      
+</div>
+
+<script type="text/javascript">
+           mqGlobal.AddOnReady(function () { Mql5Cookie.init('mql5.com','5062191881556813643'); });
+mqGlobal.AddOnLoad(function(){new TrackScrollPosition('Docs');});window.fz("show","wdausxxqrpvhekbwjrjlhqjghyhesrqqau");mqGlobal.AddOnReady(function(){{window.initHeaderSearch('','https://www.mql5.com/en/search');}});</script><script type="text/javascript">mqGlobal.AddOnReady(function(){window.initSuggestions("headerSearchKeyword","en","https://search.mql5.com/api/query","https://www.mql5.com/en/users_search/suggestion");});window.fz("show","bfogggabsofabcpxuzmgaibarmaxasdrj");mqGlobal.AddOnReady(function(){window.floatVerticalPanelNode=FloatVerticalPanel('This website uses cookies. Learn more about our <a href="/en/about/cookies">Cookies Policy</a>.','cookie_accept');});      if (typeof Attach !== "undefined")
+        Attach.setAcceptFilter(".zip, .txt, .log, .mqh, .ex5, .mq5, .mq4, .mqproj, .ex4, .mt5, .set, .tpl, .cl, .py, .sqlite, .csv, .ini, .ipynb, .onnx, .gif, .png, .jpg, .jpeg, .mp4, .webm");
+  </script>
+
+  <div class="b-fixed-mt" id="bFixedMt" style="display: none;">
+    
+  </div>
+
+  <script type="application/ld&#x2B;json">
+  [{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Forum","description":"Discussions of trading strategies and algorithmic trading. MQL5.community  the largest forex forum","url":"https://www.mql5.com/en/forum","children":[]},{"@type":"SiteNavigationElement","position":2,"name":"Market","description":"MetaTrader Market - a Market of trading robots, indicators, trading books and magazines","url":"https://www.mql5.com/en/market","children":[]},{"@type":"SiteNavigationElement","position":3,"name":"Signals","description":"Social trading, copy trading and account monitoring with MetaTrader - Trading Signals on MQL5.com","url":"https://www.mql5.com/en/signals","children":[]},{"@type":"SiteNavigationElement","position":4,"name":"Freelance","description":"Order trading robots, technical indicators and algorithmic trading applications. Forex jobs. Freelance on MQL5.com. Hire MetaTrader experts and specialists","url":"https://www.mql5.com/en/job","children":[]},{"@type":"SiteNavigationElement","position":5,"name":"Quotes","description":"","url":"https://www.mql5.com/en/quotes/overview","children":[]},{"@type":"SiteNavigationElement","position":6,"name":"WebTerminal","description":"WebTerminal for the MetaTrader trading platform. Online forex trading.","url":"https://web.metatrader.app/terminal?mode=demo","children":[]},{"@type":"SiteNavigationElement","position":7,"name":"Calendar","description":"","url":"https://www.mql5.com/en/economic-calendar","children":[]},{"@type":"SiteNavigationElement","position":8,"name":"VPS","description":"","url":"https://www.mql5.com/en/vps","children":[]},{"@type":"SiteNavigationElement","position":9,"name":"Articles","description":"","url":"https://www.mql5.com/en/articles","children":[]},{"@type":"SiteNavigationElement","position":10,"name":"CodeBase","description":"Download trading robots, technical indicators and scripts with source code - MQL5 Code Base for MetaTrader 5","url":"https://www.mql5.com/en/code","children":[]},{"@type":"SiteNavigationElement","position":11,"name":"Algo Forge","description":"","url":"https://forge.mql5.io","children":[]},{"@type":"SiteNavigationElement","position":12,"name":"Documentation","description":"MetaQuotes Language 5 (MQL5) Reference - Documentation on MQL5.com","url":"https://www.mql5.com/en/docs","children":[]}]}  
+,
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":"https://www.mql5.com/en/docs","name":"MQL5 Reference"},{"@type":"ListItem","position":2,"item":"https://www.mql5.com/en/docs/indicators","name":"Technical Indicators"},{"@type":"ListItem","position":3,"item":"https://www.mql5.com/en/docs/indicators/imomentum","name":"iMomentum"}]}
+
+      ,{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "iMomentum",
+          "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The function returns the handle of the Momentum indicator. It has only one buffer. Parameters symbol [in] The symbol name of the security, the data..."
+        }
+        }]
+      }
+      
+  ]
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+# ========================================================================
+# Python Dependencies for Jess Trading OpenClaw System
+# ========================================================================
+#
+# Install all dependencies:
+#   pip install -r requirements.txt
+#
+# ========================================================================
+
+# Core Dependencies
+python-dotenv==1.0.0          # Environment variable management
+pyyaml==6.0.1                  # YAML configuration files
+requests==2.31.0               # HTTP requests
+
+# Telegram Bot (HITL Gateway)
+python-telegram-bot==20.7      # Telegram bot framework
+
+# Image Processing & Validation
+Pillow==10.1.0                 # Image loading and analysis
+numpy==1.26.2                  # Array operations for color analysis
+
+# AI/ML Services
+replicate==0.22.0              # Replicate API (image generation)
+
+# Social Media APIs (Optional - for full integration)
+# instagrapi==2.0.0            # Instagram (alternative to Graph API)
+# tweepy==4.14.0               # Twitter/X API
+# python-linkedin-v2==0.1.0    # LinkedIn API
+
+# Data Processing
+pandas==2.1.4                  # Data analysis (for reports)
+
+# Scheduling & Task Management
+schedule==1.2.0                # Simple job scheduling
+apscheduler==3.10.4            # Advanced scheduling
+
+# Logging & Monitoring
+python-json-logger==2.0.7      # Structured JSON logging
+
+# Testing (Optional)
+pytest==7.4.3                  # Testing framework
+pytest-asyncio==0.21.1         # Async testing
+
+# Development Tools (Optional)
+black==23.12.1                 # Code formatting
+flake8==6.1.0                  # Linting
+ipython==8.18.1                # Interactive shell
+
+# ========================================================================
+# OpenClaw Specific
+# ========================================================================
+# Note: OpenClaw itself is installed via npm:
+#   npm install -g openclaw
+#
+# This requirements.txt is for the custom Python skills only.
+# ========================================================================

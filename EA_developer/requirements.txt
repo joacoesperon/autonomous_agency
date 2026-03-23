@@ -1,0 +1,43 @@
+# ─────────────────────────────────────────────
+# requirements.txt — Sistema Trading Algorítmico
+# ─────────────────────────────────────────────
+# Instalar con: pip install -r requirements.txt
+
+# ── LLM y agentes ──
+google-genai>=1.0.0             # Gemini Flash + Pro
+langgraph>=0.2.0                # Orquestación de agentes
+
+# ── MCP Server ──
+fastmcp>=2.0.0                  # Framework MCP Server
+
+# ── Base de datos vectorial (documentación MQL5) ──
+chromadb>=0.5.0                 # ChromaDB local
+sentence-transformers>=3.0.0    # Embeddings gratuitos y locales
+
+# ── Scraping de documentación ──
+requests>=2.32.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# ── MT5 y backtesting ──
+MetaTrader5>=5.0.45             # Solo disponible en Windows
+
+# ── Optimización ──
+optuna>=3.6.0
+numpy>=1.26.0
+pandas>=2.2.0
+
+# ── Reportes y visualización ──
+matplotlib>=3.9.0
+jinja2>=3.1.0
+weasyprint>=62.0                # Generación de PDF
+
+# ── Base de datos y scheduler ──
+apscheduler>=3.10.0
+sqlalchemy>=2.0.0               # ORM para SQLite
+
+# ── Utilidades ──
+python-dotenv>=1.0.0            # Variables de entorno
+pyyaml>=6.0.1                   # Configuración YAML
+tqdm>=4.66.0                    # Barras de progreso
+loguru>=0.7.0                   # Logging mejorado

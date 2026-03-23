@@ -1,0 +1,299 @@
+version: '3.8'
+
+# Jess Trading Autonomous Agency — Docker Orchestration
+# This file defines the containerized deployment of all 4 agents
+# Each agent runs in its own sandboxed container with no sudo access
+
+services:
+  # =========================================================================
+  # INFRASTRUCTURE SERVICES
+  # =========================================================================
+
+  # Telegram Gateway — HITL Approval System
+  telegram_gateway:
+    image: python:3.11-slim
+    container_name: jess_telegram_gateway
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_OWNER_CHAT_ID=${TELEGRAM_OWNER_CHAT_ID}
+    volumes:
+      - ./shared/telegram_gateway:/app
+      - ./shared/approval_queue:/data/approval_queue
+      - ./shared/escalation_queue:/data/escalation_queue
+    working_dir: /app
+    command: python telegram_bot.py
+    networks:
+      - jess_internal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Shared Database (SQLite for simplicity, PostgreSQL for production)
+  # database:
+  #   image: postgres:15-alpine
+  #   container_name: jess_database
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_USER=jess_agency
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
+  #     - POSTGRES_DB=jess_trading
+  #   volumes:
+  #     - db_data:/var/lib/postgresql/data
+  #   networks:
+  #     - jess_internal
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U jess_agency"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # =========================================================================
+  # AGENT 1: THE INNOVATOR (Product Lead)
+  # =========================================================================
+
+  innovator:
+    build:
+      context: .
+      dockerfile: ./agent_squad/innovator/Dockerfile
+    container_name: jess_innovator
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=innovator
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HEARTBEAT_INTERVAL=1800  # 30 minutes in seconds
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./EA_developer:/workspace/EA_developer:rw
+      - ./agent_squad/innovator:/workspace/agent:ro
+      - ./SOUL.md:/workspace/SOUL.md:ro
+      - ./shared:/workspace/shared:rw
+      - ./shared/product_inventory.yml:/workspace/shared/product_inventory.yml:rw
+    working_dir: /workspace
+    depends_on:
+      - telegram_gateway
+    networks:
+      - jess_internal
+    security_opt:
+      - no-new-privileges:true
+    read_only: false  # Needs write access to EA_developer output
+    tmpfs:
+      - /tmp:noexec,nosuid,size=1G
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+
+  # =========================================================================
+  # AGENT 2: THE MARKETER (Content Lead)
+  # =========================================================================
+
+  marketer:
+    build:
+      context: .
+      dockerfile: ./agent_squad/marketer/Dockerfile
+    container_name: jess_marketer
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=marketer
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HEARTBEAT_INTERVAL=1800  # 30 minutes
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      - INSTAGRAM_ACCESS_TOKEN=${INSTAGRAM_ACCESS_TOKEN}
+      - X_API_KEY=${X_API_KEY}
+      - X_API_SECRET=${X_API_SECRET}
+      - LINKEDIN_ACCESS_TOKEN=${LINKEDIN_ACCESS_TOKEN}
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./agent_squad/marketer:/workspace/agent:ro
+      - ./SOUL.md:/workspace/SOUL.md:ro
+      - ./shared:/workspace/shared:rw
+      - ./shared/approval_queue:/workspace/approval_queue:rw
+    working_dir: /workspace
+    depends_on:
+      - telegram_gateway
+    networks:
+      - jess_internal
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=500M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+
+  # =========================================================================
+  # AGENT 3: THE COMMUNITY MANAGER (Support Lead)
+  # =========================================================================
+
+  community_manager:
+    build:
+      context: .
+      dockerfile: ./agent_squad/support/Dockerfile
+    container_name: jess_community_manager
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=community_manager
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HEARTBEAT_INTERVAL=1800  # 30 minutes
+      - INSTAGRAM_ACCESS_TOKEN=${INSTAGRAM_ACCESS_TOKEN}
+      - X_API_KEY=${X_API_KEY}
+      - LINKEDIN_ACCESS_TOKEN=${LINKEDIN_ACCESS_TOKEN}
+      - WHOP_API_KEY=${WHOP_API_KEY_READ}  # Read-only
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./agent_squad/support:/workspace/agent:ro
+      - ./agent_squad/support/knowledge_base:/workspace/knowledge_base:ro
+      - ./SOUL.md:/workspace/SOUL.md:ro
+      - ./jess_trading_context_guide.md:/workspace/knowledge_base/jess_trading_context_guide.md:ro
+      - ./shared:/workspace/shared:rw
+      - ./shared/escalation_queue:/workspace/escalation_queue:rw
+    working_dir: /workspace
+    depends_on:
+      - telegram_gateway
+    networks:
+      - jess_internal
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=500M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+
+  # =========================================================================
+  # AGENT 4: THE OPERATOR (Sales & Billing)
+  # =========================================================================
+
+  operator:
+    build:
+      context: .
+      dockerfile: ./agent_squad/operator/Dockerfile
+    container_name: jess_operator
+    restart: unless-stopped
+    environment:
+      - AGENT_NAME=operator
+      - HEARTBEAT_INTERVAL=1800  # 30 minutes
+      - WHOP_API_KEY=${WHOP_API_KEY_READ}  # Read-only (critical security)
+      - STRIPE_API_KEY=${STRIPE_API_KEY_READ}  # Read-only (critical security)
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./agent_squad/operator:/workspace/agent:ro
+      - ./SOUL.md:/workspace/SOUL.md:ro
+      - ./shared:/workspace/shared:rw
+      - ./shared/escalation_queue:/workspace/escalation_queue:rw
+      - ./shared/financial_dashboard.yml:/workspace/shared/financial_dashboard.yml:rw
+    working_dir: /workspace
+    depends_on:
+      - telegram_gateway
+    networks:
+      - jess_internal
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100M
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+
+  #=========================================================================
+  # OPTIONAL: Monitoring & Observability
+  # =========================================================================
+
+  # Uncomment if you want centralized logging and monitoring
+
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: jess_prometheus
+  #   volumes:
+  #     - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  #     - prometheus_data:/prometheus
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - jess_internal
+
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: jess_grafana
+  #   environment:
+  #     - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - jess_internal
+  #   depends_on:
+  #     - prometheus
+
+# =========================================================================
+# NETWORKS
+# =========================================================================
+
+networks:
+  jess_internal:
+    driver: bridge
+    internal: false  # Set to true for complete isolation (no internet access)
+
+# =========================================================================
+# VOLUMES
+# =========================================================================
+
+volumes:
+  db_data:
+    driver: local
+  # prometheus_data:
+  #   driver: local
+  # grafana_data:
+  #   driver: local
+
+# =========================================================================
+# DEPLOYMENT NOTES
+# =========================================================================
+
+# 1. Prerequisites:
+#    - Docker Engine 20.10+
+#    - Docker Compose V2
+#    - .env file with all required API keys (see .env.example)
+
+# 2. Initial Setup:
+#    cp .env.example .env
+#    nano .env  # Fill in all API keys
+#    docker-compose build
+#    docker-compose up -d
+
+# 3. Monitoring:
+#    docker-compose logs -f              # All logs
+#    docker-compose logs -f innovator    # Specific agent
+#    docker-compose ps                    # Status
+
+# 4. Scaling (if needed):
+#    docker-compose up -d --scale marketer=2  # Run 2 Marketer instances
+
+# 5. Shutdown:
+#    docker-compose down                 # Stop all
+#    docker-compose down -v              # Stop + remove volumes
+
+# 6. Updates:
+#    git pull
+#    docker-compose build --no-cache
+#    docker-compose up -d
+
+# 7. Security Audit:
+#    docker-compose config --services    # List services
+#    docker inspect <container_name>     # Inspect security settings

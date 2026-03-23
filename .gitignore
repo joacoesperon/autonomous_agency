@@ -1,0 +1,93 @@
+# ========================================================================
+# .gitignore for Jess Trading Autonomous Agency
+# ========================================================================
+
+# Environment variables (NEVER commit API keys)
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# OpenClaw
+.openclaw/
+*.openclaw.lock
+
+# Logs
+shared/logs/*.log
+shared/logs/*.txt
+*.log
+
+# Generated content
+agents/*/content/generated/*
+agents/*/content/drafts/*
+!agents/*/content/generated/.gitkeep
+!agents/*/content/drafts/.gitkeep
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+*~
+
+# Memory/State files
+shared/memory/*
+!shared/memory/.gitkeep
+shared/approval_queue.yml
+shared/escalation_queue.yml
+shared/product_inventory.yml
+shared/financial_dashboard.yml
+
+# Published content log (optional - keep or remove based on preference)
+agents/*/content/published_log.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node modules (if any)
+node_modules/
+
+#Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ========================================================================
+# END
+# ========================================================================

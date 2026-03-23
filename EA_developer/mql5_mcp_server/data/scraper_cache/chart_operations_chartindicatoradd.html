@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://c.mql5.com">
+  <meta name="description" content="Adds an indicator with the specified handle into a specified chart window. Indicator and chart should be generated on the same symbol and time...">
+  <meta property="og:url" content="https://www.mql5.com/en/docs/chart_operations/chartindicatoradd">
+  <meta property="og:title" content="Documentation on MQL5: ChartIndicatorAdd / Chart Operations">
+  <meta property="og:description" content="Adds an indicator with the specified handle into a specified chart window. Indicator and chart should be generated on the same symbol and time...">
+      <meta property="og:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+      <meta property="og:image:secure_url" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@mql5com">
+  <meta name="twitter:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta name="theme-color" content="#4a76b8">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="https://www.mql5.com/manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://www.mql5.com/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://www.mql5.com/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://www.mql5.com/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://www.mql5.com/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="https://www.mql5.com/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.mql5.com/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="https://www.mql5.com/apple-touch-icon-192x192.png">
+  <link rel="icon" sizes="192x192" href="https://www.mql5.com/android-touch-icon-192x192.png">
+  <link rel="icon" sizes="128x128" href="https://www.mql5.com/android-touch-icon-128x128.png">
+  <link rel="shortcut icon" href="https://c.mql5.com/i/favicon4.ico">
+  <meta name="msapplication-config" content="none"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta property="qc:admins" content="36367170677651456375"/>
+  <meta property="wb:webmaster" content="073d7690269bcd81"/>
+  <link href="https://c.mql5.com/styles/core.5d0909a86560d548a4987680437be48c.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/all.65023a0db01c5ab7ceb59789bcf40c80.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/help.607fabd1d981f58fa5fb84b1020b666e.css" type="text/css" rel="stylesheet" media="all">
+  <link rel="canonical" href="https://www.mql5.com/en/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="en" href="https://www.mql5.com/en/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="ru" href="https://www.mql5.com/ru/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="zh" href="https://www.mql5.com/zh/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="es" href="https://www.mql5.com/es/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="pt" href="https://www.mql5.com/pt/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="ja" href="https://www.mql5.com/ja/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="de" href="https://www.mql5.com/de/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="ko" href="https://www.mql5.com/ko/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="fr" href="https://www.mql5.com/fr/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="it" href="https://www.mql5.com/it/docs/chart_operations/chartindicatoradd">
+  <link rel="alternate" hreflang="tr" href="https://www.mql5.com/tr/docs/chart_operations/chartindicatoradd">
+  <title>ChartIndicatorAdd - Chart Operations - MQL5 Reference</title>
+  <script type='text/javascript'>
+  (function(a,e,f,g,b,c,d){a[b]||(a.FintezaCoreObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=!0,c.defer=!0,c.src=g,d&&d.parentNode&&d.parentNode.insertBefore(c,d))})
+      (window, document, "script", "/ff/core.js", "fz");
+  window.fz("register", "website", {
+      id: "sqjxkxkswybhifrohpyooonwgbvsfzmayq",
+    trackLinks: true,
+    sendEventsByBeacon: true,
+  });
+  </script>
+
+
+<script type="text/javascript">
+  !function(){window.mqGlobal={};var t=!1,n=!1,e=[],o=[],i=[];function d(t){var n;for(n=0;n<t.length;n+=1)t[n]()}function c(){t||(t=!0,d(e),d(o),o=[],e=[])}function a(){c(),n||(n=!0,d(i),i=[])}if(mqGlobal.AddOnReady=function(n,i){t?n(document):i?e.push(n):o.push(n)},mqGlobal.AddOnLoad=function(t){n?t(document):i.push(t)},mqGlobal.AddOnActiveWindowChange=function(t){this._onvisibility||(this._onvisibility=[]),this._onvisibility[this._onvisibility.length]=t},document.addEventListener)document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",a,!1);else if(document.attachEvent&&(document.attachEvent("onreadystatechange",(function(){switch(document.readyState){case"interactive":c();break;case"complete":a()}})),window.attachEvent("onload",a),document.documentElement.doScroll&&window==window.top)){!function n(){if(!t&&document.body)try{document.documentElement.doScroll("left"),c()}catch(t){setTimeout(n,0)}}()}}();
+  mqGlobal.CookieDomain = ".mql5.com";
+  mqGlobal.Language = 'en';
+  mqGlobal.IsMobile = false;
+  mqGlobal.ClearRteStorage = function (e) { if (window.GStorage || (window.GStorage = globalStorage()), window.GStorage.supported) try { var o = e; window.GStorage.getItem("rte_autosave_uid", function (e, t) { t == o && (window.GStorage.removeItem("rte_autosave_text"), window.GStorage.removeItem("rte_autosave_date"), window.GStorage.removeItem("rte_autosave_uid")) }) } catch (e) { } };
+</script>
+  
+
+
+    <script src="https://c.mql5.com/js/all.62ce17e8cf0163510ff0616f628b63a5.js" type="text/javascript" defer="defer"></script>
+  <script src="https://c.mql5.com/js/vendor.878aea2c110ed989c5508cf1babe9772.js" type="text/javascript" defer="defer"></script>
+
+
+</head>
+
+<body>
+
+<div class="cover" id="cover">
+
+    <header class="head">
+      <a href="https://www.mql5.com" class="head__logo" title="MQL5 - Language of trade strategies built-in the MetaTrader 5 client terminal"></a>
+        <div class="head__content">
+          <nav class="main-menu" id="mainmenu">
+            
+                    <ul class="main-menu__top-level" id="menuTopLevel">
+                    <li><a href="/en/forum" data-fz-event="MQL5+Menu+Forum">Forum</a></li>
+                    <li><a href="/en/market" data-fz-event="MQL5+Menu+Market">Market</a></li>
+                    <li><a href="/en/signals" data-fz-event="MQL5+Menu+Signals">Signals</a></li>
+                    <li><a href="/en/job" data-fz-event="MQL5+Menu+Job">Freelance</a></li>
+                    <li><a href="/en/vps" data-fz-event="MQL5+Menu+VPS">VPS</a></li>
+                    <li><a href="/en/quotes/overview" data-fz-event="MQL5+Menu+Overview">Quotes</a></li>
+                  </ul><ul class="main-menu__second-level" id="menuSecondLevel">
+                    <li><a href="/en/articles" data-fz-event="MQL5+Menu+Articles"><img src="https://c.mql5.com/i/menu/icon-articles4.svg" alt="" width="16" height="16"/>Articles</a></li>
+                    <li><a href="/en/code" data-fz-event="MQL5+Menu+CodeBase"><img src="https://c.mql5.com/i/menu/icon-code4.svg" alt="" width="16" height="16"/>CodeBase</a></li>
+                    <li><a href="https://forge.mql5.io/?lang=en" target="_blank" rel="noopener" data-fz-event="MQL5+Menu+AlgoForge"><img src="https://c.mql5.com/i/menu/icon-algoforge4.svg" alt="" width="16" height="16"/>Algo Forge</a></li>
+                    <li class="main-menu__selected"><a href="/en/docs" data-fz-event="MQL5+Menu+Docs"><img src="https://c.mql5.com/i/menu/icon-docs4.svg" alt="" width="16" height="16"/>Documentation</a></li>
+                    <li><a href="/en/book" data-fz-event="MQL5+Menu+Book"><img src="https://c.mql5.com/i/menu/icon-book4.svg" alt="" width="16" height="16"/>AlgoBook</a></li>
+                    <li><a href="/en/neurobook" data-fz-event="MQL5+Menu+Neurobook"><img src="https://c.mql5.com/i/menu/icon-neurobook4.svg" alt="" width="16" height="16"/>NeuroBook</a></li>
+                    <li><a href="/en/economic-calendar" data-fz-event="MQL5+Menu+Economic+Calendar"><img src="https://c.mql5.com/i/menu/icon-economic-calendar4.svg" alt="" width="16" height="16"/>Calendar</a></li>
+                    <li><a href="https://web.metatrader.app/terminal?mode=demo&lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Menu+Trading"><img src="https://c.mql5.com/i/menu/icon-trading4.svg" alt="" width="16" height="16"/>WebTerminal</a></li>
+                    <li class="main-menu__mobile"><a href="/en/about">About</a></li>
+                    <li class="main-menu__second-tools"><a rel="noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&utm_campaign=download" title="Get the latest version of the trading platform for free" class="button-mt" data-vars-fz="MetaTrader+5+Desktop+Download+Submenu"><img width="18" height="18" src="https://c.mql5.com/i/sidebar/download.svg" alt="" loading="lazy">Download MetaTrader 5</a></li>
+                    </ul>
+          </nav>
+            <div class="main-menu__active">
+              <a id="mainMenuSelected" href="#">
+                <span class="main-menu__primary">Documentation</span><span class="main-menu__secondary">Sections</span>
+              </a>
+            </div>
+<form action="https://www.mql5.com/en/search" onsubmit="return false;" autocomplete="off" id="headerSearchForm" class="header-search" method="post">
+<button type="button" id="headerSearchButton" title="Search" class="header-search__button"></button><div class="header-search__input"><input name="keyword" type="text" enterkeyhint="search" title="Enter search text" placeholder="Search" id="headerSearchKeyword"/><label for="headerSearchKeyword" class="header-search__placeholder">Type <span>/</span> to search:  @user, $symbol, ...</label><button id="headerSearchSubmit" class="header-search__submit"></button></div><button type="button" id="headerSearchClean" title="Close" class="header-search__clean"></button></form>          <input class="blurHandler" id="mainMenuBlurHandler" type="checkbox">
+        </div>
+        <div class="head__toolbar" id="headerToolbar">
+            <div class="container loginRegister">
+              <nav>
+                <ul id="loginRegisterButtons"><li><a class="login" title="Please sign in. OpenID supported" href="https://www.mql5.com/en/auth_login" rel="nofollow" data-fz-event="MQL5+Menu+Siginin">Log in</a></li><li><a class="registration en" title="Please register" href="https://www.mql5.com/en/auth_register" rel="nofollow" data-fz-event="MQL5+Menu+Register" onclick="window.fpush('MQL5+Button+Click');">Create an account</a></li></ul>
+              </nav>
+            </div>
+          <div class="container">
+            <div class="toggle-button" id="sidebarToggleButton">
+              <i></i>
+            </div>
+          </div>
+
+          <div class="group-menu" id="groupMenu">
+
+
+            <div class="container lang-menu-container">
+              <div id="langMenuContainer" class="lang-menu">
+                <input class="blurHandler" id="langmenuBlurHandler" type="checkbox">
+                <nav>
+                  <ul class="lang-menu__list" id="langmenu">
+                    <li class="lang-menu__list-item lang-menu__list-item_selected"><a href="/en/docs/chart_operations/chartindicatoradd" aria-label="English (English)"><i class="icons-languages icons-languages_en"></i><span>English</span></a></li>
+<li class="lang-menu__list-item"><a href="/ru/docs/chart_operations/chartindicatoradd" aria-label="Русский (Russian)"><i class="icons-languages icons-languages_ru"></i><span>Русский</span></a></li>
+<li class="lang-menu__list-item"><a href="/zh/docs/chart_operations/chartindicatoradd" aria-label="中文 (Chinese)"><i class="icons-languages icons-languages_zh"></i><span>中文</span></a></li>
+<li class="lang-menu__list-item"><a href="/es/docs/chart_operations/chartindicatoradd" aria-label="Español (Spanish)"><i class="icons-languages icons-languages_es"></i><span>Español</span></a></li>
+<li class="lang-menu__list-item"><a href="/pt/docs/chart_operations/chartindicatoradd" aria-label="Português (Portuguese)"><i class="icons-languages icons-languages_pt"></i><span>Português</span></a></li>
+<li class="lang-menu__list-item"><a href="/ja/docs/chart_operations/chartindicatoradd" aria-label="日本語 (Japanese)"><i class="icons-languages icons-languages_ja"></i><span>日本語</span></a></li>
+<li class="lang-menu__list-item"><a href="/de/docs/chart_operations/chartindicatoradd" aria-label="Deutsch (German)"><i class="icons-languages icons-languages_de"></i><span>Deutsch</span></a></li>
+<li class="lang-menu__list-item"><a href="/ko/docs/chart_operations/chartindicatoradd" aria-label="한국어 (Korean)"><i class="icons-languages icons-languages_ko"></i><span>한국어</span></a></li>
+<li class="lang-menu__list-item"><a href="/fr/docs/chart_operations/chartindicatoradd" aria-label="Français (French)"><i class="icons-languages icons-languages_fr"></i><span>Français</span></a></li>
+<li class="lang-menu__list-item"><a href="/it/docs/chart_operations/chartindicatoradd" aria-label="Italiano (Italian)"><i class="icons-languages icons-languages_it"></i><span>Italiano</span></a></li>
+<li class="lang-menu__list-item"><a href="/tr/docs/chart_operations/chartindicatoradd" aria-label="Türkçe (Turkish)"><i class="icons-languages icons-languages_tr"></i><span>Türkçe</span></a></li>
+
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+  <main>
+<div id='bfogggabsofabcpxuzmgaibarmaxasdrj' class="r7ba6qbuhkqj830as gc3c8mam3"></div>
+    <article class="body" id="bodyContent">
+      <header class="top-band">
+        
+  <div class="path"><div class="shortlinks"><a href="/en/docs" class="boldenPath" title="MQL5 Reference">MQL5 Reference</a><span class="arrow_right" style="margin: 0 6px;"></span><a href="/en/docs/chart_operations" class="boldenPath" title="Chart Operations">Chart Operations</a><span class="arrow_right" style="margin: 0 6px;"></span><span class="boldenPath nowrap">ChartIndicatorAdd</span>&nbsp;</div></div>
+
+      </header>
+
+      
+
+
+
+<div style="overflow: hidden;">
+    <div class="left-panel docsTree" style="width: 253px;">
+      <ul class="docsMenu"><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartapplytemplate" class="nowrap" title="ChartApplyTemplate">ChartApplyTemplate</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartsavetemplate" class="nowrap" title="ChartSaveTemplate">ChartSaveTemplate</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartwindowfind" class="nowrap" title="ChartWindowFind">ChartWindowFind</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/charttimepricetoxy" class="nowrap" title="ChartTimePriceToXY">ChartTimePriceToXY</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartxytotimeprice" class="nowrap" title="ChartXYToTimePrice">ChartXYToTimePrice</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartopen" class="nowrap" title="ChartOpen">ChartOpen</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartfirst" class="nowrap" title="ChartFirst">ChartFirst</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartnext" class="nowrap" title="ChartNext">ChartNext</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartclose" class="nowrap" title="ChartClose">ChartClose</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartsymbol" class="nowrap" title="ChartSymbol">ChartSymbol</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartperiod" class="nowrap" title="ChartPeriod">ChartPeriod</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartredraw" class="nowrap" title="ChartRedraw">ChartRedraw</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartsetdouble" class="nowrap" title="ChartSetDouble">ChartSetDouble</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartsetinteger" class="nowrap" title="ChartSetInteger">ChartSetInteger</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartsetstring" class="nowrap" title="ChartSetString">ChartSetString</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartgetdouble" class="nowrap" title="ChartGetDouble">ChartGetDouble</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartgetinteger" class="nowrap" title="ChartGetInteger">ChartGetInteger</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartgetstring" class="nowrap" title="ChartGetString">ChartGetString</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartnavigate" class="nowrap" title="ChartNavigate">ChartNavigate</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartid" class="nowrap" title="ChartID">ChartID</a></li><li class="docsMenuNode"><span class="boldenPath nowrap">ChartIndicatorAdd</span></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartindicatordelete" class="nowrap" title="ChartIndicatorDelete">ChartIndicatorDelete</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartindicatorget" class="nowrap" title="ChartIndicatorGet">ChartIndicatorGet</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartindicatorname" class="nowrap" title="ChartIndicatorName">ChartIndicatorName</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartindicatorstotal" class="nowrap" title="ChartIndicatorsTotal">ChartIndicatorsTotal</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartwindowondropped" class="nowrap" title="ChartWindowOnDropped">ChartWindowOnDropped</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartpriceondropped" class="nowrap" title="ChartPriceOnDropped">ChartPriceOnDropped</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/charttimeondropped" class="nowrap" title="ChartTimeOnDropped">ChartTimeOnDropped</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartxondropped" class="nowrap" title="ChartXOnDropped">ChartXOnDropped</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartyondropped" class="nowrap" title="ChartYOnDropped">ChartYOnDropped</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartsetsymbolperiod" class="nowrap" title="ChartSetSymbolPeriod">ChartSetSymbolPeriod</a></li><li class="docsMenuNode"><a href="/en/docs/chart_operations/chartscreenshot" class="nowrap" title="ChartScreenShot">ChartScreenShot</a></li></ul>
+      
+      
+      
+        <div class="directHelp">
+        </div>
+    </div>
+
+
+<div class="docsContainer">
+  <div id="help">
+<H1>ChartIndicatorAdd</H1>
+<p class="p_Function"><span class="f_Function">Adds an indicator with the specified handle into a specified chart window. Indicator and chart should be generated on the same symbol and time frame.</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_Keywords">bool&nbsp;&nbsp;</span><span class="f_Functions">ChartIndicatorAdd</span><span class="f_CodeExample">(</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">long</span><span class="f_CodeExample">&nbsp;&nbsp;</span><span class="f_Param">chart_id</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;chart&nbsp;ID</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Param">sub_window&nbsp;</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;number&nbsp;of&nbsp;the&nbsp;sub-window</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Param">indicator_handle&nbsp;</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;handle&nbsp;of&nbsp;the&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;);</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Parameters</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">chart_id</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Chart ID. 0 means the current chart.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">sub_window</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;The number of the chart sub-window. 0 means the main chart window. To add an indicator in a new window, the parameter must be one greater than the index of the last existing window, i.e. equal to <a href="/en/docs/constants/chartconstants/enum_chart_property#enum_chart_property_integer" class="topiclink">CHART_WINDOWS_TOTAL</a>. If the value of the parameter is greater than <a href="/en/docs/constants/chartconstants/enum_chart_property#enum_chart_property_integer" class="topiclink">CHART_WINDOWS_TOTAL</a>, a new window will not be created, and the indicator will not be added. </span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">indicator_handle</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;The handle of the indicator.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Return Value</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">The function returns true in case of success, otherwise it returns false. In order to obtain information about the <a href="/en/docs/constants/errorswarnings/errorcodes" class="topiclink">error</a>, call the <a href="/en/docs/check/getlasterror" class="topiclink">GetLastError()</a> function. Error 4114 means that a chart and an added indicator differ by their symbol or time frame.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Note</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">If an indicator that should be drawn in a separate subwindow (for example, built-in <a href="/en/docs/indicators/imacd" class="topiclink">iMACD</a> or a custom indicator with specified <a href="/en/docs/basis/preprosessor/compilation" class="topiclink">#property indicator_separate_window</a> property) is applied to the main chart window, it may not be visible though it will still be present in the list of indicators. This means that the scale of the indicator is different from the scale of the price chart, and applied indicator's values do not fit in the displayed range of the price chart. In this case, <a href="/en/docs/check/getlasterror" class="topiclink">GetLastError()</a> returns zero code indicating the absence of an error. The values of such &quot;invisible&quot; indicator can be seen in Data Window and received from other MQL5 applications.</span></p>
+<p class="p_Text"><span class="f_Text" style="font-weight: bold;">Example:</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;Expert&nbsp;Advisor&nbsp;demonstrating&nbsp;the&nbsp;work&nbsp;with&nbsp;ChartIndicatorAdd()&nbsp;function.&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;After&nbsp;launching&nbsp;on&nbsp;the&nbsp;chart&nbsp;(and&nbsp;receiving&nbsp;the&nbsp;error&nbsp;in&nbsp;Journal),&nbsp;open&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;the&nbsp;Expert&nbsp;Advisor's&nbsp;properties&nbsp;and&nbsp;specify&nbsp;correct&nbsp;&lt;symbol&gt;&nbsp;and&nbsp;&lt;period&gt;&nbsp;parameters.&quot;</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">#property</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">description</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;MACD&nbsp;indicator&nbsp;will&nbsp;be&nbsp;added&nbsp;on&nbsp;the&nbsp;chart.&quot;</span><br>
+<span class="f_CodeExample" style="color: #008080;">&nbsp;</span><br>
+<span class="f_CodeExample" style="color: #808080;">//---&nbsp;input&nbsp;parameters</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #800000;">symbol</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;AUDUSD&quot;</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;symbol&nbsp;name</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ENUM_TIMEFRAMES</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #800000;">period</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">PERIOD_M12</span><span class="f_CodeExample">;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;time&nbsp;frame</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #800000;">fast_ema_period</span><span class="f_CodeExample">=12;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;fast&nbsp;MACD&nbsp;period</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #800000;">slow_ema_period</span><span class="f_CodeExample">=26;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;slow&nbsp;MACD&nbsp;period</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #800000;">signal_period</span><span class="f_CodeExample">=9;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;signal&nbsp;period</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ENUM_APPLIED_PRICE</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #800000;">apr</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">PRICE_CLOSE</span><span class="f_CodeExample">;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;price&nbsp;type&nbsp;for&nbsp;MACD&nbsp;calculation</span><br>
+<span class="f_CodeExample" style="color: #808080;">&nbsp;</span><br>
+<span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;indicator_handle=</span><span class="f_CodeExample" style="color: #0000ff;">INVALID_HANDLE</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Expert&nbsp;initialization&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnInit</span><span class="f_CodeExample">()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;indicator_handle=</span><span class="f_CodeExample" style="color: #0000ff;">iMACD</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">fast_ema_period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">slow_ema_period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">signal_period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">apr</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;try&nbsp;to&nbsp;add&nbsp;the&nbsp;indicator&nbsp;on&nbsp;the&nbsp;chart</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!AddIndicator())</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;AddIndicator()&nbsp;function&nbsp;refused&nbsp;to&nbsp;add&nbsp;the&nbsp;indicator&nbsp;on&nbsp;the&nbsp;chart</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;answer=</span><span class="f_CodeExample" style="color: #0000ff;">MessageBox</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Do&nbsp;you&nbsp;want&nbsp;to&nbsp;add&nbsp;MACD&nbsp;on&nbsp;the&nbsp;chart&nbsp;anyway?&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #008080;">&quot;Incorrect&nbsp;symbol&nbsp;and/or&nbsp;time&nbsp;frame&nbsp;for&nbsp;adding&nbsp;the&nbsp;indicator&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">MB_YESNO</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;&quot;Yes&quot;&nbsp;and&nbsp;&quot;No&quot;&nbsp;selection&nbsp;buttons&nbsp;will&nbsp;be&nbsp;shown</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;a&nbsp;user&nbsp;still&nbsp;insists&nbsp;on&nbsp;incorrect&nbsp;usage&nbsp;of&nbsp;ChartIndicatorAdd()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(answer==</span><span class="f_CodeExample" style="color: #0000ff;">IDYES</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;first&nbsp;of&nbsp;all,&nbsp;a&nbsp;Journal&nbsp;entry&nbsp;will&nbsp;be&nbsp;made&nbsp;about&nbsp;that</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Attention!&nbsp;%s:&nbsp;Trying&nbsp;to&nbsp;add&nbsp;MACD(%s/%s)&nbsp;indicator&nbsp;on&nbsp;%s/%s&nbsp;chart.&nbsp;Receiving&nbsp;error&nbsp;4114&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">__FUNCTION__</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">),</span><span class="f_CodeExample" style="color: #0000ff;">_Symbol</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">_Period</span><span class="f_CodeExample">));</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;receive&nbsp;the&nbsp;number&nbsp;of&nbsp;a&nbsp;new&nbsp;subwindow,&nbsp;to&nbsp;which&nbsp;we&nbsp;will&nbsp;try&nbsp;to&nbsp;add&nbsp;the&nbsp;indicator</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;subwindow=(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">ChartGetInteger</span><span class="f_CodeExample">(0,</span><span class="f_CodeExample" style="color: #0000ff;">CHART_WINDOWS_TOTAL</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;now&nbsp;make&nbsp;an&nbsp;attempt&nbsp;resulting&nbsp;in&nbsp;error</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">ChartIndicatorAdd</span><span class="f_CodeExample">(0,subwindow,indicator_handle))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Failed&nbsp;to&nbsp;add&nbsp;MACD&nbsp;indicator&nbsp;on&nbsp;%d&nbsp;chart&nbsp;window.&nbsp;Error&nbsp;code&nbsp;&nbsp;%d&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subwindow,</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">INIT_SUCCEEDED</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Expert&nbsp;tick&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnTick</span><span class="f_CodeExample">()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//&nbsp;Expert&nbsp;Advisor&nbsp;performs&nbsp;nothing</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Function&nbsp;for&nbsp;checking&nbsp;and&nbsp;adding&nbsp;the&nbsp;indicator&nbsp;on&nbsp;the&nbsp;chart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">bool</span><span class="f_CodeExample">&nbsp;AddIndicator()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;displayed&nbsp;message</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;message;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;check&nbsp;if&nbsp;the&nbsp;indicator&nbsp;symbol&nbsp;and&nbsp;chart&nbsp;symbol&nbsp;match&nbsp;each&nbsp;other</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">!=</span><span class="f_CodeExample" style="color: #0000ff;">_Symbol</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=</span><span class="f_CodeExample" style="color: #008080;">&quot;Displaying&nbsp;the&nbsp;use&nbsp;of&nbsp;Demo_ChartIndicatorAdd()&nbsp;function:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=message+</span><span class="f_CodeExample" style="color: #008080;">&quot;\r\n&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=message+</span><span class="f_CodeExample" style="color: #008080;">&quot;Unable&nbsp;to&nbsp;add&nbsp;the&nbsp;indicator&nbsp;calculated&nbsp;on&nbsp;another&nbsp;symbol&nbsp;on&nbsp;the&nbsp;chart.&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=message+</span><span class="f_CodeExample" style="color: #008080;">&quot;\r\n&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=message+</span><span class="f_CodeExample" style="color: #008080;">&quot;Specify&nbsp;the&nbsp;chart&nbsp;symbol&nbsp;in&nbsp;Expert&nbsp;Advisor's&nbsp;property&nbsp;-&nbsp;&quot;</span><span class="f_CodeExample">+</span><span class="f_CodeExample" style="color: #0000ff;">_Symbol</span><span class="f_CodeExample">+</span><span class="f_CodeExample" style="color: #008080;">&quot;.&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Alert</span><span class="f_CodeExample">(message);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;premature&nbsp;exit,&nbsp;the&nbsp;indicator&nbsp;will&nbsp;not&nbsp;be&nbsp;added&nbsp;on&nbsp;the&nbsp;chart</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">&nbsp;false;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;check&nbsp;if&nbsp;the&nbsp;indicator's&nbsp;and&nbsp;chart's&nbsp;time&nbsp;frames&nbsp;match&nbsp;each&nbsp;other</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">!=</span><span class="f_CodeExample" style="color: #0000ff;">_Period</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=</span><span class="f_CodeExample" style="color: #008080;">&quot;Unable&nbsp;to&nbsp;add&nbsp;the&nbsp;indicator&nbsp;calculated&nbsp;on&nbsp;another&nbsp;time&nbsp;frame&nbsp;on&nbsp;the&nbsp;chart.&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=message+</span><span class="f_CodeExample" style="color: #008080;">&quot;\r\n&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message=message+</span><span class="f_CodeExample" style="color: #008080;">&quot;Specify&nbsp;the&nbsp;chart&nbsp;time&nbsp;frame&nbsp;in&nbsp;Expert&nbsp;Advisor&nbsp;properties&nbsp;-&nbsp;&quot;</span><span class="f_CodeExample">+</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">_Period</span><span class="f_CodeExample">)+</span><span class="f_CodeExample" style="color: #008080;">&quot;.&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Alert</span><span class="f_CodeExample">(message);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;premature&nbsp;exit,&nbsp;the&nbsp;indicator&nbsp;will&nbsp;not&nbsp;be&nbsp;added&nbsp;on&nbsp;the&nbsp;chart</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">false</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;all&nbsp;checks&nbsp;completed,&nbsp;symbol&nbsp;and&nbsp;indicator&nbsp;time&nbsp;frame&nbsp;match&nbsp;the&nbsp;chart</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(indicator_handle==</span><span class="f_CodeExample" style="color: #0000ff;">INVALID_HANDLE</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Print</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">__FUNCTION__</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #008080;">&quot;&nbsp;&nbsp;Creating&nbsp;MACD&nbsp;indicator&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indicator_handle=</span><span class="f_CodeExample" style="color: #0000ff;">iMACD</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">fast_ema_period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">slow_ema_period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">signal_period</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #800000;">apr</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(indicator_handle==</span><span class="f_CodeExample" style="color: #0000ff;">INVALID_HANDLE</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Print</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Failed&nbsp;to&nbsp;create&nbsp;MACD&nbsp;indicator.&nbsp;Error&nbsp;code&nbsp;&quot;</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;reset&nbsp;the&nbsp;error&nbsp;code</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ResetLastError</span><span class="f_CodeExample">();</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;apply&nbsp;the&nbsp;indicator&nbsp;to&nbsp;the&nbsp;chart&nbsp;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Print</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">__FUNCTION__</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #008080;">&quot;&nbsp;&nbsp;Adding&nbsp;MACD&nbsp;indicator&nbsp;on&nbsp;the&nbsp;chart&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Print</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;MACD&nbsp;is&nbsp;generated&nbsp;on&nbsp;&quot;</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #008080;">&quot;/&quot;</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">EnumToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">period</span><span class="f_CodeExample">));</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;receive&nbsp;the&nbsp;number&nbsp;of&nbsp;a&nbsp;new&nbsp;subwindow,&nbsp;to&nbsp;which&nbsp;MACD&nbsp;indicator&nbsp;is&nbsp;added</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;subwindow=(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">ChartGetInteger</span><span class="f_CodeExample">(0,</span><span class="f_CodeExample" style="color: #0000ff;">CHART_WINDOWS_TOTAL</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Adding&nbsp;MACD&nbsp;indicator&nbsp;on&nbsp;%d&nbsp;chart&nbsp;window&quot;</span><span class="f_CodeExample">,subwindow);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">ChartIndicatorAdd</span><span class="f_CodeExample">(0,subwindow,indicator_handle))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Failed&nbsp;to&nbsp;add&nbsp;MACD&nbsp;indicator&nbsp;on&nbsp;%d&nbsp;chart&nbsp;window.&nbsp;Error&nbsp;code&nbsp;&nbsp;%d&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subwindow,</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;Indicator&nbsp;added&nbsp;successfully</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">true</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_BoldTitles"><span class="f_BoldTitles">See Also</span></p>
+<p class="p_SeeAlso"><span class="f_SeeAlso"><a href="/en/docs/chart_operations/chartindicatordelete" class="topiclink">ChartIndicatorDelete()</a>, <a href="/en/docs/chart_operations/chartindicatorname" class="topiclink">ChartIndicatorName()</a>, <a href="/en/docs/chart_operations/chartindicatorstotal" class="topiclink">ChartIndicatorsTotal()</a>, <a href="/en/docs/indicators/icustom" class="topiclink">iCustom()</a>, <a href="/en/docs/series/indicatorcreate" class="topiclink">IndicatorCreate()</a></span></p>
+
+</div>
+
+    
+  <div style="height: 1px; overflow: hidden; clear: both;"></div>
+</div>
+
+
+  <div class="docsNav">
+        <div style="float: left;">
+          <span class="arrow_left" style="margin-right: 4px;"></span><a href="/en/docs/chart_operations/chartid" class="nowrap" title="ChartID">ChartID</a>
+        </div>
+        <div style="float: right; margin-right: 4px;">
+          <a href="/en/docs/chart_operations/chartindicatordelete" class="nowrap" title="ChartIndicatorDelete">ChartIndicatorDelete</a><span class="arrow_right" style="margin-left: 4px;"></span>
+        </div>
+  </div>
+
+  <div class="docsNav docsNav__sub">
+    
+
+<div id='wdausxxqrpvhekbwjrjlhqjghyhesrqqau' class="r9w6hoig2sjfewv65 r9w6hoig2sjfewv65_docs gc3c8mam3"></div>  </div>
+
+
+</div>
+<!-- Docs file updated: 2026.03.10 -->
+
+
+    </article>
+  </main>
+
+    <footer aria-hidden="true">
+
+
+<div aria-hidden="true" class="footer  desktop" id="footer">
+  <ul class="links  links_desktop">
+      <li id="navFooterCommunity">
+        <nav>
+          <ul>
+            <li><a href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Footer+Trading">Online trading / WebTerminal</a></li>
+            <li><a href="/en/code" data-fz-event="MQL5+Footer+CodeBase">Free technical indicators and robots</a></li>
+            <li><a href="/en/articles" data-fz-event="MQL5+Footer+Articles">Articles about programming and trading</a></li>
+            <li><a href="/en/job" data-fz-event="MQL5+Footer+Job">Order trading robots on the Freelance</a></li>
+            <li><a href="/en/market" data-fz-event="MQL5+Footer+Market">Market of Expert Advisors and applications&#x9;</a></li>
+            <li><a href="/en/signals" data-fz-event="MQL5+Footer+Signals">Follow forex signals</a></li>
+            <li><a href="/en/vps" data-fz-event="MQL5+Footer+VPS">Low latency forex VPS</a></li>
+            <li><a href="/en/forum" data-fz-event="MQL5+Footer+Forum">Traders forum</a></li>
+            <li><a href="/en/blogs" data-fz-event="MQL5+Footer+Blogs">Trading blogs</a></li>
+            <li><a rel="nofollow" href="/en/charts" data-fz-event="MQL5+Footer+Charts">Charts</a></li>
+            <li><a href="/en/widgets" data-fz-event="MQL5+Footer+Widgets">Free widgets</a></li>
+          </ul>
+        </nav>
+      </li>
+      <li id="navFooterMt5">
+        <nav>
+          <ul>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> Trading Platform</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/releasenotes" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> latest updates</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/news" data-fz-event="MQL5+Footer+MetaTrader+5">News, implementations and technology</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> User Manual</a></li>
+            <li><a href="/en/docs" data-fz-event="MQL5+Footer+Docs">MQL5 language of trading strategies</a></li>
+            <li><a rel="nofollow noopener" href="https://cloud.mql5.com" data-fz-event="MQL5+Footer+Cloud">MQL5 Cloud Network</a></li>
+            <li><a rel="noopener" href="https://forge.mql5.io/?lang=en" data-fz-event="MQL5+Footer+Forge" target="_blank">MQL5 Algo Forge</a></li>
+              <li><a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MetaTrader+5+Desktop+Download+Footer">Download <span class="nobr">MetaTrader 5</span></a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/installation" data-fz-event="MQL5+Footer+MetaTrader+5">Install Platform</a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/deinstallation" data-fz-event="MQL5+Footer+MetaTrader+5">Uninstall Platform</a></li>
+          </ul>
+        </nav>
+
+      </li>
+    <li id="navFooterWebsite">
+        <nav>
+          <ul>
+            <li><a rel="nofollow" href="/en/about" data-fz-event="MQL5+Footer+About">About</a></li>
+              <li><a href="/en/wall" data-fz-event="MQL5+Footer+Wall">Timeline</a></li>
+            <li><a rel="nofollow" href="/en/about/terms" data-fz-event="MQL5+Footer+About">Terms and Conditions</a></li>
+            <li><a rel="nofollow" href="/en/about/autopayments" data-fz-event="MQL5+Footer+About">Recurring Payment Agreement</a></li>
+            <li><a rel="nofollow" href="/en/about/agencyagreement" data-fz-event="MQL5+Footer+About">Agency Agreement – Offer</a></li>
+            <li><a rel="nofollow" href="/en/about/privacy" data-fz-event="MQL5+Footer+About">Privacy and Data Protection Policy</a></li>
+            <li><a rel="nofollow" href="/en/about/cookies" data-fz-event="MQL5+Footer+About">Cookies Policy</a></li>
+            <li>
+                <a rel="nofollow" href="/en/contact" data-fz-event="MQL5+Footer+Contacts">Contacts and requests</a>
+            </li>
+          </ul>
+        </nav>
+    </li>
+
+      <li>
+        <div class="footer__products">
+            <div class="footer__product">
+              <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com" class="footer__product-name">MetaTrader 5</a>
+              <div class="footer__product-links">
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon windows" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Windows</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/MetaTrader5.pkg.zip?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon macos" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for MacOS</div></a>
+              <a rel="nofollow noopener" href="https://www.mql5.com/en/articles/625?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon linux" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Linux</div></a>
+              <a rel="nofollow noopener" href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" class="icon web"><div  class="footer__product-link-hint footer__product-link-hint-short">Open MetaTrader 5 WebTerminal</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/ios?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon ios" data-fz-event="MetaTrader+5+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/jhZn8Ed1I1d.png)">Scan to install from App Store</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon android" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/kiF2Io6W-9d.png)">Scan to install from Google Play</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon huawei" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/ZRt&#x2B;zI1l&#x2B;8O.png)">Scan to install from Huawei AppGallery</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mt5/metatrader5.apk?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon ark" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/L0Q9oag&#x2B;3eE.png)">Scan to get Android APK file</div></a>
+              </div>
+            </div>
+            <div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com/en/news/2270" class="footer__product-name">MQL5 Channels</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="MQL5+Channels+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/bZVfOJnYpcO.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/32MJFgw7BVs.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Su&#x2B;fe4n374e.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mql5channels/mql5channels.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/G6Mg4NfCPzO.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.tradays.com/en/download?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MQL5+Footer+Download+Tradays" class="footer__product-name">Economic Calendar</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="Tradays+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CpD&#x2B;mhIw-1E.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Bgyx8UcmYap.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CrS7bbDAdAO.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/tradays/tradays.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/VZi8YPIb2op.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer__networks">
+            <div class="footer__networks-list">
+            <a href="https://www.facebook.com/mql5.community/" target="_blank" rel="nofollow" title="Facebook"><i class="icons-networks icons-networks_fb"></i></a><a href="https://t.me/mql5dev" target="_blank" rel="nofollow" title="Telegram"><i class="icons-networks icons-networks_tg"></i></a><a href="https://x.com/mql5com" target="_blank" rel="nofollow" title="X (Twitter)"><i class="icons-networks icons-networks_tw"></i></a>
+            </div>
+            <span>Follow us on socials for top articles and CodeBase updates</span>
+          </div>
+  
+        <div class="footer__other">
+          <div class="footer__not-a-broker">Not a broker, no real trading accounts</div>
+          <div class="copyright">35 Dodekanisou str, Germasogeia, 4043,&nbsp;Limassol,&nbsp;Cyprus</div>
+          <div class="copyright">Copyright 2000-2026, <span class="nobr">MetaQuotes Ltd</span></div>
+        </div>
+      </li>
+  </ul>
+</div>
+
+
+    </footer>
+
+  <div class="shadow-layer" id="layer"></div>
+      
+</div>
+
+<script type="text/javascript">
+           mqGlobal.AddOnReady(function () { Mql5Cookie.init('mql5.com','5062274761540724927'); });
+mqGlobal.AddOnLoad(function(){new TrackScrollPosition('Docs');});window.fz("show","wdausxxqrpvhekbwjrjlhqjghyhesrqqau");mqGlobal.AddOnReady(function(){{window.initHeaderSearch('','https://www.mql5.com/en/search');}});</script><script type="text/javascript">mqGlobal.AddOnReady(function(){window.initSuggestions("headerSearchKeyword","en","https://search.mql5.com/api/query","https://www.mql5.com/en/users_search/suggestion");});window.fz("show","bfogggabsofabcpxuzmgaibarmaxasdrj");mqGlobal.AddOnReady(function(){window.floatVerticalPanelNode=FloatVerticalPanel('This website uses cookies. Learn more about our <a href="/en/about/cookies">Cookies Policy</a>.','cookie_accept');});      if (typeof Attach !== "undefined")
+        Attach.setAcceptFilter(".zip, .txt, .log, .mqh, .ex5, .mq5, .mq4, .mqproj, .ex4, .mt5, .set, .tpl, .cl, .py, .sqlite, .csv, .ini, .ipynb, .onnx, .gif, .png, .jpg, .jpeg, .mp4, .webm");
+  </script>
+
+  <div class="b-fixed-mt" id="bFixedMt" style="display: none;">
+    
+  </div>
+
+  <script type="application/ld&#x2B;json">
+  [{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Forum","description":"Discussions of trading strategies and algorithmic trading. MQL5.community  the largest forex forum","url":"https://www.mql5.com/en/forum","children":[]},{"@type":"SiteNavigationElement","position":2,"name":"Market","description":"MetaTrader Market - a Market of trading robots, indicators, trading books and magazines","url":"https://www.mql5.com/en/market","children":[]},{"@type":"SiteNavigationElement","position":3,"name":"Signals","description":"Social trading, copy trading and account monitoring with MetaTrader - Trading Signals on MQL5.com","url":"https://www.mql5.com/en/signals","children":[]},{"@type":"SiteNavigationElement","position":4,"name":"Freelance","description":"Order trading robots, technical indicators and algorithmic trading applications. Forex jobs. Freelance on MQL5.com. Hire MetaTrader experts and specialists","url":"https://www.mql5.com/en/job","children":[]},{"@type":"SiteNavigationElement","position":5,"name":"Quotes","description":"","url":"https://www.mql5.com/en/quotes/overview","children":[]},{"@type":"SiteNavigationElement","position":6,"name":"WebTerminal","description":"WebTerminal for the MetaTrader trading platform. Online forex trading.","url":"https://web.metatrader.app/terminal?mode=demo","children":[]},{"@type":"SiteNavigationElement","position":7,"name":"Calendar","description":"","url":"https://www.mql5.com/en/economic-calendar","children":[]},{"@type":"SiteNavigationElement","position":8,"name":"VPS","description":"","url":"https://www.mql5.com/en/vps","children":[]},{"@type":"SiteNavigationElement","position":9,"name":"Articles","description":"","url":"https://www.mql5.com/en/articles","children":[]},{"@type":"SiteNavigationElement","position":10,"name":"CodeBase","description":"Download trading robots, technical indicators and scripts with source code - MQL5 Code Base for MetaTrader 5","url":"https://www.mql5.com/en/code","children":[]},{"@type":"SiteNavigationElement","position":11,"name":"Algo Forge","description":"","url":"https://forge.mql5.io","children":[]},{"@type":"SiteNavigationElement","position":12,"name":"Documentation","description":"MetaQuotes Language 5 (MQL5) Reference - Documentation on MQL5.com","url":"https://www.mql5.com/en/docs","children":[]}]}  
+,
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":"https://www.mql5.com/en/docs","name":"MQL5 Reference"},{"@type":"ListItem","position":2,"item":"https://www.mql5.com/en/docs/chart_operations","name":"Chart Operations"},{"@type":"ListItem","position":3,"item":"https://www.mql5.com/en/docs/chart_operations/chartindicatoradd","name":"ChartIndicatorAdd"}]}
+
+      ,{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "ChartIndicatorAdd",
+          "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Adds an indicator with the specified handle into a specified chart window. Indicator and chart should be generated on the same symbol and time..."
+        }
+        }]
+      }
+      
+  ]
+</script>
+</body>
+</html>

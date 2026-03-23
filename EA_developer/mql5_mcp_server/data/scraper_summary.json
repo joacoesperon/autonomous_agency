@@ -1,0 +1,2347 @@
+[
+  {
+    "name": "OrderCalcMargin",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordercalcmargin",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderCalcProfit",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordercalcprofit",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderCheck",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordercheck",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderSend",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordersend",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderSendAsync",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordersendasync",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionsTotal",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positionstotal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionGetSymbol",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positiongetsymbol",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionSelect",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positionselect",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionSelectByTicket",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positionselectbyticket",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionGetDouble",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positiongetdouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionGetInteger",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positiongetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionGetString",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positiongetstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PositionGetTicket",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/positiongetticket",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrdersTotal",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/orderstotal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderGetTicket",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordergetticket",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderSelect",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/orderselect",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderGetDouble",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordergetdouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderGetInteger",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordergetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "OrderGetString",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/ordergetstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistorySelect",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyselect",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistorySelectByPosition",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyselectbyposition",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryOrderSelect",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyorderselect",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryOrdersTotal",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyorderstotal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryOrderGetTicket",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyordergetticket",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryOrderGetDouble",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyordergetdouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryOrderGetInteger",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyordergetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryOrderGetString",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historyordergetstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryDealSelect",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historydealselect",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryDealsTotal",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historydealstotal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryDealGetTicket",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historydealgetticket",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryDealGetDouble",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historydealgetdouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryDealGetInteger",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historydealgetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "HistoryDealGetString",
+    "section": "trading",
+    "url": "https://www.mql5.com/en/docs/trading/historydealgetstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iAC",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iac",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iAD",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iad",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iADX",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iadx",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iADXWilder",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iadxwilder",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iAlligator",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ialligator",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iAMA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iama",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iAO",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iao",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iATR",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iatr",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iBearsPower",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ibearspower",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iBands",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ibands",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iBullsPower",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ibullspower",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iCCI",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/icci",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iChaikin",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ichaikin",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iCustom",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/icustom",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iDEMA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/idema",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iDeMarker",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/idemarker",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iEnvelopes",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ienvelopes",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iForce",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iforce",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iFractals",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ifractals",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iFrAMA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iframa",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iGator",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/igator",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iIchimoku",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iichimoku",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iBWMFI",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ibwmfi",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iMomentum",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/imomentum",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iMFI",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/imfi",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iMA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ima",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iOsMA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iosma",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iMACD",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/imacd",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iOBV",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iobv",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iSAR",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/isar",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iRSI",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/irsi",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iRVI",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/irvi",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iStdDev",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/istddev",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iStochastic",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/istochastic",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iTEMA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/itema",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iTriX",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/itrix",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iWPR",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/iwpr",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iVIDyA",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ividya",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iVolumes",
+    "section": "indicators",
+    "url": "https://www.mql5.com/en/docs/indicators/ivolumes",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Indexing Direction in Arrays, Buffers and Timeseries",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/bufferdirection",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Organizing Data Access",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/timeseries_access",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SeriesInfoInteger",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/seriesinfointeger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Bars",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/bars",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "BarsCalculated",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/barscalculated",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "IndicatorCreate",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/indicatorcreate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "IndicatorParameters",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/indicatorparameters",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "IndicatorRelease",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/indicatorrelease",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyBuffer",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copybuffer",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyRates",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyrates",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopySeries",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyseries",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyTime",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copytime",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyOpen",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyopen",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyHigh",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyhigh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyLow",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copylow",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyClose",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyclose",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyTickVolume",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copytickvolume",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyRealVolume",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyrealvolume",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopySpread",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyspread",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyTicks",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyticks",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CopyTicksRange",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/copyticksrange",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iBars",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ibars",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iBarShift",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ibarshift",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iClose",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/iclose",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iHigh",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ihigh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iHighest",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ihighest",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iLow",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ilow",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iLowest",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ilowest",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iOpen",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/iopen",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iTime",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/itime",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iTickVolume",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/itickvolume",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iRealVolume",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/irealvolume",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iVolume",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ivolume",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "iSpread",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/ispread",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Organizing Data Access",
+    "section": "series",
+    "url": "https://www.mql5.com/en/docs/series/timeseries_access#synchronized",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolsTotal",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolstotal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolExist",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolexist",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolName",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolname",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolSelect",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolselect",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolIsSynchronized",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolissynchronized",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoDouble",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfodouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoInteger",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfointeger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoString",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoMarginRate",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfomarginrate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoTick",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfotick",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoSessionQuote",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfosessionquote",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SymbolInfoSessionTrade",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/symbolinfosessiontrade",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MarketBookAdd",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/marketbookadd",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MarketBookRelease",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/marketbookrelease",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MarketBookGet",
+    "section": "marketinformation",
+    "url": "https://www.mql5.com/en/docs/marketinformation/marketbookget",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "AccountInfoDouble",
+    "section": "account",
+    "url": "https://www.mql5.com/en/docs/account/accountinfodouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "AccountInfoInteger",
+    "section": "account",
+    "url": "https://www.mql5.com/en/docs/account/accountinfointeger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "AccountInfoString",
+    "section": "account",
+    "url": "https://www.mql5.com/en/docs/account/accountinfostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayBsearch",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraybsearch",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayCopy",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraycopy",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayCompare",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraycompare",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayFree",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayfree",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayGetAsSeries",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraygetasseries",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayInitialize",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayinitialize",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayFill",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayfill",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayIsDynamic",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayisdynamic",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayIsSeries",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayisseries",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayMaximum",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraymaximum",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayMinimum",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayminimum",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayPrint",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayprint",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayRange",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayrange",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayResize",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayresize",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayInsert",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayinsert",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayRemove",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayremove",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayReverse",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/array_reverse",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArraySetAsSeries",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraysetasseries",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArraySize",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraysize",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArraySort",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraysort",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArraySwap",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayswap",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayToFP16",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraytofp16",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayToFP8",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arraytofp8",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayFromFP16",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayfromfp16",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ArrayFromFP8",
+    "section": "array",
+    "url": "https://www.mql5.com/en/docs/array/arrayfromfp8",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathAbs",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathabs",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArccos",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharccos",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArcsin",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharcsin",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArctan",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharctan",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArctan2",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharctan2",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathClassify",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathclassify",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathCeil",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathceil",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathCos",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathcos",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathExp",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathexp",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathFloor",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathfloor",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathLog",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathlog",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathLog",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathlog10",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathMax",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathmax",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathMin",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathmin",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathMod",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathmod",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathPow",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathpow",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathRand",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathrand",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathRound",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathround",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathSin",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathsin",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathSqrt",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathsqrt",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathSrand",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathsrand",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathTan",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathtan",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathIsValidNumber",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathisvalidnumber",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathExpm1",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathexpm1",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathLog1p",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathlog1p",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArccosh",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharccosh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArcsinh",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharcsinh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathArctanh",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/matharctanh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathCosh",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathcosh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathSinh",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathsinh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathTanh",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathtanh",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MathSwap",
+    "section": "math",
+    "url": "https://www.mql5.com/en/docs/math/mathswap",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CharToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/chartostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CharArrayToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/chararraytostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CharArrayToStruct",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/chararraytostruct",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StructToCharArray",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/structtochararray",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ColorToARGB",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/colortoargb",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ColorToPRGB",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/colortoprgb",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ColorToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/colortostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "DoubleToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/doubletostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "EnumToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/enumtostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "IntegerToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/integertostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ShortToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/shorttostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ShortArrayToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/shortarraytostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeToString",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/timetostring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "NormalizeDouble",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/normalizedouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToCharArray",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringtochararray",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToColor",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringtocolor",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToDouble",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringtodouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToInteger",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringtointeger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToShortArray",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringtoshortarray",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToTime",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringtotime",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringFormat",
+    "section": "convert",
+    "url": "https://www.mql5.com/en/docs/convert/stringformat",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Alert",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/alert",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CheckPointer",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/checkpointer",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Comment",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/comment",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CryptEncode",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/cryptencode",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "CryptDecode",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/cryptdecode",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "DebugBreak",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/debugbreak",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ExpertRemove",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/expertremove",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "GetPointer",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/getpointer",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "GetTickCount",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/gettickcount",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "GetTickCount64",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/gettickcount64",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "GetMicrosecondCount",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/getmicrosecondcount",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "MessageBox",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/messagebox",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PeriodSeconds",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/periodseconds",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PlaySound",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/playsound",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Print",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/print",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "PrintFormat",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/printformat",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ResetLastError",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/resetlasterror",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ResourceCreate",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/resourcecreate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ResourceFree",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/resourcefree",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ResourceReadImage",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/resourcereadimage",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ResourceSave",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/resourcesave",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SetReturnError",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/setreturnerror",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "SetUserError",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/setusererror",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "Sleep",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/sleep",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TerminalClose",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/terminalclose",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TesterHideIndicators",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/testerhideindicators",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TesterStatistics",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/testerstatistics",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TesterStop",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/testerstop",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TesterDeposit",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/testerdeposit",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TesterWithdrawal",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/testerwithdrawal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TranslateKey",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/translatekey",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ZeroMemory",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/zeromemory",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ResourceCreate",
+    "section": "common",
+    "url": "https://www.mql5.com/en/docs/common/resourcecreate#dynamic_resourcecreate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringAdd",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringadd",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringBufferLen",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringbufferlen",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringCompare",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringcompare",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringConcatenate",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringconcatenate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringFill",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringfill",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringFind",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringfind",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringGetCharacter",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringgetcharacter",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringInit",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringinit",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringLen",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringlen",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringSetLength",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringsetlength",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringReplace",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringreplace",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringReserve",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringreserve",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringSetCharacter",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringsetcharacter",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringSplit",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringsplit",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringSubstr",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringsubstr",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToLower",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringtolower",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringToUpper",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringtoupper",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringTrimLeft",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringtrimleft",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StringTrimRight",
+    "section": "strings",
+    "url": "https://www.mql5.com/en/docs/strings/stringtrimright",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeCurrent",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timecurrent",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeTradeServer",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timetradeserver",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeLocal",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timelocal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeGMT",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timegmt",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeDaylightSavings",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timedaylightsavings",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeGMTOffset",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timegmtoffset",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "TimeToStruct",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/timetostruct",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "StructToTime",
+    "section": "dateandtime",
+    "url": "https://www.mql5.com/en/docs/dateandtime/structtotime",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileSelectDialog",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileselectdialog",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileFindFirst",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filefindfirst",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileFindNext",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filefindnext",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileFindClose",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filefindclose",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileIsExist",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileisexist",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileOpen",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileopen",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileClose",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileclose",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileCopy",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filecopy",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileDelete",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filedelete",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileMove",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filemove",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileFlush",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileflush",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileGetInteger",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filegetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileIsEnding",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileisending",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileIsLineEnding",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileislineending",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadArray",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadarray",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadBool",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadbool",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadDatetime",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereaddatetime",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadDouble",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereaddouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadFloat",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadfloat",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadInteger",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadLong",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadlong",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadNumber",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadnumber",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadString",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileReadStruct",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filereadstruct",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileSeek",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileseek",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileSize",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filesize",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileTell",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filetell",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWrite",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewrite",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteArray",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewritearray",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteDouble",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewritedouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteFloat",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewritefloat",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteInteger",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewriteinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteLong",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewritelong",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteString",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewritestring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileWriteStruct",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filewritestruct",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileLoad",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/fileload",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FileSave",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/filesave",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FolderCreate",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/foldercreate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FolderDelete",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/folderdelete",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "FolderClean",
+    "section": "files",
+    "url": "https://www.mql5.com/en/docs/files/folderclean",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartApplyTemplate",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartapplytemplate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartSaveTemplate",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartsavetemplate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartWindowFind",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartwindowfind",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartTimePriceToXY",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/charttimepricetoxy",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartXYToTimePrice",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartxytotimeprice",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartOpen",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartopen",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartFirst",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartfirst",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartNext",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartnext",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartClose",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartclose",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartSymbol",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartsymbol",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartPeriod",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartperiod",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartRedraw",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartredraw",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartSetDouble",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartsetdouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartSetInteger",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartsetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartSetString",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartsetstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartGetDouble",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartgetdouble",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartGetInteger",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartgetinteger",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartGetString",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartgetstring",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartNavigate",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartnavigate",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartID",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartid",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartIndicatorAdd",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartindicatoradd",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartIndicatorDelete",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartindicatordelete",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartIndicatorGet",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartindicatorget",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartIndicatorName",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartindicatorname",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartIndicatorsTotal",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartindicatorstotal",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartWindowOnDropped",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartwindowondropped",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartPriceOnDropped",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartpriceondropped",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartTimeOnDropped",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/charttimeondropped",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartXOnDropped",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartxondropped",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartYOnDropped",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartyondropped",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartSetSymbolPeriod",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartsetsymbolperiod",
+    "has_signature": false,
+    "has_example": false
+  },
+  {
+    "name": "ChartScreenShot",
+    "section": "chart_operations",
+    "url": "https://www.mql5.com/en/docs/chart_operations/chartscreenshot",
+    "has_signature": false,
+    "has_example": false
+  }
+]

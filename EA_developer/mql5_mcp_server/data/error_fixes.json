@@ -1,0 +1,122 @@
+[
+  {
+    "pattern": "'Ask' - undeclared identifier",
+    "cause": "Ask es una variable global en MQL4. No existe en MQL5.",
+    "fix": "Reemplazar Ask con: SymbolInfoDouble(_Symbol, SYMBOL_ASK)",
+    "example": "double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);"
+  },
+  {
+    "pattern": "'Bid' - undeclared identifier",
+    "cause": "Bid es una variable global en MQL4. No existe en MQL5.",
+    "fix": "Reemplazar Bid con: SymbolInfoDouble(_Symbol, SYMBOL_BID)",
+    "example": "double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);"
+  },
+  {
+    "pattern": "'Point' - undeclared identifier",
+    "cause": "Point es variable global de MQL4. En MQL5 se usa _Point (con guion bajo).",
+    "fix": "Reemplazar Point con _Point",
+    "example": "double sl = ask - 50 * 10 * _Point;"
+  },
+  {
+    "pattern": "'Digits' - undeclared identifier",
+    "cause": "Digits es variable global de MQL4. En MQL5 se usa _Digits (con guion bajo).",
+    "fix": "Reemplazar Digits con _Digits",
+    "example": "double price = NormalizeDouble(price, _Digits);"
+  },
+  {
+    "pattern": "'OrderSend' - wrong parameters count",
+    "cause": "OrderSend de MQL4 tiene 10 parámetros. En MQL5 la firma es completamente diferente o se usa CTrade.",
+    "fix": "Usar CTrade::Buy() o CTrade::Sell() en su lugar. Incluir #include <Trade\\Trade.mqh> y declarar CTrade trade;",
+    "example": "trade.Buy(lote, _Symbol, ask, sl, tp, \"comentario\");"
+  },
+  {
+    "pattern": "'OrdersTotal' - undeclared identifier",
+    "cause": "OrdersTotal() de MQL4 contaba órdenes pendientes + posiciones. En MQL5 se separaron.",
+    "fix": "Para posiciones abiertas: PositionsTotal(). Para órdenes pendientes: OrdersTotal() (existe pero solo para pendientes).",
+    "example": "int total = PositionsTotal();"
+  },
+  {
+    "pattern": "'OrderSelect' - undeclared identifier",
+    "cause": "OrderSelect con SELECT_BY_POS es sintaxis MQL4.",
+    "fix": "Usar PositionGetSymbol(i) o posInfo.SelectByIndex(i) con CPositionInfo",
+    "example": "if(posInfo.SelectByIndex(i)) { string sym = posInfo.Symbol(); }"
+  },
+  {
+    "pattern": "'AccountBalance' - undeclared identifier",
+    "cause": "AccountBalance() es función de MQL4.",
+    "fix": "Usar AccountInfoDouble(ACCOUNT_BALANCE)",
+    "example": "double balance = AccountInfoDouble(ACCOUNT_BALANCE);"
+  },
+  {
+    "pattern": "'RefreshRates' - deprecated function",
+    "cause": "RefreshRates() no existe ni es necesario en MQL5. Los datos se actualizan automáticamente.",
+    "fix": "Eliminar la llamada a RefreshRates() completamente.",
+    "example": "// Simplemente eliminar la línea con RefreshRates()"
+  },
+  {
+    "pattern": "invalid handle",
+    "cause": "Se usó CopyBuffer() con un handle que es INVALID_HANDLE (-1). El indicador no se creó correctamente.",
+    "fix": "Verificar que el handle != INVALID_HANDLE en OnInit() antes de usar. Revisar parámetros del indicador.",
+    "example": "if(handleEMA == INVALID_HANDLE) { Print(\"Error handle: \", GetLastError()); return INIT_FAILED; }"
+  },
+  {
+    "pattern": "wrong parameters count",
+    "cause": "La función se llamó con número incorrecto de parámetros. Común al confundir firmas MQL4 y MQL5.",
+    "fix": "Verificar la firma correcta en la documentación. Para indicadores: usar la versión con handle de MQL5.",
+    "example": "int handle = iMA(_Symbol, PERIOD_H4, 50, 0, MODE_EMA, PRICE_CLOSE);"
+  },
+  {
+    "pattern": "implicit conversion from 'number' to 'string'",
+    "cause": "Se intenta concatenar un número con string usando +. MQL5 no hace conversión implícita.",
+    "fix": "Usar coma en Print() en lugar de +, o castear explícitamente con (string)",
+    "example": "Print(\"Valor: \", miDouble);  // con coma, no con +"
+  },
+  {
+    "pattern": "unsupported filling mode",
+    "cause": "El broker no soporta ORDER_FILLING_FOK. Cada broker tiene modos de llenado diferentes.",
+    "fix": "Cambiar a ORDER_FILLING_IOC o ORDER_FILLING_RETURN en el CTrade",
+    "example": "trade.SetTypeFilling(ORDER_FILLING_IOC);"
+  },
+  {
+    "pattern": "trade not allowed",
+    "cause": "El EA no tiene permiso para operar. AutoTrading desactivado o cuenta no permite trading.",
+    "fix": "Activar el botón AutoTrading en MT5. Verificar con AccountInfoInteger(ACCOUNT_TRADE_ALLOWED).",
+    "example": "if(!AccountInfoInteger(ACCOUNT_TRADE_ALLOWED)) { Print(\"Trading no permitido\"); return; }"
+  },
+  {
+    "pattern": "invalid stops",
+    "cause": "SL o TP están demasiado cerca del precio. El broker tiene un nivel mínimo de stops.",
+    "fix": "Obtener el stop level mínimo y asegurarse de superarlo: SymbolInfoInteger(_Symbol, SYMBOL_TRADE_STOPS_LEVEL)",
+    "example": "long stopLevel = SymbolInfoInteger(_Symbol, SYMBOL_TRADE_STOPS_LEVEL); double minDist = stopLevel * _Point;"
+  },
+  {
+    "pattern": "'iMA' - wrong parameters count",
+    "cause": "Se está usando la firma de iMA de MQL4 (con NULL, 0 como primeros parámetros).",
+    "fix": "En MQL5 iMA toma: símbolo, timeframe, período, shift, método, precio aplicado. No NULL ni 0 como primer param.",
+    "example": "int handle = iMA(_Symbol, PERIOD_H4, 50, 0, MODE_EMA, PRICE_CLOSE);"
+  },
+  {
+    "pattern": "array out of range",
+    "cause": "Se accede a un índice de array que no existe. Común cuando CopyBuffer devuelve menos elementos de los pedidos.",
+    "fix": "Verificar el valor de retorno de CopyBuffer antes de acceder al array.",
+    "example": "if(CopyBuffer(handle, 0, 0, 3, buffer) < 3) return;  // verificar antes de usar buffer[1]"
+  },
+  {
+    "pattern": "'CTrade' - undeclared identifier",
+    "cause": "Falta el include de la librería de trading.",
+    "fix": "Agregar #include <Trade\\Trade.mqh> al inicio del archivo, antes de cualquier declaración.",
+    "example": "#include <Trade\\Trade.mqh>\nCTrade trade;"
+  },
+  {
+    "pattern": "cannot convert",
+    "cause": "Incompatibilidad de tipos. Común al asignar int a double o viceversa sin casteo.",
+    "fix": "Castear explícitamente: (double), (int), (string) según corresponda.",
+    "example": "double lote = (double)entero;  // casteo explícito"
+  },
+  {
+    "pattern": "ArraySetAsSeries",
+    "cause": "Los valores del buffer están en orden inverso (índice 0 es el más antiguo en lugar del más reciente).",
+    "fix": "Llamar ArraySetAsSeries(buffer, true) ANTES de CopyBuffer para que índice 0 = vela más reciente.",
+    "example": "double buffer[];\nArraySetAsSeries(buffer, true);\nCopyBuffer(handle, 0, 0, 3, buffer);"
+  }
+]

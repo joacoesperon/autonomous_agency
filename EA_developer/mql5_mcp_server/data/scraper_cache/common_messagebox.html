@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://c.mql5.com">
+  <meta name="description" content="It creates and shows a message box and manages it. A message box contains a message and header, any combination of predefined signs and command...">
+  <meta property="og:url" content="https://www.mql5.com/en/docs/common/messagebox">
+  <meta property="og:title" content="Documentation on MQL5: MessageBox / Common Functions">
+  <meta property="og:description" content="It creates and shows a message box and manages it. A message box contains a message and header, any combination of predefined signs and command...">
+      <meta property="og:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+      <meta property="og:image:secure_url" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@mql5com">
+  <meta name="twitter:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta name="theme-color" content="#4a76b8">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="https://www.mql5.com/manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://www.mql5.com/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://www.mql5.com/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://www.mql5.com/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://www.mql5.com/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="https://www.mql5.com/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.mql5.com/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="https://www.mql5.com/apple-touch-icon-192x192.png">
+  <link rel="icon" sizes="192x192" href="https://www.mql5.com/android-touch-icon-192x192.png">
+  <link rel="icon" sizes="128x128" href="https://www.mql5.com/android-touch-icon-128x128.png">
+  <link rel="shortcut icon" href="https://c.mql5.com/i/favicon4.ico">
+  <meta name="msapplication-config" content="none"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta property="qc:admins" content="36367170677651456375"/>
+  <meta property="wb:webmaster" content="073d7690269bcd81"/>
+  <link href="https://c.mql5.com/styles/core.5d0909a86560d548a4987680437be48c.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/all.65023a0db01c5ab7ceb59789bcf40c80.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/help.607fabd1d981f58fa5fb84b1020b666e.css" type="text/css" rel="stylesheet" media="all">
+  <link rel="canonical" href="https://www.mql5.com/en/docs/common/messagebox">
+  <link rel="alternate" hreflang="en" href="https://www.mql5.com/en/docs/common/messagebox">
+  <link rel="alternate" hreflang="ru" href="https://www.mql5.com/ru/docs/common/messagebox">
+  <link rel="alternate" hreflang="zh" href="https://www.mql5.com/zh/docs/common/messagebox">
+  <link rel="alternate" hreflang="es" href="https://www.mql5.com/es/docs/common/messagebox">
+  <link rel="alternate" hreflang="pt" href="https://www.mql5.com/pt/docs/common/messagebox">
+  <link rel="alternate" hreflang="ja" href="https://www.mql5.com/ja/docs/common/messagebox">
+  <link rel="alternate" hreflang="de" href="https://www.mql5.com/de/docs/common/messagebox">
+  <link rel="alternate" hreflang="ko" href="https://www.mql5.com/ko/docs/common/messagebox">
+  <link rel="alternate" hreflang="fr" href="https://www.mql5.com/fr/docs/common/messagebox">
+  <link rel="alternate" hreflang="it" href="https://www.mql5.com/it/docs/common/messagebox">
+  <link rel="alternate" hreflang="tr" href="https://www.mql5.com/tr/docs/common/messagebox">
+  <title>MessageBox - Common Functions - MQL5 Reference</title>
+  <script type='text/javascript'>
+  (function(a,e,f,g,b,c,d){a[b]||(a.FintezaCoreObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=!0,c.defer=!0,c.src=g,d&&d.parentNode&&d.parentNode.insertBefore(c,d))})
+      (window, document, "script", "/ff/core.js", "fz");
+  window.fz("register", "website", {
+      id: "sqjxkxkswybhifrohpyooonwgbvsfzmayq",
+    trackLinks: true,
+    sendEventsByBeacon: true,
+  });
+  </script>
+
+
+<script type="text/javascript">
+  !function(){window.mqGlobal={};var t=!1,n=!1,e=[],o=[],i=[];function d(t){var n;for(n=0;n<t.length;n+=1)t[n]()}function c(){t||(t=!0,d(e),d(o),o=[],e=[])}function a(){c(),n||(n=!0,d(i),i=[])}if(mqGlobal.AddOnReady=function(n,i){t?n(document):i?e.push(n):o.push(n)},mqGlobal.AddOnLoad=function(t){n?t(document):i.push(t)},mqGlobal.AddOnActiveWindowChange=function(t){this._onvisibility||(this._onvisibility=[]),this._onvisibility[this._onvisibility.length]=t},document.addEventListener)document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",a,!1);else if(document.attachEvent&&(document.attachEvent("onreadystatechange",(function(){switch(document.readyState){case"interactive":c();break;case"complete":a()}})),window.attachEvent("onload",a),document.documentElement.doScroll&&window==window.top)){!function n(){if(!t&&document.body)try{document.documentElement.doScroll("left"),c()}catch(t){setTimeout(n,0)}}()}}();
+  mqGlobal.CookieDomain = ".mql5.com";
+  mqGlobal.Language = 'en';
+  mqGlobal.IsMobile = false;
+  mqGlobal.ClearRteStorage = function (e) { if (window.GStorage || (window.GStorage = globalStorage()), window.GStorage.supported) try { var o = e; window.GStorage.getItem("rte_autosave_uid", function (e, t) { t == o && (window.GStorage.removeItem("rte_autosave_text"), window.GStorage.removeItem("rte_autosave_date"), window.GStorage.removeItem("rte_autosave_uid")) }) } catch (e) { } };
+</script>
+  
+
+
+    <script src="https://c.mql5.com/js/all.62ce17e8cf0163510ff0616f628b63a5.js" type="text/javascript" defer="defer"></script>
+  <script src="https://c.mql5.com/js/vendor.878aea2c110ed989c5508cf1babe9772.js" type="text/javascript" defer="defer"></script>
+
+
+</head>
+
+<body>
+
+<div class="cover" id="cover">
+
+    <header class="head">
+      <a href="https://www.mql5.com" class="head__logo" title="MQL5 - Language of trade strategies built-in the MetaTrader 5 client terminal"></a>
+        <div class="head__content">
+          <nav class="main-menu" id="mainmenu">
+            
+                    <ul class="main-menu__top-level" id="menuTopLevel">
+                    <li><a href="/en/forum" data-fz-event="MQL5+Menu+Forum">Forum</a></li>
+                    <li><a href="/en/market" data-fz-event="MQL5+Menu+Market">Market</a></li>
+                    <li><a href="/en/signals" data-fz-event="MQL5+Menu+Signals">Signals</a></li>
+                    <li><a href="/en/job" data-fz-event="MQL5+Menu+Job">Freelance</a></li>
+                    <li><a href="/en/vps" data-fz-event="MQL5+Menu+VPS">VPS</a></li>
+                    <li><a href="/en/quotes/overview" data-fz-event="MQL5+Menu+Overview">Quotes</a></li>
+                  </ul><ul class="main-menu__second-level" id="menuSecondLevel">
+                    <li><a href="/en/articles" data-fz-event="MQL5+Menu+Articles"><img src="https://c.mql5.com/i/menu/icon-articles4.svg" alt="" width="16" height="16"/>Articles</a></li>
+                    <li><a href="/en/code" data-fz-event="MQL5+Menu+CodeBase"><img src="https://c.mql5.com/i/menu/icon-code4.svg" alt="" width="16" height="16"/>CodeBase</a></li>
+                    <li><a href="https://forge.mql5.io/?lang=en" target="_blank" rel="noopener" data-fz-event="MQL5+Menu+AlgoForge"><img src="https://c.mql5.com/i/menu/icon-algoforge4.svg" alt="" width="16" height="16"/>Algo Forge</a></li>
+                    <li class="main-menu__selected"><a href="/en/docs" data-fz-event="MQL5+Menu+Docs"><img src="https://c.mql5.com/i/menu/icon-docs4.svg" alt="" width="16" height="16"/>Documentation</a></li>
+                    <li><a href="/en/book" data-fz-event="MQL5+Menu+Book"><img src="https://c.mql5.com/i/menu/icon-book4.svg" alt="" width="16" height="16"/>AlgoBook</a></li>
+                    <li><a href="/en/neurobook" data-fz-event="MQL5+Menu+Neurobook"><img src="https://c.mql5.com/i/menu/icon-neurobook4.svg" alt="" width="16" height="16"/>NeuroBook</a></li>
+                    <li><a href="/en/economic-calendar" data-fz-event="MQL5+Menu+Economic+Calendar"><img src="https://c.mql5.com/i/menu/icon-economic-calendar4.svg" alt="" width="16" height="16"/>Calendar</a></li>
+                    <li><a href="https://web.metatrader.app/terminal?mode=demo&lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Menu+Trading"><img src="https://c.mql5.com/i/menu/icon-trading4.svg" alt="" width="16" height="16"/>WebTerminal</a></li>
+                    <li class="main-menu__mobile"><a href="/en/about">About</a></li>
+                    <li class="main-menu__second-tools"><a rel="noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&utm_campaign=download" title="Get the latest version of the trading platform for free" class="button-mt" data-vars-fz="MetaTrader+5+Desktop+Download+Submenu"><img width="18" height="18" src="https://c.mql5.com/i/sidebar/download.svg" alt="" loading="lazy">Download MetaTrader 5</a></li>
+                    </ul>
+          </nav>
+            <div class="main-menu__active">
+              <a id="mainMenuSelected" href="#">
+                <span class="main-menu__primary">Documentation</span><span class="main-menu__secondary">Sections</span>
+              </a>
+            </div>
+<form action="https://www.mql5.com/en/search" onsubmit="return false;" autocomplete="off" id="headerSearchForm" class="header-search" method="post">
+<button type="button" id="headerSearchButton" title="Search" class="header-search__button"></button><div class="header-search__input"><input name="keyword" type="text" enterkeyhint="search" title="Enter search text" placeholder="Search" id="headerSearchKeyword"/><label for="headerSearchKeyword" class="header-search__placeholder">Type <span>/</span> to search:  @user, $symbol, ...</label><button id="headerSearchSubmit" class="header-search__submit"></button></div><button type="button" id="headerSearchClean" title="Close" class="header-search__clean"></button></form>          <input class="blurHandler" id="mainMenuBlurHandler" type="checkbox">
+        </div>
+        <div class="head__toolbar" id="headerToolbar">
+            <div class="container loginRegister">
+              <nav>
+                <ul id="loginRegisterButtons"><li><a class="login" title="Please sign in. OpenID supported" href="https://www.mql5.com/en/auth_login" rel="nofollow" data-fz-event="MQL5+Menu+Siginin">Log in</a></li><li><a class="registration en" title="Please register" href="https://www.mql5.com/en/auth_register" rel="nofollow" data-fz-event="MQL5+Menu+Register" onclick="window.fpush('MQL5+Button+Click');">Create an account</a></li></ul>
+              </nav>
+            </div>
+          <div class="container">
+            <div class="toggle-button" id="sidebarToggleButton">
+              <i></i>
+            </div>
+          </div>
+
+          <div class="group-menu" id="groupMenu">
+
+
+            <div class="container lang-menu-container">
+              <div id="langMenuContainer" class="lang-menu">
+                <input class="blurHandler" id="langmenuBlurHandler" type="checkbox">
+                <nav>
+                  <ul class="lang-menu__list" id="langmenu">
+                    <li class="lang-menu__list-item lang-menu__list-item_selected"><a href="/en/docs/common/messagebox" aria-label="English (English)"><i class="icons-languages icons-languages_en"></i><span>English</span></a></li>
+<li class="lang-menu__list-item"><a href="/ru/docs/common/messagebox" aria-label="Русский (Russian)"><i class="icons-languages icons-languages_ru"></i><span>Русский</span></a></li>
+<li class="lang-menu__list-item"><a href="/zh/docs/common/messagebox" aria-label="中文 (Chinese)"><i class="icons-languages icons-languages_zh"></i><span>中文</span></a></li>
+<li class="lang-menu__list-item"><a href="/es/docs/common/messagebox" aria-label="Español (Spanish)"><i class="icons-languages icons-languages_es"></i><span>Español</span></a></li>
+<li class="lang-menu__list-item"><a href="/pt/docs/common/messagebox" aria-label="Português (Portuguese)"><i class="icons-languages icons-languages_pt"></i><span>Português</span></a></li>
+<li class="lang-menu__list-item"><a href="/ja/docs/common/messagebox" aria-label="日本語 (Japanese)"><i class="icons-languages icons-languages_ja"></i><span>日本語</span></a></li>
+<li class="lang-menu__list-item"><a href="/de/docs/common/messagebox" aria-label="Deutsch (German)"><i class="icons-languages icons-languages_de"></i><span>Deutsch</span></a></li>
+<li class="lang-menu__list-item"><a href="/ko/docs/common/messagebox" aria-label="한국어 (Korean)"><i class="icons-languages icons-languages_ko"></i><span>한국어</span></a></li>
+<li class="lang-menu__list-item"><a href="/fr/docs/common/messagebox" aria-label="Français (French)"><i class="icons-languages icons-languages_fr"></i><span>Français</span></a></li>
+<li class="lang-menu__list-item"><a href="/it/docs/common/messagebox" aria-label="Italiano (Italian)"><i class="icons-languages icons-languages_it"></i><span>Italiano</span></a></li>
+<li class="lang-menu__list-item"><a href="/tr/docs/common/messagebox" aria-label="Türkçe (Turkish)"><i class="icons-languages icons-languages_tr"></i><span>Türkçe</span></a></li>
+
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+  <main>
+<div id='bfogggabsofabcpxuzmgaibarmaxasdrj' class="r7ba6qbuhkqj830as gc3c8mam3"></div>
+    <article class="body" id="bodyContent">
+      <header class="top-band">
+        
+  <div class="path"><div class="shortlinks"><a href="/en/docs" class="boldenPath" title="MQL5 Reference">MQL5 Reference</a><span class="arrow_right" style="margin: 0 6px;"></span><a href="/en/docs/common" class="boldenPath" title="Common Functions">Common Functions</a><span class="arrow_right" style="margin: 0 6px;"></span><span class="boldenPath nowrap">MessageBox</span>&nbsp;</div></div>
+
+      </header>
+
+      
+
+
+
+<div style="overflow: hidden;">
+    <div class="left-panel docsTree" style="width: 253px;">
+      <ul class="docsMenu"><li class="docsMenuNode"><a href="/en/docs/common/alert" class="nowrap" title="Alert">Alert</a></li><li class="docsMenuNode"><a href="/en/docs/common/checkpointer" class="nowrap" title="CheckPointer">CheckPointer</a></li><li class="docsMenuNode"><a href="/en/docs/common/comment" class="nowrap" title="Comment">Comment</a></li><li class="docsMenuNode"><a href="/en/docs/common/cryptencode" class="nowrap" title="CryptEncode">CryptEncode</a></li><li class="docsMenuNode"><a href="/en/docs/common/cryptdecode" class="nowrap" title="CryptDecode">CryptDecode</a></li><li class="docsMenuNode"><a href="/en/docs/common/debugbreak" class="nowrap" title="DebugBreak">DebugBreak</a></li><li class="docsMenuNode"><a href="/en/docs/common/expertremove" class="nowrap" title="ExpertRemove">ExpertRemove</a></li><li class="docsMenuNode"><a href="/en/docs/common/getpointer" class="nowrap" title="GetPointer">GetPointer</a></li><li class="docsMenuNode"><a href="/en/docs/common/gettickcount" class="nowrap" title="GetTickCount">GetTickCount</a></li><li class="docsMenuNode"><a href="/en/docs/common/gettickcount64" class="nowrap" title="GetTickCount64">GetTickCount64</a></li><li class="docsMenuNode"><a href="/en/docs/common/getmicrosecondcount" class="nowrap" title="GetMicrosecondCount">GetMicrosecondCount</a></li><li class="docsMenuNode"><span class="boldenPath nowrap">MessageBox</span></li><li class="docsMenuNode"><a href="/en/docs/common/periodseconds" class="nowrap" title="PeriodSeconds">PeriodSeconds</a></li><li class="docsMenuNode"><a href="/en/docs/common/playsound" class="nowrap" title="PlaySound">PlaySound</a></li><li class="docsMenuNode"><a href="/en/docs/common/print" class="nowrap" title="Print">Print</a></li><li class="docsMenuNode"><a href="/en/docs/common/printformat" class="nowrap" title="PrintFormat">PrintFormat</a></li><li class="docsMenuNode"><a href="/en/docs/common/resetlasterror" class="nowrap" title="ResetLastError">ResetLastError</a></li><li class="docsMenuNode"><a href="/en/docs/common/resourcecreate" class="nowrap" title="ResourceCreate">ResourceCreate</a></li><li class="docsMenuNode"><a href="/en/docs/common/resourcefree" class="nowrap" title="ResourceFree">ResourceFree</a></li><li class="docsMenuNode"><a href="/en/docs/common/resourcereadimage" class="nowrap" title="ResourceReadImage">ResourceReadImage</a></li><li class="docsMenuNode"><a href="/en/docs/common/resourcesave" class="nowrap" title="ResourceSave">ResourceSave</a></li><li class="docsMenuNode"><a href="/en/docs/common/setreturnerror" class="nowrap" title="SetReturnError">SetReturnError</a></li><li class="docsMenuNode"><a href="/en/docs/common/setusererror" class="nowrap" title="SetUserError">SetUserError</a></li><li class="docsMenuNode"><a href="/en/docs/common/sleep" class="nowrap" title="Sleep">Sleep</a></li><li class="docsMenuNode"><a href="/en/docs/common/terminalclose" class="nowrap" title="TerminalClose">TerminalClose</a></li><li class="docsMenuNode"><a href="/en/docs/common/testerhideindicators" class="nowrap" title="TesterHideIndicators">TesterHideIndicators</a></li><li class="docsMenuNode"><a href="/en/docs/common/testerstatistics" class="nowrap" title="TesterStatistics">TesterStatistics</a></li><li class="docsMenuNode"><a href="/en/docs/common/testerstop" class="nowrap" title="TesterStop">TesterStop</a></li><li class="docsMenuNode"><a href="/en/docs/common/testerdeposit" class="nowrap" title="TesterDeposit">TesterDeposit</a></li><li class="docsMenuNode"><a href="/en/docs/common/testerwithdrawal" class="nowrap" title="TesterWithdrawal">TesterWithdrawal</a></li><li class="docsMenuNode"><a href="/en/docs/common/translatekey" class="nowrap" title="TranslateKey">TranslateKey</a></li><li class="docsMenuNode"><a href="/en/docs/common/zeromemory" class="nowrap" title="ZeroMemory">ZeroMemory</a></li></ul>
+      
+      
+      
+        <div class="directHelp">
+        </div>
+    </div>
+
+
+<div class="docsContainer">
+  <div id="help">
+<H1>MessageBox</H1>
+<p class="p_Function"><span class="f_Function">It creates and shows a message box and manages it. A message box contains a message and header, any combination of predefined signs and command buttons.</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_Keywords">int&nbsp;&nbsp;</span><span class="f_Functions">MessageBox</span><span class="f_CodeExample">(</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">string</span><span class="f_CodeExample">&nbsp;&nbsp;</span><span class="f_Param">text</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;message&nbsp;text</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">string</span><span class="f_CodeExample">&nbsp;&nbsp;</span><span class="f_Param">caption=NULL</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;box&nbsp;header</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">flags=0</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;defines&nbsp;set&nbsp;of&nbsp;buttons&nbsp;in&nbsp;the&nbsp;box</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;);</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Parameters</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">text</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Text, containing message to output.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">caption=<a href="/en/docs/basis/types/void" class="topiclink">NULL</a></span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Optional text to be displayed in the box header. If the parameter is empty, Expert Advisor name is shown in the box header.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">flags=0</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Optional <a href="/en/docs/constants/io_constants/messbconstants#messageboxflags" class="topiclink">flags</a> defining appearance and behavior of a message box. Flags can be a combination of a special group of flags.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Return Value</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">If the function is successfully performed, the returned value is one of values of <a href="/en/docs/constants/io_constants/messbconstants" class="topiclink">MessageBox()</a> return codes.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Note</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">The function cannot be used in custom indicators since calling MessageBox() suspends the <a href="/en/docs/runtime/running" class="topiclink">thread of execution</a> for the whole time while waiting for the user's response. Since all indicators for each symbol are executed in a single thread, such suspension makes the operation of all charts on all timeframes for this symbol impossible.</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">MessageBox() function does not work in the <a href="/en/docs/runtime/testing#alert_etc" class="topiclink">Strategy Tester</a>.</span></p>
+
+<p class="p_Text"><span class="f_Text" style="font-weight: bold;">Example:</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;The&nbsp;EA&nbsp;displays&nbsp;MessageBox&nbsp;window&nbsp;with&nbsp;a&nbsp;request&nbsp;for&nbsp;further&nbsp;work|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;upon&nbsp;reaching&nbsp;specified&nbsp;number&nbsp;of&nbsp;series&nbsp;of&nbsp;unprofitable&nbsp;trades&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Wait&nbsp;for&nbsp;the&nbsp;specified&nbsp;number&nbsp;of&nbsp;bars&nbsp;and&nbsp;display&nbsp;MessageBox&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;with&nbsp;a&nbsp;request&nbsp;to&nbsp;continue&nbsp;work.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;To&nbsp;check,&nbsp;we&nbsp;need&nbsp;to&nbsp;manually&nbsp;open&nbsp;and&nbsp;close&nbsp;several&nbsp;positions&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;with&nbsp;a&nbsp;loss,&nbsp;since&nbsp;the&nbsp;EA&nbsp;does&nbsp;not&nbsp;control&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;its&nbsp;own&nbsp;&quot;positions&quot;&nbsp;by&nbsp;magic&nbsp;number&nbsp;for&nbsp;simplicity.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;input&nbsp;parameters</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #c0504d;">InpMaxLossDeals</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">3</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;Max&nbsp;Loss&nbsp;deals</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">input</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #c0504d;">InpInactivityNumBars</span><span class="f_CodeExample">&nbsp;=&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">5</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;Number&nbsp;of&nbsp;bars&nbsp;of&nbsp;advisor&nbsp;inactivity</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;global&nbsp;variables</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">bool</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFirstStart</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #ff0000;">true</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;First&nbsp;launch&nbsp;flag</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">bool</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFlag</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #ff0000;">true</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;Flag&nbsp;for&nbsp;allowing&nbsp;the&nbsp;EA&nbsp;to&nbsp;work</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtNumLoss</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;Number&nbsp;of&nbsp;consecutive&nbsp;unprofitable&nbsp;trades</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">datetime</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtTimeLastLoss</span><span class="f_CodeExample">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//&nbsp;Time&nbsp;of&nbsp;the&nbsp;last&nbsp;trade&nbsp;to&nbsp;close&nbsp;a&nbsp;losing&nbsp;position</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Expert&nbsp;initialization&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnInit</span><span class="f_CodeExample">()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;the&nbsp;number&nbsp;of&nbsp;losing&nbsp;trades&nbsp;in&nbsp;a&nbsp;row&nbsp;and&nbsp;the&nbsp;time&nbsp;of&nbsp;the&nbsp;last&nbsp;trade&nbsp;to&nbsp;close&nbsp;the&nbsp;position</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtNumLoss</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">GetNumLosingTradesInRow</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ExtTimeLastLoss</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #ff0000;">INIT_SUCCEEDED</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Expert&nbsp;deinitialization&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnDeinit</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">reason</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Comment</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Expert&nbsp;tick&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnTick</span><span class="f_CodeExample">()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;determine&nbsp;how&nbsp;many&nbsp;bars&nbsp;have&nbsp;passed&nbsp;since&nbsp;the&nbsp;last&nbsp;closed&nbsp;losing&nbsp;position&nbsp;in&nbsp;the&nbsp;series</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">bars_remaining</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">iBarShift</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">Symbol</span><span class="f_CodeExample">(),</span><span class="f_CodeExample" style="color: #ff0000;">PERIOD_CURRENT</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #333333;">ExtTimeLastLoss</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;this&nbsp;is&nbsp;the&nbsp;first&nbsp;launch</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ExtFirstStart</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;If&nbsp;a&nbsp;specified&nbsp;number&nbsp;of&nbsp;bars&nbsp;have&nbsp;already&nbsp;passed&nbsp;after&nbsp;a&nbsp;series&nbsp;of&nbsp;unprofitable&nbsp;positions,&nbsp;set&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">bars_remaining</span><span class="f_CodeExample">&gt;(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #c0504d;">InpInactivityNumBars</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFlag</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #ff0000;">true</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFirstStart</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #ff0000;">false</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag&nbsp;is&nbsp;disabled</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #333333;">ExtFlag</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Comment</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">StringFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;The&nbsp;advisor&nbsp;is&nbsp;stopped&nbsp;for&nbsp;%d&nbsp;bars.&nbsp;Num&nbsp;Loss&nbsp;positions:&nbsp;%u,&nbsp;Time&nbsp;last&nbsp;loss:&nbsp;%s&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span><span class="f_CodeExample" style="color: #c0504d;">InpInactivityNumBars</span><span class="f_CodeExample">-</span><span class="f_CodeExample" style="color: #333333;">bars_remaining</span><span class="f_CodeExample">),</span><span class="f_CodeExample" style="color: #333333;">ExtNumLoss</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">TimeToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ExtTimeLastLoss</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">TIME_DATE</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">TIME_MINUTES</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">TIME_SECONDS</span><span class="f_CodeExample">)));</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;a&nbsp;specified&nbsp;number&nbsp;of&nbsp;bars&nbsp;have&nbsp;passed&nbsp;after&nbsp;a&nbsp;series&nbsp;of&nbsp;unprofitable&nbsp;positions</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">bars_remaining</span><span class="f_CodeExample">&gt;(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #c0504d;">InpInactivityNumBars</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;MessageBox&nbsp;window&nbsp;with&nbsp;the&nbsp;specified&nbsp;text&nbsp;and&nbsp;window&nbsp;title</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;the&nbsp;request&nbsp;window&nbsp;has&nbsp;two&nbsp;Yes/No&nbsp;buttons&nbsp;and&nbsp;an&nbsp;icon&nbsp;with&nbsp;a&nbsp;question&nbsp;mark.</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;the&nbsp;Yes&nbsp;button&nbsp;is&nbsp;selected&nbsp;by&nbsp;default.</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">mb_text</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;The&nbsp;specified&nbsp;number&nbsp;of&nbsp;bars&nbsp;of&nbsp;EA&nbsp;inactivity&nbsp;have&nbsp;passed.\n&nbsp;Continue&nbsp;its&nbsp;work?&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">mb_caption</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;Please&nbsp;note&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">mb_id</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">MessageBox</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">mb_text</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #333333;">mb_caption</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">MB_YESNO</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">MB_ICONQUESTION</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">MB_DEFBUTTON1</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;return&nbsp;code&nbsp;from&nbsp;MessageBox&nbsp;is&nbsp;the&nbsp;Yes&nbsp;button&nbsp;pressed,&nbsp;set&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">mb_id</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #ff0000;">IDYES</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFlag</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #ff0000;">true</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag&nbsp;is&nbsp;disabled,&nbsp;exit&nbsp;OnTick()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag&nbsp;is&nbsp;set&nbsp;-&nbsp;the&nbsp;EA&nbsp;works&nbsp;as&nbsp;provided&nbsp;by&nbsp;the&nbsp;code&nbsp;below</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Comment</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">StringFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;The&nbsp;advisor&nbsp;is&nbsp;working.&nbsp;Num&nbsp;Loss&nbsp;positions:&nbsp;%u,&nbsp;Time&nbsp;last&nbsp;loss:&nbsp;%s,&nbsp;Elapsed&nbsp;Bars:&nbsp;%d&quot;</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample" style="color: #333333;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ExtNumLoss</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">TimeToString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ExtTimeLastLoss</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">TIME_DATE</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">TIME_MINUTES</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">TIME_SECONDS</span><span class="f_CodeExample">),</span><span class="f_CodeExample" style="color: #333333;">bars_remaining</span><span class="f_CodeExample">));</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;TradeTransaction&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnTradeTransaction</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff00ff;">MqlTradeTransaction</span><span class="f_CodeExample">&amp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">trans</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff00ff;">MqlTradeRequest</span><span class="f_CodeExample">&amp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">request</span><span class="f_CodeExample">,</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff00ff;">MqlTradeResult</span><span class="f_CodeExample">&amp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">result</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;transaction&nbsp;type&nbsp;is&nbsp;adding&nbsp;a&nbsp;transaction&nbsp;to&nbsp;history</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">trans</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">type</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #ff0000;">TRADE_TRANSACTION_DEAL_ADD</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;a&nbsp;deal&nbsp;ticket&nbsp;and&nbsp;select&nbsp;a&nbsp;deal&nbsp;from&nbsp;the&nbsp;list&nbsp;by&nbsp;ticket</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ulong</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">trans</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">deal</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealSelect</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;this&nbsp;is&nbsp;a&nbsp;market&nbsp;exit&nbsp;trade,&nbsp;get&nbsp;the&nbsp;number&nbsp;of&nbsp;losing&nbsp;trades&nbsp;in&nbsp;a&nbsp;row&nbsp;and&nbsp;the&nbsp;time&nbsp;of&nbsp;the&nbsp;last&nbsp;trade</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ENUM_DEAL_ENTRY</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #ff0000;">ENUM_DEAL_ENTRY</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetInteger</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY_OUT</span><span class="f_CodeExample">&nbsp;||&nbsp;</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY_INOUT</span><span class="f_CodeExample">&nbsp;||&nbsp;</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY_OUT_BY</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtNumLoss</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">GetNumLosingTradesInRow</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ExtTimeLastLoss</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;number&nbsp;of&nbsp;losing&nbsp;trades&nbsp;in&nbsp;a&nbsp;row&nbsp;is&nbsp;greater&nbsp;than&nbsp;the&nbsp;specified&nbsp;value&nbsp;and&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag&nbsp;is&nbsp;enabled</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ExtNumLoss</span><span class="f_CodeExample">&gt;=</span><span class="f_CodeExample" style="color: #c0504d;">InpMaxLossDeals</span><span class="f_CodeExample">&nbsp;&amp;&amp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFlag</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;MessageBox&nbsp;window&nbsp;with&nbsp;the&nbsp;specified&nbsp;text&nbsp;and&nbsp;window&nbsp;title</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;the&nbsp;request&nbsp;window&nbsp;has&nbsp;two&nbsp;Yes/No&nbsp;buttons&nbsp;and&nbsp;an&nbsp;icon&nbsp;with&nbsp;an&nbsp;exclamation&nbsp;mark.</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;the&nbsp;No&nbsp;button&nbsp;is&nbsp;selected&nbsp;by&nbsp;default.</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">mb_text</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;The&nbsp;number&nbsp;of&nbsp;losing&nbsp;trades&nbsp;has&nbsp;reached&nbsp;the&nbsp;specified&nbsp;maximum.&nbsp;The&nbsp;advisor&nbsp;is&nbsp;stopped.\n&nbsp;Continue&nbsp;its&nbsp;work?&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">mb_caption</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;Attention!&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">mb_id</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">MessageBox</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">mb_text</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #333333;">mb_caption</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">MB_YESNO</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">MB_ICONQUESTION</span><span class="f_CodeExample">|</span><span class="f_CodeExample" style="color: #ff0000;">MB_DEFBUTTON2</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;return&nbsp;code&nbsp;from&nbsp;MessageBox&nbsp;is&nbsp;the&nbsp;No&nbsp;button&nbsp;pressed,&nbsp;disable&nbsp;the&nbsp;EA&nbsp;operation&nbsp;flag</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">mb_id</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #ff0000;">IDNO</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ExtFlag</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #ff0000;">false</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Return&nbsp;the&nbsp;number&nbsp;of&nbsp;consecutive&nbsp;unprofitable&nbsp;trades&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;and&nbsp;the&nbsp;time&nbsp;of&nbsp;the&nbsp;last&nbsp;trade&nbsp;to&nbsp;close&nbsp;a&nbsp;losing&nbsp;position&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">GetNumLosingTradesInRow</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">datetime</span><span class="f_CodeExample">&nbsp;&amp;</span><span class="f_CodeExample" style="color: #333333;">time_last_deal</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;select&nbsp;the&nbsp;entire&nbsp;history</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistorySelect</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #0000ff;">TimeCurrent</span><span class="f_CodeExample">()))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;the&nbsp;next&nbsp;trade&nbsp;ticket&nbsp;by&nbsp;the&nbsp;list&nbsp;of&nbsp;historical&nbsp;deals&nbsp;in&nbsp;a&nbsp;loop</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">res</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">total</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealsTotal</span><span class="f_CodeExample">();</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">for</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #333333;">total</span><span class="f_CodeExample">-</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">&gt;=</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">--)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ulong</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetTicket</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">&gt;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;deal&nbsp;is&nbsp;not&nbsp;for&nbsp;exiting&nbsp;the&nbsp;position,&nbsp;move&nbsp;on&nbsp;to&nbsp;the&nbsp;next&nbsp;one</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ENUM_DEAL_ENTRY</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #ff0000;">ENUM_DEAL_ENTRY</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetInteger</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">!=</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY_OUT</span><span class="f_CodeExample">&nbsp;&amp;&amp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">!=</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY_OUT_BY</span><span class="f_CodeExample">&nbsp;&amp;&amp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">entry</span><span class="f_CodeExample">!=</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_ENTRY_INOUT</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">continue</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;result&nbsp;of&nbsp;closing&nbsp;a&nbsp;position&nbsp;has&nbsp;a&nbsp;profit,&nbsp;interrupt&nbsp;the&nbsp;loop</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #333333;">IsClosePositionWithLoss</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">break</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;increase&nbsp;the&nbsp;counter&nbsp;of&nbsp;consecutive&nbsp;loss-making&nbsp;trades</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">res</span><span class="f_CodeExample">++;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;write&nbsp;the&nbsp;maximum&nbsp;trade&nbsp;time&nbsp;into&nbsp;a&nbsp;variable&nbsp;(looking&nbsp;for&nbsp;the&nbsp;last&nbsp;one)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">datetime</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">deal_time</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #0000ff;">datetime</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetInteger</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_TIME</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_time</span><span class="f_CodeExample">&gt;</span><span class="f_CodeExample" style="color: #333333;">time_last_deal</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">time_last_deal</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">deal_time</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;return&nbsp;the&nbsp;number&nbsp;of&nbsp;consecutive&nbsp;losses</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">res</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Return&nbsp;the&nbsp;flag&nbsp;of&nbsp;closing&nbsp;a&nbsp;position&nbsp;with&nbsp;a&nbsp;loss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">bool</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">IsClosePositionWithLoss</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ulong</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;properties&nbsp;affecting&nbsp;profit&nbsp;from&nbsp;the&nbsp;trade</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">profit</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_PROFIT</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">comission</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_COMMISSION</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">swap</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_SWAP</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">fee</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryDealGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">deal_ticket</span><span class="f_CodeExample">,</span><span class="f_CodeExample" style="color: #ff0000;">DEAL_FEE</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;return&nbsp;the&nbsp;flag&nbsp;indicating&nbsp;that&nbsp;the&nbsp;total&nbsp;value&nbsp;of&nbsp;the&nbsp;received&nbsp;properties&nbsp;is&nbsp;negative</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">profit</span><span class="f_CodeExample">+</span><span class="f_CodeExample" style="color: #333333;">comission</span><span class="f_CodeExample">+</span><span class="f_CodeExample" style="color: #333333;">swap</span><span class="f_CodeExample">+</span><span class="f_CodeExample" style="color: #333333;">fee</span><span class="f_CodeExample">&lt;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span></p>
+</td>
+</tr>
+</table>
+</div>
+
+
+</div>
+
+    
+  <div style="height: 1px; overflow: hidden; clear: both;"></div>
+</div>
+
+
+  <div class="docsNav">
+        <div style="float: left;">
+          <span class="arrow_left" style="margin-right: 4px;"></span><a href="/en/docs/common/getmicrosecondcount" class="nowrap" title="GetMicrosecondCount">GetMicrosecondCount</a>
+        </div>
+        <div style="float: right; margin-right: 4px;">
+          <a href="/en/docs/common/periodseconds" class="nowrap" title="PeriodSeconds">PeriodSeconds</a><span class="arrow_right" style="margin-left: 4px;"></span>
+        </div>
+  </div>
+
+  <div class="docsNav docsNav__sub">
+    
+
+<div id='wdausxxqrpvhekbwjrjlhqjghyhesrqqau' class="r9w6hoig2sjfewv65 r9w6hoig2sjfewv65_docs gc3c8mam3"></div>  </div>
+
+
+</div>
+<!-- Docs file updated: 2026.03.10 -->
+
+
+    </article>
+  </main>
+
+    <footer aria-hidden="true">
+
+
+<div aria-hidden="true" class="footer  desktop" id="footer">
+  <ul class="links  links_desktop">
+      <li id="navFooterCommunity">
+        <nav>
+          <ul>
+            <li><a href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Footer+Trading">Online trading / WebTerminal</a></li>
+            <li><a href="/en/code" data-fz-event="MQL5+Footer+CodeBase">Free technical indicators and robots</a></li>
+            <li><a href="/en/articles" data-fz-event="MQL5+Footer+Articles">Articles about programming and trading</a></li>
+            <li><a href="/en/job" data-fz-event="MQL5+Footer+Job">Order trading robots on the Freelance</a></li>
+            <li><a href="/en/market" data-fz-event="MQL5+Footer+Market">Market of Expert Advisors and applications&#x9;</a></li>
+            <li><a href="/en/signals" data-fz-event="MQL5+Footer+Signals">Follow forex signals</a></li>
+            <li><a href="/en/vps" data-fz-event="MQL5+Footer+VPS">Low latency forex VPS</a></li>
+            <li><a href="/en/forum" data-fz-event="MQL5+Footer+Forum">Traders forum</a></li>
+            <li><a href="/en/blogs" data-fz-event="MQL5+Footer+Blogs">Trading blogs</a></li>
+            <li><a rel="nofollow" href="/en/charts" data-fz-event="MQL5+Footer+Charts">Charts</a></li>
+            <li><a href="/en/widgets" data-fz-event="MQL5+Footer+Widgets">Free widgets</a></li>
+          </ul>
+        </nav>
+      </li>
+      <li id="navFooterMt5">
+        <nav>
+          <ul>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> Trading Platform</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/releasenotes" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> latest updates</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/news" data-fz-event="MQL5+Footer+MetaTrader+5">News, implementations and technology</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> User Manual</a></li>
+            <li><a href="/en/docs" data-fz-event="MQL5+Footer+Docs">MQL5 language of trading strategies</a></li>
+            <li><a rel="nofollow noopener" href="https://cloud.mql5.com" data-fz-event="MQL5+Footer+Cloud">MQL5 Cloud Network</a></li>
+            <li><a rel="noopener" href="https://forge.mql5.io/?lang=en" data-fz-event="MQL5+Footer+Forge" target="_blank">MQL5 Algo Forge</a></li>
+              <li><a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MetaTrader+5+Desktop+Download+Footer">Download <span class="nobr">MetaTrader 5</span></a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/installation" data-fz-event="MQL5+Footer+MetaTrader+5">Install Platform</a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/deinstallation" data-fz-event="MQL5+Footer+MetaTrader+5">Uninstall Platform</a></li>
+          </ul>
+        </nav>
+
+      </li>
+    <li id="navFooterWebsite">
+        <nav>
+          <ul>
+            <li><a rel="nofollow" href="/en/about" data-fz-event="MQL5+Footer+About">About</a></li>
+              <li><a href="/en/wall" data-fz-event="MQL5+Footer+Wall">Timeline</a></li>
+            <li><a rel="nofollow" href="/en/about/terms" data-fz-event="MQL5+Footer+About">Terms and Conditions</a></li>
+            <li><a rel="nofollow" href="/en/about/autopayments" data-fz-event="MQL5+Footer+About">Recurring Payment Agreement</a></li>
+            <li><a rel="nofollow" href="/en/about/agencyagreement" data-fz-event="MQL5+Footer+About">Agency Agreement – Offer</a></li>
+            <li><a rel="nofollow" href="/en/about/privacy" data-fz-event="MQL5+Footer+About">Privacy and Data Protection Policy</a></li>
+            <li><a rel="nofollow" href="/en/about/cookies" data-fz-event="MQL5+Footer+About">Cookies Policy</a></li>
+            <li>
+                <a rel="nofollow" href="/en/contact" data-fz-event="MQL5+Footer+Contacts">Contacts and requests</a>
+            </li>
+          </ul>
+        </nav>
+    </li>
+
+      <li>
+        <div class="footer__products">
+            <div class="footer__product">
+              <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com" class="footer__product-name">MetaTrader 5</a>
+              <div class="footer__product-links">
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon windows" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Windows</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/MetaTrader5.pkg.zip?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon macos" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for MacOS</div></a>
+              <a rel="nofollow noopener" href="https://www.mql5.com/en/articles/625?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon linux" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Linux</div></a>
+              <a rel="nofollow noopener" href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" class="icon web"><div  class="footer__product-link-hint footer__product-link-hint-short">Open MetaTrader 5 WebTerminal</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/ios?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon ios" data-fz-event="MetaTrader+5+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/jhZn8Ed1I1d.png)">Scan to install from App Store</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon android" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/kiF2Io6W-9d.png)">Scan to install from Google Play</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon huawei" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/ZRt&#x2B;zI1l&#x2B;8O.png)">Scan to install from Huawei AppGallery</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mt5/metatrader5.apk?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon ark" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/L0Q9oag&#x2B;3eE.png)">Scan to get Android APK file</div></a>
+              </div>
+            </div>
+            <div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com/en/news/2270" class="footer__product-name">MQL5 Channels</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="MQL5+Channels+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/bZVfOJnYpcO.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/32MJFgw7BVs.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Su&#x2B;fe4n374e.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mql5channels/mql5channels.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/G6Mg4NfCPzO.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.tradays.com/en/download?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MQL5+Footer+Download+Tradays" class="footer__product-name">Economic Calendar</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="Tradays+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CpD&#x2B;mhIw-1E.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Bgyx8UcmYap.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CrS7bbDAdAO.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/tradays/tradays.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/VZi8YPIb2op.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer__networks">
+            <div class="footer__networks-list">
+            <a href="https://www.facebook.com/mql5.community/" target="_blank" rel="nofollow" title="Facebook"><i class="icons-networks icons-networks_fb"></i></a><a href="https://t.me/mql5dev" target="_blank" rel="nofollow" title="Telegram"><i class="icons-networks icons-networks_tg"></i></a><a href="https://x.com/mql5com" target="_blank" rel="nofollow" title="X (Twitter)"><i class="icons-networks icons-networks_tw"></i></a>
+            </div>
+            <span>Follow us on socials for top articles and CodeBase updates</span>
+          </div>
+  
+        <div class="footer__other">
+          <div class="footer__not-a-broker">Not a broker, no real trading accounts</div>
+          <div class="copyright">35 Dodekanisou str, Germasogeia, 4043,&nbsp;Limassol,&nbsp;Cyprus</div>
+          <div class="copyright">Copyright 2000-2026, <span class="nobr">MetaQuotes Ltd</span></div>
+        </div>
+      </li>
+  </ul>
+</div>
+
+
+    </footer>
+
+  <div class="shadow-layer" id="layer"></div>
+      
+</div>
+
+<script type="text/javascript">
+           mqGlobal.AddOnReady(function () { Mql5Cookie.init('mql5.com','5062241162011568156'); });
+mqGlobal.AddOnLoad(function(){new TrackScrollPosition('Docs');});window.fz("show","wdausxxqrpvhekbwjrjlhqjghyhesrqqau");mqGlobal.AddOnReady(function(){{window.initHeaderSearch('','https://www.mql5.com/en/search');}});</script><script type="text/javascript">mqGlobal.AddOnReady(function(){window.initSuggestions("headerSearchKeyword","en","https://search.mql5.com/api/query","https://www.mql5.com/en/users_search/suggestion");});window.fz("show","bfogggabsofabcpxuzmgaibarmaxasdrj");mqGlobal.AddOnReady(function(){window.floatVerticalPanelNode=FloatVerticalPanel('This website uses cookies. Learn more about our <a href="/en/about/cookies">Cookies Policy</a>.','cookie_accept');});      if (typeof Attach !== "undefined")
+        Attach.setAcceptFilter(".zip, .txt, .log, .mqh, .ex5, .mq5, .mq4, .mqproj, .ex4, .mt5, .set, .tpl, .cl, .py, .sqlite, .csv, .ini, .ipynb, .onnx, .gif, .png, .jpg, .jpeg, .mp4, .webm");
+  </script>
+
+  <div class="b-fixed-mt" id="bFixedMt" style="display: none;">
+    
+  </div>
+
+  <script type="application/ld&#x2B;json">
+  [{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Forum","description":"Discussions of trading strategies and algorithmic trading. MQL5.community  the largest forex forum","url":"https://www.mql5.com/en/forum","children":[]},{"@type":"SiteNavigationElement","position":2,"name":"Market","description":"MetaTrader Market - a Market of trading robots, indicators, trading books and magazines","url":"https://www.mql5.com/en/market","children":[]},{"@type":"SiteNavigationElement","position":3,"name":"Signals","description":"Social trading, copy trading and account monitoring with MetaTrader - Trading Signals on MQL5.com","url":"https://www.mql5.com/en/signals","children":[]},{"@type":"SiteNavigationElement","position":4,"name":"Freelance","description":"Order trading robots, technical indicators and algorithmic trading applications. Forex jobs. Freelance on MQL5.com. Hire MetaTrader experts and specialists","url":"https://www.mql5.com/en/job","children":[]},{"@type":"SiteNavigationElement","position":5,"name":"Quotes","description":"","url":"https://www.mql5.com/en/quotes/overview","children":[]},{"@type":"SiteNavigationElement","position":6,"name":"WebTerminal","description":"WebTerminal for the MetaTrader trading platform. Online forex trading.","url":"https://web.metatrader.app/terminal?mode=demo","children":[]},{"@type":"SiteNavigationElement","position":7,"name":"Calendar","description":"","url":"https://www.mql5.com/en/economic-calendar","children":[]},{"@type":"SiteNavigationElement","position":8,"name":"VPS","description":"","url":"https://www.mql5.com/en/vps","children":[]},{"@type":"SiteNavigationElement","position":9,"name":"Articles","description":"","url":"https://www.mql5.com/en/articles","children":[]},{"@type":"SiteNavigationElement","position":10,"name":"CodeBase","description":"Download trading robots, technical indicators and scripts with source code - MQL5 Code Base for MetaTrader 5","url":"https://www.mql5.com/en/code","children":[]},{"@type":"SiteNavigationElement","position":11,"name":"Algo Forge","description":"","url":"https://forge.mql5.io","children":[]},{"@type":"SiteNavigationElement","position":12,"name":"Documentation","description":"MetaQuotes Language 5 (MQL5) Reference - Documentation on MQL5.com","url":"https://www.mql5.com/en/docs","children":[]}]}  
+,
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":"https://www.mql5.com/en/docs","name":"MQL5 Reference"},{"@type":"ListItem","position":2,"item":"https://www.mql5.com/en/docs/common","name":"Common Functions"},{"@type":"ListItem","position":3,"item":"https://www.mql5.com/en/docs/common/messagebox","name":"MessageBox"}]}
+
+      ,{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "MessageBox",
+          "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It creates and shows a message box and manages it. A message box contains a message and header, any combination of predefined signs and command..."
+        }
+        }]
+      }
+      
+  ]
+</script>
+</body>
+</html>

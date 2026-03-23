@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://c.mql5.com">
+  <meta name="description" content="Returns the requested order property. The order property must be of the double type. There are 2 variants of the function. 1. Immediately returns...">
+  <meta property="og:url" content="https://www.mql5.com/en/docs/trading/historyordergetdouble">
+  <meta property="og:title" content="Documentation on MQL5: HistoryOrderGetDouble / Trade Functions">
+  <meta property="og:description" content="Returns the requested order property. The order property must be of the double type. There are 2 variants of the function. 1. Immediately returns...">
+      <meta property="og:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+      <meta property="og:image:secure_url" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@mql5com">
+  <meta name="twitter:image" content="https://c.mql5.com/i/og/mql5-docs-3.png">
+  <meta name="theme-color" content="#4a76b8">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="https://www.mql5.com/manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="https://www.mql5.com/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://www.mql5.com/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="https://www.mql5.com/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://www.mql5.com/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="https://www.mql5.com/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.mql5.com/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="https://www.mql5.com/apple-touch-icon-192x192.png">
+  <link rel="icon" sizes="192x192" href="https://www.mql5.com/android-touch-icon-192x192.png">
+  <link rel="icon" sizes="128x128" href="https://www.mql5.com/android-touch-icon-128x128.png">
+  <link rel="shortcut icon" href="https://c.mql5.com/i/favicon4.ico">
+  <meta name="msapplication-config" content="none"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta property="qc:admins" content="36367170677651456375"/>
+  <meta property="wb:webmaster" content="073d7690269bcd81"/>
+  <link href="https://c.mql5.com/styles/core.5d0909a86560d548a4987680437be48c.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/all.65023a0db01c5ab7ceb59789bcf40c80.css" type="text/css" rel="stylesheet" media="all">
+  <link href="https://c.mql5.com/styles/help.607fabd1d981f58fa5fb84b1020b666e.css" type="text/css" rel="stylesheet" media="all">
+  <link rel="canonical" href="https://www.mql5.com/en/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="en" href="https://www.mql5.com/en/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="ru" href="https://www.mql5.com/ru/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="zh" href="https://www.mql5.com/zh/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="es" href="https://www.mql5.com/es/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="pt" href="https://www.mql5.com/pt/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="ja" href="https://www.mql5.com/ja/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="de" href="https://www.mql5.com/de/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="ko" href="https://www.mql5.com/ko/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="fr" href="https://www.mql5.com/fr/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="it" href="https://www.mql5.com/it/docs/trading/historyordergetdouble">
+  <link rel="alternate" hreflang="tr" href="https://www.mql5.com/tr/docs/trading/historyordergetdouble">
+  <title>HistoryOrderGetDouble - Trade Functions - MQL5 Reference</title>
+  <script type='text/javascript'>
+  (function(a,e,f,g,b,c,d){a[b]||(a.FintezaCoreObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=!0,c.defer=!0,c.src=g,d&&d.parentNode&&d.parentNode.insertBefore(c,d))})
+      (window, document, "script", "/ff/core.js", "fz");
+  window.fz("register", "website", {
+      id: "sqjxkxkswybhifrohpyooonwgbvsfzmayq",
+    trackLinks: true,
+    sendEventsByBeacon: true,
+  });
+  </script>
+
+
+<script type="text/javascript">
+  !function(){window.mqGlobal={};var t=!1,n=!1,e=[],o=[],i=[];function d(t){var n;for(n=0;n<t.length;n+=1)t[n]()}function c(){t||(t=!0,d(e),d(o),o=[],e=[])}function a(){c(),n||(n=!0,d(i),i=[])}if(mqGlobal.AddOnReady=function(n,i){t?n(document):i?e.push(n):o.push(n)},mqGlobal.AddOnLoad=function(t){n?t(document):i.push(t)},mqGlobal.AddOnActiveWindowChange=function(t){this._onvisibility||(this._onvisibility=[]),this._onvisibility[this._onvisibility.length]=t},document.addEventListener)document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",a,!1);else if(document.attachEvent&&(document.attachEvent("onreadystatechange",(function(){switch(document.readyState){case"interactive":c();break;case"complete":a()}})),window.attachEvent("onload",a),document.documentElement.doScroll&&window==window.top)){!function n(){if(!t&&document.body)try{document.documentElement.doScroll("left"),c()}catch(t){setTimeout(n,0)}}()}}();
+  mqGlobal.CookieDomain = ".mql5.com";
+  mqGlobal.Language = 'en';
+  mqGlobal.IsMobile = false;
+  mqGlobal.ClearRteStorage = function (e) { if (window.GStorage || (window.GStorage = globalStorage()), window.GStorage.supported) try { var o = e; window.GStorage.getItem("rte_autosave_uid", function (e, t) { t == o && (window.GStorage.removeItem("rte_autosave_text"), window.GStorage.removeItem("rte_autosave_date"), window.GStorage.removeItem("rte_autosave_uid")) }) } catch (e) { } };
+</script>
+  
+
+
+    <script src="https://c.mql5.com/js/all.62ce17e8cf0163510ff0616f628b63a5.js" type="text/javascript" defer="defer"></script>
+  <script src="https://c.mql5.com/js/vendor.878aea2c110ed989c5508cf1babe9772.js" type="text/javascript" defer="defer"></script>
+
+
+</head>
+
+<body>
+
+<div class="cover" id="cover">
+
+    <header class="head">
+      <a href="https://www.mql5.com" class="head__logo" title="MQL5 - Language of trade strategies built-in the MetaTrader 5 client terminal"></a>
+        <div class="head__content">
+          <nav class="main-menu" id="mainmenu">
+            
+                    <ul class="main-menu__top-level" id="menuTopLevel">
+                    <li><a href="/en/forum" data-fz-event="MQL5+Menu+Forum">Forum</a></li>
+                    <li><a href="/en/market" data-fz-event="MQL5+Menu+Market">Market</a></li>
+                    <li><a href="/en/signals" data-fz-event="MQL5+Menu+Signals">Signals</a></li>
+                    <li><a href="/en/job" data-fz-event="MQL5+Menu+Job">Freelance</a></li>
+                    <li><a href="/en/vps" data-fz-event="MQL5+Menu+VPS">VPS</a></li>
+                    <li><a href="/en/quotes/overview" data-fz-event="MQL5+Menu+Overview">Quotes</a></li>
+                  </ul><ul class="main-menu__second-level" id="menuSecondLevel">
+                    <li><a href="/en/articles" data-fz-event="MQL5+Menu+Articles"><img src="https://c.mql5.com/i/menu/icon-articles4.svg" alt="" width="16" height="16"/>Articles</a></li>
+                    <li><a href="/en/code" data-fz-event="MQL5+Menu+CodeBase"><img src="https://c.mql5.com/i/menu/icon-code4.svg" alt="" width="16" height="16"/>CodeBase</a></li>
+                    <li><a href="https://forge.mql5.io/?lang=en" target="_blank" rel="noopener" data-fz-event="MQL5+Menu+AlgoForge"><img src="https://c.mql5.com/i/menu/icon-algoforge4.svg" alt="" width="16" height="16"/>Algo Forge</a></li>
+                    <li class="main-menu__selected"><a href="/en/docs" data-fz-event="MQL5+Menu+Docs"><img src="https://c.mql5.com/i/menu/icon-docs4.svg" alt="" width="16" height="16"/>Documentation</a></li>
+                    <li><a href="/en/book" data-fz-event="MQL5+Menu+Book"><img src="https://c.mql5.com/i/menu/icon-book4.svg" alt="" width="16" height="16"/>AlgoBook</a></li>
+                    <li><a href="/en/neurobook" data-fz-event="MQL5+Menu+Neurobook"><img src="https://c.mql5.com/i/menu/icon-neurobook4.svg" alt="" width="16" height="16"/>NeuroBook</a></li>
+                    <li><a href="/en/economic-calendar" data-fz-event="MQL5+Menu+Economic+Calendar"><img src="https://c.mql5.com/i/menu/icon-economic-calendar4.svg" alt="" width="16" height="16"/>Calendar</a></li>
+                    <li><a href="https://web.metatrader.app/terminal?mode=demo&lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Menu+Trading"><img src="https://c.mql5.com/i/menu/icon-trading4.svg" alt="" width="16" height="16"/>WebTerminal</a></li>
+                    <li class="main-menu__mobile"><a href="/en/about">About</a></li>
+                    <li class="main-menu__second-tools"><a rel="noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&utm_campaign=download" title="Get the latest version of the trading platform for free" class="button-mt" data-vars-fz="MetaTrader+5+Desktop+Download+Submenu"><img width="18" height="18" src="https://c.mql5.com/i/sidebar/download.svg" alt="" loading="lazy">Download MetaTrader 5</a></li>
+                    </ul>
+          </nav>
+            <div class="main-menu__active">
+              <a id="mainMenuSelected" href="#">
+                <span class="main-menu__primary">Documentation</span><span class="main-menu__secondary">Sections</span>
+              </a>
+            </div>
+<form action="https://www.mql5.com/en/search" onsubmit="return false;" autocomplete="off" id="headerSearchForm" class="header-search" method="post">
+<button type="button" id="headerSearchButton" title="Search" class="header-search__button"></button><div class="header-search__input"><input name="keyword" type="text" enterkeyhint="search" title="Enter search text" placeholder="Search" id="headerSearchKeyword"/><label for="headerSearchKeyword" class="header-search__placeholder">Type <span>/</span> to search:  @user, $symbol, ...</label><button id="headerSearchSubmit" class="header-search__submit"></button></div><button type="button" id="headerSearchClean" title="Close" class="header-search__clean"></button></form>          <input class="blurHandler" id="mainMenuBlurHandler" type="checkbox">
+        </div>
+        <div class="head__toolbar" id="headerToolbar">
+            <div class="container loginRegister">
+              <nav>
+                <ul id="loginRegisterButtons"><li><a class="login" title="Please sign in. OpenID supported" href="https://www.mql5.com/en/auth_login" rel="nofollow" data-fz-event="MQL5+Menu+Siginin">Log in</a></li><li><a class="registration en" title="Please register" href="https://www.mql5.com/en/auth_register" rel="nofollow" data-fz-event="MQL5+Menu+Register" onclick="window.fpush('MQL5+Button+Click');">Create an account</a></li></ul>
+              </nav>
+            </div>
+          <div class="container">
+            <div class="toggle-button" id="sidebarToggleButton">
+              <i></i>
+            </div>
+          </div>
+
+          <div class="group-menu" id="groupMenu">
+
+
+            <div class="container lang-menu-container">
+              <div id="langMenuContainer" class="lang-menu">
+                <input class="blurHandler" id="langmenuBlurHandler" type="checkbox">
+                <nav>
+                  <ul class="lang-menu__list" id="langmenu">
+                    <li class="lang-menu__list-item lang-menu__list-item_selected"><a href="/en/docs/trading/historyordergetdouble" aria-label="English (English)"><i class="icons-languages icons-languages_en"></i><span>English</span></a></li>
+<li class="lang-menu__list-item"><a href="/ru/docs/trading/historyordergetdouble" aria-label="Русский (Russian)"><i class="icons-languages icons-languages_ru"></i><span>Русский</span></a></li>
+<li class="lang-menu__list-item"><a href="/zh/docs/trading/historyordergetdouble" aria-label="中文 (Chinese)"><i class="icons-languages icons-languages_zh"></i><span>中文</span></a></li>
+<li class="lang-menu__list-item"><a href="/es/docs/trading/historyordergetdouble" aria-label="Español (Spanish)"><i class="icons-languages icons-languages_es"></i><span>Español</span></a></li>
+<li class="lang-menu__list-item"><a href="/pt/docs/trading/historyordergetdouble" aria-label="Português (Portuguese)"><i class="icons-languages icons-languages_pt"></i><span>Português</span></a></li>
+<li class="lang-menu__list-item"><a href="/ja/docs/trading/historyordergetdouble" aria-label="日本語 (Japanese)"><i class="icons-languages icons-languages_ja"></i><span>日本語</span></a></li>
+<li class="lang-menu__list-item"><a href="/de/docs/trading/historyordergetdouble" aria-label="Deutsch (German)"><i class="icons-languages icons-languages_de"></i><span>Deutsch</span></a></li>
+<li class="lang-menu__list-item"><a href="/ko/docs/trading/historyordergetdouble" aria-label="한국어 (Korean)"><i class="icons-languages icons-languages_ko"></i><span>한국어</span></a></li>
+<li class="lang-menu__list-item"><a href="/fr/docs/trading/historyordergetdouble" aria-label="Français (French)"><i class="icons-languages icons-languages_fr"></i><span>Français</span></a></li>
+<li class="lang-menu__list-item"><a href="/it/docs/trading/historyordergetdouble" aria-label="Italiano (Italian)"><i class="icons-languages icons-languages_it"></i><span>Italiano</span></a></li>
+<li class="lang-menu__list-item"><a href="/tr/docs/trading/historyordergetdouble" aria-label="Türkçe (Turkish)"><i class="icons-languages icons-languages_tr"></i><span>Türkçe</span></a></li>
+
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+  <main>
+<div id='bfogggabsofabcpxuzmgaibarmaxasdrj' class="r7ba6qbuhkqj830as gc3c8mam3"></div>
+    <article class="body" id="bodyContent">
+      <header class="top-band">
+        
+  <div class="path"><div class="shortlinks"><a href="/en/docs" class="boldenPath" title="MQL5 Reference">MQL5 Reference</a><span class="arrow_right" style="margin: 0 6px;"></span><a href="/en/docs/trading" class="boldenPath" title="Trade Functions">Trade Functions</a><span class="arrow_right" style="margin: 0 6px;"></span><span class="boldenPath nowrap">HistoryOrderGetDouble</span>&nbsp;</div></div>
+
+      </header>
+
+      
+
+
+
+<div style="overflow: hidden;">
+    <div class="left-panel docsTree" style="width: 253px;">
+      <ul class="docsMenu"><li class="docsMenuNode"><a href="/en/docs/trading/ordercalcmargin" class="nowrap" title="OrderCalcMargin">OrderCalcMargin</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordercalcprofit" class="nowrap" title="OrderCalcProfit">OrderCalcProfit</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordercheck" class="nowrap" title="OrderCheck">OrderCheck</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordersend" class="nowrap" title="OrderSend">OrderSend</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordersendasync" class="nowrap" title="OrderSendAsync">OrderSendAsync</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positionstotal" class="nowrap" title="PositionsTotal">PositionsTotal</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positiongetsymbol" class="nowrap" title="PositionGetSymbol">PositionGetSymbol</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positionselect" class="nowrap" title="PositionSelect">PositionSelect</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positionselectbyticket" class="nowrap" title="PositionSelectByTicket">PositionSelectByTicket</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positiongetdouble" class="nowrap" title="PositionGetDouble">PositionGetDouble</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positiongetinteger" class="nowrap" title="PositionGetInteger">PositionGetInteger</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positiongetstring" class="nowrap" title="PositionGetString">PositionGetString</a></li><li class="docsMenuNode"><a href="/en/docs/trading/positiongetticket" class="nowrap" title="PositionGetTicket">PositionGetTicket</a></li><li class="docsMenuNode"><a href="/en/docs/trading/orderstotal" class="nowrap" title="OrdersTotal">OrdersTotal</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordergetticket" class="nowrap" title="OrderGetTicket">OrderGetTicket</a></li><li class="docsMenuNode"><a href="/en/docs/trading/orderselect" class="nowrap" title="OrderSelect">OrderSelect</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordergetdouble" class="nowrap" title="OrderGetDouble">OrderGetDouble</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordergetinteger" class="nowrap" title="OrderGetInteger">OrderGetInteger</a></li><li class="docsMenuNode"><a href="/en/docs/trading/ordergetstring" class="nowrap" title="OrderGetString">OrderGetString</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historyselect" class="nowrap" title="HistorySelect">HistorySelect</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historyselectbyposition" class="nowrap" title="HistorySelectByPosition">HistorySelectByPosition</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historyorderselect" class="nowrap" title="HistoryOrderSelect">HistoryOrderSelect</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historyorderstotal" class="nowrap" title="HistoryOrdersTotal">HistoryOrdersTotal</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historyordergetticket" class="nowrap" title="HistoryOrderGetTicket">HistoryOrderGetTicket</a></li><li class="docsMenuNode"><span class="boldenPath nowrap">HistoryOrderGetDouble</span></li><li class="docsMenuNode"><a href="/en/docs/trading/historyordergetinteger" class="nowrap" title="HistoryOrderGetInteger">HistoryOrderGetInteger</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historyordergetstring" class="nowrap" title="HistoryOrderGetString">HistoryOrderGetString</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historydealselect" class="nowrap" title="HistoryDealSelect">HistoryDealSelect</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historydealstotal" class="nowrap" title="HistoryDealsTotal">HistoryDealsTotal</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historydealgetticket" class="nowrap" title="HistoryDealGetTicket">HistoryDealGetTicket</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historydealgetdouble" class="nowrap" title="HistoryDealGetDouble">HistoryDealGetDouble</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historydealgetinteger" class="nowrap" title="HistoryDealGetInteger">HistoryDealGetInteger</a></li><li class="docsMenuNode"><a href="/en/docs/trading/historydealgetstring" class="nowrap" title="HistoryDealGetString">HistoryDealGetString</a></li></ul>
+      
+      
+      
+        <div class="directHelp">
+        </div>
+    </div>
+
+
+<div class="docsContainer">
+  <div id="help">
+<H1>HistoryOrderGetDouble</H1>
+<p class="p_Function"><span class="f_Function">Returns the requested order property. The order property must be of the double type. There are 2 variants of the function.</span></p>
+<p class="p_Function"><span class="f_Text">1. Immediately returns the property value.</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_Keywords">double&nbsp;&nbsp;</span><span class="f_Functions">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">ulong</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">ticket_number</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;Ticket</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">ENUM_ORDER_PROPERTY_DOUBLE</span><span class="f_CodeExample">&nbsp;&nbsp;</span><span class="f_Param">property_id</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;Property&nbsp;identifier</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;);</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_Function"><span class="f_Text">2. Returns true or false, depending on the success of the function. If successful, the value of the property is placed into a target variable passed by reference by the last parameter.</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_Keywords">bool&nbsp;&nbsp;</span><span class="f_Functions">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">ulong</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">ticket_number</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;Ticket</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">ENUM_ORDER_PROPERTY_DOUBLE</span><span class="f_CodeExample">&nbsp;&nbsp;</span><span class="f_Param">property_id</span><span class="f_CodeExample">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;Property&nbsp;identifier</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_Keywords">double&amp;</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Param">double_var</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_Comments">//&nbsp;Here&nbsp;we&nbsp;accept&nbsp;the&nbsp;property&nbsp;value</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;);</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Parameters</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">ticket_number</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Order ticket.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">property_id</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[in] &nbsp;Identifier of the order property. The value can be one of the values of the <a href="/en/docs/constants/tradingconstants/orderproperties#enum_order_property_double" class="topiclink">ENUM_ORDER_PROPERTY_DOUBLE</a> enumeration.</span></p>
+<p class="p_FunctionParameter"><span class="f_FunctionParameter">double_var</span></p>
+<p class="p_ParameterDesrciption"><span class="f_ParameterDesrciption">[out] &nbsp;Variable of the double type that accepts the value of the requested property.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Return Value</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">Value of the <a href="/en/docs/basis/types/double" class="topiclink">double</a> type.</span></p>
+<p class="p_BoldTitles"><span class="f_BoldTitles">Note</span></p>
+<p class="p_FunctionRemark"><span class="f_FunctionRemark">Do not confuse orders of a trading history with current <a href="/en/docs/trading/orderstotal" class="topiclink">pending orders</a> that appear on the &quot;Trade&quot; tab of the &quot;Toolbox&quot; bar. The list of <a href="/en/docs/constants/tradingconstants/orderproperties" class="topiclink">orders</a> that were canceled or have led to a transaction, can be viewed in the &quot;History&quot; tab of &quot;Toolbox&quot; of the client terminal.</span></p>
+<p class="p_Text"><span class="f_Text" style="font-weight: bold;">Example:</span></p>
+<div style="text-align: left; text-indent: 0; line-height: 1.0; page-break-inside: avoid; border-color: #b3b3b3; border-style: solid; border-width: thin; background: #fbf9f5; padding: 0 0 0 0; margin: 2px 17px 2px 17px;"><table class="help" cellpadding="3" style="border:none; border-spacing:0;">
+<tr>
+<td style="vertical-align:top; padding:3px; border:none"><p class="p_CodeExample" style="page-break-inside: avoid;"><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Script&nbsp;program&nbsp;start&nbsp;function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">OnStart</span><span class="f_CodeExample">()</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;request&nbsp;deal&nbsp;and&nbsp;order&nbsp;history</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistorySelect</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">TimeCurrent</span><span class="f_CodeExample">()))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Print</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;HistorySelect()&nbsp;failed.&nbsp;Error&nbsp;&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">GetLastError</span><span class="f_CodeExample">());</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;in&nbsp;a&nbsp;loop&nbsp;by&nbsp;the&nbsp;list&nbsp;of&nbsp;all&nbsp;historical&nbsp;orders&nbsp;on&nbsp;the&nbsp;account</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">total</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrdersTotal</span><span class="f_CodeExample">();</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">for</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">&lt;</span><span class="f_CodeExample" style="color: #333333;">total</span><span class="f_CodeExample">;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">++)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;the&nbsp;order&nbsp;ticket&nbsp;in&nbsp;the&nbsp;list&nbsp;by&nbsp;the&nbsp;loop&nbsp;index</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">ulong</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetTicket</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">i</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">continue</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;the&nbsp;order&nbsp;type&nbsp;and&nbsp;display&nbsp;the&nbsp;header&nbsp;for&nbsp;the&nbsp;list&nbsp;of&nbsp;real&nbsp;properties&nbsp;of&nbsp;the&nbsp;selected&nbsp;order</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">type</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">OrderTypeDescription</span><span class="f_CodeExample">((</span><span class="f_CodeExample" style="color: #ff0000;">ENUM_ORDER_TYPE</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetInteger</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE</span><span class="f_CodeExample">));</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Double&nbsp;properties&nbsp;of&nbsp;an&nbsp;history&nbsp;order&nbsp;%s&nbsp;#%I64u:&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">type</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #808080;">//---&nbsp;print&nbsp;all&nbsp;the&nbsp;real&nbsp;properties&nbsp;of&nbsp;the&nbsp;selected&nbsp;order&nbsp;under&nbsp;the&nbsp;header</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">HistoryOrderPropertiesDoublePrint</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">16</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;/*</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;result:</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">properties</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">of</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">an</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">history</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">order</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Sell</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">#2810847541</span><span class="f_CodeExample">:</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Volume</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">initial</span><span class="f_CodeExample">:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">50</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Volume</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">current</span><span class="f_CodeExample">:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Price</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">open</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">10491</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">StopLoss</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00000</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">TakeProfit</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00000</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Price</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">current</span><span class="f_CodeExample">:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">10491</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">StopLimit</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00000</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">Double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">properties</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">of</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">an</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">history</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">order</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Buy</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Limit</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">#2811003507</span><span class="f_CodeExample">:</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Volume</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">initial</span><span class="f_CodeExample">:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Volume</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">current</span><span class="f_CodeExample">:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Price</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">open</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">10547</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">StopLoss</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00000</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">TakeProfit</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00000</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">Price</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">current</span><span class="f_CodeExample">:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">10591</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">StopLimit</span><span class="f_CodeExample">:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">00000</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;*/</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Display&nbsp;real&nbsp;properties&nbsp;of&nbsp;the&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;selected&nbsp;historical&nbsp;order&nbsp;in&nbsp;the&nbsp;journal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">void</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">HistoryOrderPropertiesDoublePrint</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">long</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">uint</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">double</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;the&nbsp;order&nbsp;symbol&nbsp;and&nbsp;the&nbsp;number&nbsp;of&nbsp;decimal&nbsp;places&nbsp;for&nbsp;the&nbsp;symbol</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">&nbsp;=&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetString</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_SYMBOL</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">digits</span><span class="f_CodeExample">&nbsp;=&nbsp;(</span><span class="f_CodeExample" style="color: #0000ff;">int</span><span class="f_CodeExample">)</span><span class="f_CodeExample" style="color: #0000ff;">SymbolInfoInteger</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">symbol</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">SYMBOL_DIGITS</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;define&nbsp;the&nbsp;header&nbsp;text&nbsp;and&nbsp;the&nbsp;width&nbsp;of&nbsp;the&nbsp;header&nbsp;field</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;if&nbsp;the&nbsp;header&nbsp;width&nbsp;is&nbsp;passed&nbsp;to&nbsp;the&nbsp;function&nbsp;equal&nbsp;to&nbsp;zero,&nbsp;then&nbsp;the&nbsp;width&nbsp;will&nbsp;be&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;header&nbsp;line&nbsp;+&nbsp;1</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;Volume&nbsp;initial:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;get&nbsp;and&nbsp;display&nbsp;the&nbsp;initial&nbsp;volume&nbsp;when&nbsp;placing&nbsp;an&nbsp;order&nbsp;with&nbsp;a&nbsp;header&nbsp;of&nbsp;the&nbsp;specified&nbsp;width&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_VOLUME_INITIAL</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.2f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;unfulfilled&nbsp;order&nbsp;volume&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;Volume&nbsp;current:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_VOLUME_CURRENT</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.2f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;price,&nbsp;specified&nbsp;in&nbsp;the&nbsp;order,&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;Price&nbsp;open:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_PRICE_OPEN</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.*f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">digits</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;StopLoss&nbsp;level&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;StopLoss:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_SL</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.*f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">digits</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;TakeProfit&nbsp;level&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;TakeProfit:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TP</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.*f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">digits</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;current&nbsp;price&nbsp;by&nbsp;the&nbsp;order&nbsp;symbol&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;Price&nbsp;current:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_PRICE_CURRENT</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.*f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">digits</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;</span>
+<br><span class="f_CodeExample" style="color: #808080;">//---&nbsp;display&nbsp;the&nbsp;Limit&nbsp;order&nbsp;price,&nbsp;when&nbsp;StopLimit&nbsp;order&nbsp;is&nbsp;activated,&nbsp;in&nbsp;the&nbsp;journal</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">=</span><span class="f_CodeExample" style="color: #008080;">&quot;StopLimit:&quot;</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">=(</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">==</span><span class="f_CodeExample" style="color: #333333;">0</span><span class="f_CodeExample">&nbsp;?&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">.</span><span class="f_CodeExample" style="color: #333333;">Length</span><span class="f_CodeExample">()+</span><span class="f_CodeExample" style="color: #333333;">1</span><span class="f_CodeExample">&nbsp;:&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header_width</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">if</span><span class="f_CodeExample">(!</span><span class="f_CodeExample" style="color: #0000ff;">HistoryOrderGetDouble</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">ticket</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_PRICE_STOPLIMIT</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">))</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">;</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">PrintFormat</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;%-*s%-.*f&quot;</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">w</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">header</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">digits</span><span class="f_CodeExample">,&nbsp;</span><span class="f_CodeExample" style="color: #333333;">value</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #808080;">//|&nbsp;Return&nbsp;the&nbsp;order&nbsp;type&nbsp;description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+<br><span class="f_CodeExample" style="color: #808080;">//+------------------------------------------------------------------+</span>
+<br><span class="f_CodeExample" style="color: #0000ff;">string</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">OrderTypeDescription</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #0000ff;">const</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ENUM_ORDER_TYPE</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #333333;">type</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">switch</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #333333;">type</span><span class="f_CodeExample">)</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_BUY</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Buy&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_SELL</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Sell&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_BUY_LIMIT</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Buy&nbsp;Limit&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_SELL_LIMIT</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Sell&nbsp;Limit&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_BUY_STOP</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Buy&nbsp;Stop&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_SELL_STOP</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Sell&nbsp;Stop&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_BUY_STOP_LIMIT</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Buy&nbsp;Stop&nbsp;Limit&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">case</span><span class="f_CodeExample">&nbsp;</span><span class="f_CodeExample" style="color: #ff0000;">ORDER_TYPE_SELL_STOP_LIMIT</span><span class="f_CodeExample">&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Sell&nbsp;Stop&nbsp;Limit&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">default</span><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</span><span class="f_CodeExample" style="color: #0000ff;">return</span><span class="f_CodeExample">(</span><span class="f_CodeExample" style="color: #008080;">&quot;Unknown&nbsp;order&nbsp;type&quot;</span><span class="f_CodeExample">);</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+<br><span class="f_CodeExample">&nbsp;&nbsp;}</span></p>
+</td>
+</tr>
+</table>
+</div>
+<p class="p_BoldTitles"><span class="f_BoldTitles">See also</span></p>
+<p class="p_SeeAlso"><span class="f_SeeAlso"><a href="/en/docs/trading/historyselect" class="topiclink">HistorySelect()</a>, <a href="/en/docs/trading/historyorderstotal" class="topiclink">HistoryOrdersTotal()</a>, <a href="/en/docs/trading/historyorderselect" class="topiclink">HistoryOrderSelect()</a>, <a href="/en/docs/constants/tradingconstants/orderproperties" class="topiclink">Order Properties</a></span></p>
+
+</div>
+
+    
+  <div style="height: 1px; overflow: hidden; clear: both;"></div>
+</div>
+
+
+  <div class="docsNav">
+        <div style="float: left;">
+          <span class="arrow_left" style="margin-right: 4px;"></span><a href="/en/docs/trading/historyordergetticket" class="nowrap" title="HistoryOrderGetTicket">HistoryOrderGetTicket</a>
+        </div>
+        <div style="float: right; margin-right: 4px;">
+          <a href="/en/docs/trading/historyordergetinteger" class="nowrap" title="HistoryOrderGetInteger">HistoryOrderGetInteger</a><span class="arrow_right" style="margin-left: 4px;"></span>
+        </div>
+  </div>
+
+  <div class="docsNav docsNav__sub">
+    
+
+<div id='wdausxxqrpvhekbwjrjlhqjghyhesrqqau' class="r9w6hoig2sjfewv65 r9w6hoig2sjfewv65_docs gc3c8mam3"></div>  </div>
+
+
+</div>
+<!-- Docs file updated: 2026.03.10 -->
+
+
+    </article>
+  </main>
+
+    <footer aria-hidden="true">
+
+
+<div aria-hidden="true" class="footer  desktop" id="footer">
+  <ul class="links  links_desktop">
+      <li id="navFooterCommunity">
+        <nav>
+          <ul>
+            <li><a href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" target="_blank" rel="nofollow noopener" data-fz-event="MQL5+Footer+Trading">Online trading / WebTerminal</a></li>
+            <li><a href="/en/code" data-fz-event="MQL5+Footer+CodeBase">Free technical indicators and robots</a></li>
+            <li><a href="/en/articles" data-fz-event="MQL5+Footer+Articles">Articles about programming and trading</a></li>
+            <li><a href="/en/job" data-fz-event="MQL5+Footer+Job">Order trading robots on the Freelance</a></li>
+            <li><a href="/en/market" data-fz-event="MQL5+Footer+Market">Market of Expert Advisors and applications&#x9;</a></li>
+            <li><a href="/en/signals" data-fz-event="MQL5+Footer+Signals">Follow forex signals</a></li>
+            <li><a href="/en/vps" data-fz-event="MQL5+Footer+VPS">Low latency forex VPS</a></li>
+            <li><a href="/en/forum" data-fz-event="MQL5+Footer+Forum">Traders forum</a></li>
+            <li><a href="/en/blogs" data-fz-event="MQL5+Footer+Blogs">Trading blogs</a></li>
+            <li><a rel="nofollow" href="/en/charts" data-fz-event="MQL5+Footer+Charts">Charts</a></li>
+            <li><a href="/en/widgets" data-fz-event="MQL5+Footer+Widgets">Free widgets</a></li>
+          </ul>
+        </nav>
+      </li>
+      <li id="navFooterMt5">
+        <nav>
+          <ul>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> Trading Platform</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/releasenotes" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> latest updates</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/news" data-fz-event="MQL5+Footer+MetaTrader+5">News, implementations and technology</a></li>
+            <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help" data-fz-event="MQL5+Footer+MetaTrader+5"><span class="nobr">MetaTrader 5</span> User Manual</a></li>
+            <li><a href="/en/docs" data-fz-event="MQL5+Footer+Docs">MQL5 language of trading strategies</a></li>
+            <li><a rel="nofollow noopener" href="https://cloud.mql5.com" data-fz-event="MQL5+Footer+Cloud">MQL5 Cloud Network</a></li>
+            <li><a rel="noopener" href="https://forge.mql5.io/?lang=en" data-fz-event="MQL5+Footer+Forge" target="_blank">MQL5 Algo Forge</a></li>
+              <li><a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MetaTrader+5+Desktop+Download+Footer">Download <span class="nobr">MetaTrader 5</span></a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/installation" data-fz-event="MQL5+Footer+MetaTrader+5">Install Platform</a></li>
+              <li><a rel="nofollow noopener" href="https://www.metatrader5.com/en/terminal/help/start_advanced/deinstallation" data-fz-event="MQL5+Footer+MetaTrader+5">Uninstall Platform</a></li>
+          </ul>
+        </nav>
+
+      </li>
+    <li id="navFooterWebsite">
+        <nav>
+          <ul>
+            <li><a rel="nofollow" href="/en/about" data-fz-event="MQL5+Footer+About">About</a></li>
+              <li><a href="/en/wall" data-fz-event="MQL5+Footer+Wall">Timeline</a></li>
+            <li><a rel="nofollow" href="/en/about/terms" data-fz-event="MQL5+Footer+About">Terms and Conditions</a></li>
+            <li><a rel="nofollow" href="/en/about/autopayments" data-fz-event="MQL5+Footer+About">Recurring Payment Agreement</a></li>
+            <li><a rel="nofollow" href="/en/about/agencyagreement" data-fz-event="MQL5+Footer+About">Agency Agreement – Offer</a></li>
+            <li><a rel="nofollow" href="/en/about/privacy" data-fz-event="MQL5+Footer+About">Privacy and Data Protection Policy</a></li>
+            <li><a rel="nofollow" href="/en/about/cookies" data-fz-event="MQL5+Footer+About">Cookies Policy</a></li>
+            <li>
+                <a rel="nofollow" href="/en/contact" data-fz-event="MQL5+Footer+Contacts">Contacts and requests</a>
+            </li>
+          </ul>
+        </nav>
+    </li>
+
+      <li>
+        <div class="footer__products">
+            <div class="footer__product">
+              <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com" class="footer__product-name">MetaTrader 5</a>
+              <div class="footer__product-links">
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon windows" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Windows</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/MetaTrader5.pkg.zip?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon macos" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for MacOS</div></a>
+              <a rel="nofollow noopener" href="https://www.mql5.com/en/articles/625?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon linux" data-fz-event="MetaTrader+5+Desktop+Download+Footer"><div class="footer__product-link-hint footer__product-link-hint-short">Download MetaTrader 5 for Linux</div></a>
+              <a rel="nofollow noopener" href="https://web.metatrader.app/terminal?mode=demo&amp;lang=en" class="icon web"><div  class="footer__product-link-hint footer__product-link-hint-short">Open MetaTrader 5 WebTerminal</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/ios?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon ios" data-fz-event="MetaTrader+5+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/jhZn8Ed1I1d.png)">Scan to install from App Store</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes&amp;hl=en" class="icon android" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/kiF2Io6W-9d.png)">Scan to install from Google Play</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mt5/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon huawei" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/ZRt&#x2B;zI1l&#x2B;8O.png)">Scan to install from Huawei AppGallery</div></a>
+              <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mt5/metatrader5.apk?utm_source=www.mql5.com&amp;utm_campaign=install.metaquotes" class="icon ark" data-fz-event="MetaTrader+5+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/L0Q9oag&#x2B;3eE.png)">Scan to get Android APK file</div></a>
+              </div>
+            </div>
+            <div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.metatrader5.com/en/news/2270" class="footer__product-name">MQL5 Channels</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="MQL5+Channels+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/bZVfOJnYpcO.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/32MJFgw7BVs.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/mql5.channels/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Su&#x2B;fe4n374e.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/mql5channels/mql5channels.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="MQL5+Channels+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/G6Mg4NfCPzO.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+              <div class="footer__product">
+                <a target="_blank" rel="nofollow noopener" href="https://www.tradays.com/en/download?utm_source=www.mql5.com&amp;utm_campaign=download" data-fz-event="MQL5+Footer+Download+Tradays" class="footer__product-name">Economic Calendar</a>
+                <div class="footer__product-links">
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/ios?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon ios" data-fz-event="Tradays+iOS+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CpD&#x2B;mhIw-1E.png)">Scan to install from App Store</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android?utm_source=www.mql5.com&amp;utm_campaign=download&amp;hl=en" class="icon android" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/Bgyx8UcmYap.png)">Scan to install from Google Play</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/mobile/tradays/android/app-gallery?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon huawei" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/CrS7bbDAdAO.png)">Scan to install from Huawei AppGallery</div></a>
+                <a rel="nofollow noopener" href="https://download.terminal.free/cdn/web/metaquotes.software.corp/tradays/tradays.apk?utm_source=www.mql5.com&amp;utm_campaign=download" class="icon ark" data-fz-event="Tradays+Android+Download+Footer"><div class="footer__product-link-hint" style="background-image: url(https://c.mql5.com/qr/VZi8YPIb2op.png)">Scan to get Android APK file</div></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer__networks">
+            <div class="footer__networks-list">
+            <a href="https://www.facebook.com/mql5.community/" target="_blank" rel="nofollow" title="Facebook"><i class="icons-networks icons-networks_fb"></i></a><a href="https://t.me/mql5dev" target="_blank" rel="nofollow" title="Telegram"><i class="icons-networks icons-networks_tg"></i></a><a href="https://x.com/mql5com" target="_blank" rel="nofollow" title="X (Twitter)"><i class="icons-networks icons-networks_tw"></i></a>
+            </div>
+            <span>Follow us on socials for top articles and CodeBase updates</span>
+          </div>
+  
+        <div class="footer__other">
+          <div class="footer__not-a-broker">Not a broker, no real trading accounts</div>
+          <div class="copyright">35 Dodekanisou str, Germasogeia, 4043,&nbsp;Limassol,&nbsp;Cyprus</div>
+          <div class="copyright">Copyright 2000-2026, <span class="nobr">MetaQuotes Ltd</span></div>
+        </div>
+      </li>
+  </ul>
+</div>
+
+
+    </footer>
+
+  <div class="shadow-layer" id="layer"></div>
+      
+</div>
+
+<script type="text/javascript">
+           mqGlobal.AddOnReady(function () { Mql5Cookie.init('mql5.com','5062182406858958623'); });
+mqGlobal.AddOnLoad(function(){new TrackScrollPosition('Docs');});window.fz("show","wdausxxqrpvhekbwjrjlhqjghyhesrqqau");mqGlobal.AddOnReady(function(){{window.initHeaderSearch('','https://www.mql5.com/en/search');}});</script><script type="text/javascript">mqGlobal.AddOnReady(function(){window.initSuggestions("headerSearchKeyword","en","https://search.mql5.com/api/query","https://www.mql5.com/en/users_search/suggestion");});window.fz("show","bfogggabsofabcpxuzmgaibarmaxasdrj");mqGlobal.AddOnReady(function(){window.floatVerticalPanelNode=FloatVerticalPanel('This website uses cookies. Learn more about our <a href="/en/about/cookies">Cookies Policy</a>.','cookie_accept');});      if (typeof Attach !== "undefined")
+        Attach.setAcceptFilter(".zip, .txt, .log, .mqh, .ex5, .mq5, .mq4, .mqproj, .ex4, .mt5, .set, .tpl, .cl, .py, .sqlite, .csv, .ini, .ipynb, .onnx, .gif, .png, .jpg, .jpeg, .mp4, .webm");
+  </script>
+
+  <div class="b-fixed-mt" id="bFixedMt" style="display: none;">
+    
+  </div>
+
+  <script type="application/ld&#x2B;json">
+  [{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Forum","description":"Discussions of trading strategies and algorithmic trading. MQL5.community  the largest forex forum","url":"https://www.mql5.com/en/forum","children":[]},{"@type":"SiteNavigationElement","position":2,"name":"Market","description":"MetaTrader Market - a Market of trading robots, indicators, trading books and magazines","url":"https://www.mql5.com/en/market","children":[]},{"@type":"SiteNavigationElement","position":3,"name":"Signals","description":"Social trading, copy trading and account monitoring with MetaTrader - Trading Signals on MQL5.com","url":"https://www.mql5.com/en/signals","children":[]},{"@type":"SiteNavigationElement","position":4,"name":"Freelance","description":"Order trading robots, technical indicators and algorithmic trading applications. Forex jobs. Freelance on MQL5.com. Hire MetaTrader experts and specialists","url":"https://www.mql5.com/en/job","children":[]},{"@type":"SiteNavigationElement","position":5,"name":"Quotes","description":"","url":"https://www.mql5.com/en/quotes/overview","children":[]},{"@type":"SiteNavigationElement","position":6,"name":"WebTerminal","description":"WebTerminal for the MetaTrader trading platform. Online forex trading.","url":"https://web.metatrader.app/terminal?mode=demo","children":[]},{"@type":"SiteNavigationElement","position":7,"name":"Calendar","description":"","url":"https://www.mql5.com/en/economic-calendar","children":[]},{"@type":"SiteNavigationElement","position":8,"name":"VPS","description":"","url":"https://www.mql5.com/en/vps","children":[]},{"@type":"SiteNavigationElement","position":9,"name":"Articles","description":"","url":"https://www.mql5.com/en/articles","children":[]},{"@type":"SiteNavigationElement","position":10,"name":"CodeBase","description":"Download trading robots, technical indicators and scripts with source code - MQL5 Code Base for MetaTrader 5","url":"https://www.mql5.com/en/code","children":[]},{"@type":"SiteNavigationElement","position":11,"name":"Algo Forge","description":"","url":"https://forge.mql5.io","children":[]},{"@type":"SiteNavigationElement","position":12,"name":"Documentation","description":"MetaQuotes Language 5 (MQL5) Reference - Documentation on MQL5.com","url":"https://www.mql5.com/en/docs","children":[]}]}  
+,
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":"https://www.mql5.com/en/docs","name":"MQL5 Reference"},{"@type":"ListItem","position":2,"item":"https://www.mql5.com/en/docs/trading","name":"Trade Functions"},{"@type":"ListItem","position":3,"item":"https://www.mql5.com/en/docs/trading/historyordergetdouble","name":"HistoryOrderGetDouble"}]}
+
+      ,{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "HistoryOrderGetDouble",
+          "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Returns the requested order property. The order property must be of the double type. There are 2 variants of the function. 1. Immediately returns..."
+        }
+        }]
+      }
+      
+  ]
+</script>
+</body>
+</html>

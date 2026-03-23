@@ -1,0 +1,151 @@
+# ─────────────────────────────────────────────
+# config.yaml — Configuración del Sistema
+# ─────────────────────────────────────────────
+
+# Perfil activo. Opciones:
+#   "auto"       → rota automáticamente según rotation_schedule
+#   "eurusd_h4"  → forzar un perfil específico
+#   o cualquier otro nombre de perfil definido abajo
+active_profile: auto
+
+# Orden de rotación cuando active_profile es "auto"
+# El sistema elige el perfil menos usado recientemente
+rotation_schedule:
+  - eurusd_h4
+  - xauusd_h1
+  - gbpusd_h4
+  - usdjpy_h4
+  - eurusd_h1
+
+# ── Perfiles por símbolo/timeframe ──────────────────────────
+profiles:
+
+  eurusd_h4:
+    symbol: EURUSD
+    timeframe: H4
+    backtest_start: "2013.01.01"
+    backtest_end: "2024.12.31"
+    deposit: 10000.0
+    leverage: 100
+    commission_per_lot: 7.0
+    description: "Forex major, swing clásico, spreads bajos"
+    quality_filters:
+      min_profit_factor: 1.5
+      min_sharpe_ratio: 1.2
+      max_drawdown_pct: 25.0
+      min_win_rate: 45.0
+      min_total_trades: 200
+      min_trades_per_month: 1.5
+      walk_forward_windows: 5
+      walk_forward_min_pass: 4
+
+  gbpusd_h4:
+    symbol: GBPUSD
+    timeframe: H4
+    backtest_start: "2013.01.01"
+    backtest_end: "2024.12.31"
+    deposit: 10000.0
+    leverage: 100
+    commission_per_lot: 7.0
+    description: "Cable, más volátil que EURUSD, spreads medios"
+    quality_filters:
+      min_profit_factor: 1.5
+      min_sharpe_ratio: 1.2
+      max_drawdown_pct: 27.0
+      min_win_rate: 44.0
+      min_total_trades: 180
+      min_trades_per_month: 1.4
+      walk_forward_windows: 5
+      walk_forward_min_pass: 4
+
+  xauusd_h1:
+    symbol: XAUUSD
+    timeframe: H1
+    backtest_start: "2015.01.01"
+    backtest_end: "2024.12.31"
+    deposit: 10000.0
+    leverage: 100
+    commission_per_lot: 15.0
+    description: "Oro, alta volatilidad, movimientos bruscos, H1"
+    quality_filters:
+      min_profit_factor: 1.6
+      min_sharpe_ratio: 1.3
+      max_drawdown_pct: 30.0
+      min_win_rate: 43.0
+      min_total_trades: 400
+      min_trades_per_month: 3.5
+      walk_forward_windows: 5
+      walk_forward_min_pass: 4
+
+  usdjpy_h4:
+    symbol: USDJPY
+    timeframe: H4
+    backtest_start: "2013.01.01"
+    backtest_end: "2024.12.31"
+    deposit: 10000.0
+    leverage: 100
+    commission_per_lot: 7.0
+    description: "JPY, correlacionado con risk-on/off, sesión asiática"
+    quality_filters:
+      min_profit_factor: 1.5
+      min_sharpe_ratio: 1.2
+      max_drawdown_pct: 25.0
+      min_win_rate: 45.0
+      min_total_trades: 180
+      min_trades_per_month: 1.4
+      walk_forward_windows: 5
+      walk_forward_min_pass: 4
+
+  eurusd_h1:
+    symbol: EURUSD
+    timeframe: H1
+    backtest_start: "2018.01.01"
+    backtest_end: "2024.12.31"
+    deposit: 10000.0
+    leverage: 100
+    commission_per_lot: 7.0
+    description: "EURUSD intradía, más trades, períodos más cortos"
+    quality_filters:
+      min_profit_factor: 1.5
+      min_sharpe_ratio: 1.3
+      max_drawdown_pct: 20.0
+      min_win_rate: 47.0
+      min_total_trades: 500
+      min_trades_per_month: 6.0
+      walk_forward_windows: 5
+      walk_forward_min_pass: 4
+
+# ── Scheduler ───────────────────────────────────────────────
+scheduler:
+  strategy_interval_hours: 12
+
+# ── Self-healing ─────────────────────────────────────────────
+self_healing:
+  max_fix_attempts: 4
+
+# ── Optimización ─────────────────────────────────────────────
+optimizer:
+  n_trials: 200
+  timeout_minutes: 30
+
+# ── Modelos Gemini ────────────────────────────────────────────
+gemini:
+  flash_model: gemini-2.5-flash
+  pro_model: gemini-2.5-flash
+  temperature: 0.3
+  max_output_tokens: 8192
+
+# ── MCP Server ───────────────────────────────────────────────
+mcp_server:
+  host: localhost
+  port: 8765
+  n_search_results: 3
+
+# ── Paths ─────────────────────────────────────────────────────
+paths:
+  chromadb: mql5_mcp_server/data/chromadb
+  knowledge_base: mql5_mcp_server/data/mql5_knowledge_base.md
+  error_fixes: mql5_mcp_server/data/error_fixes.json
+  output_approved: output/strategies/aprobadas
+  output_discarded: output/strategies/descartadas
+  logs: output/logs
