@@ -4,18 +4,20 @@ Custom Skill: social_media_publisher
 ========================================================================
 
 Publishes approved content to social media platforms:
-- Instagram (posts and stories)
+- Instagram (posts, stories, carousels, reels)
 - X/Twitter (tweets and threads)
-- LinkedIn (company page posts)
+- TikTok (videos)
+- YouTube Shorts (videos)
+- Facebook (posts and reels)
 
 CRITICAL: This skill should ONLY be called AFTER owner approval via HITL.
 
 Usage in OpenClaw:
     Use the skill social_media_publisher to publish content:
-    - Platforms: ["instagram", "twitter", "linkedin"]
+    - Platforms: ["instagram", "twitter", "tiktok", "youtube_shorts", "facebook"]
     - Caption: "Your post text..."
-    - Media path: "path/to/image.jpg"
-    - Content type: "post" or "story" (for Instagram)
+    - Media paths: ["path/to/image.jpg"] or ["path/to/video.mp4"]
+    - Content type: "post", "story", "carousel", "reel", "thread"
 
 ========================================================================
 """
@@ -26,9 +28,10 @@ from typing import Dict, List, Optional, Any
 
 try:
     import requests
+    import yaml
 except ImportError:
-    print("⚠️  ERROR: requests library not installed")
-    print("Run: pip install requests")
+    print("⚠️  ERROR: Required libraries not installed")
+    print("Run: pip install requests pyyaml")
     exit(1)
 
 
@@ -37,15 +40,26 @@ class SocialMediaPublisherSkill:
 
     def __init__(self):
         self.name = "social_media_publisher"
-        self.description = "Publish approved content to Instagram, X, and LinkedIn"
+        self.description = "Publish approved content to Instagram, X, TikTok, YouTube Shorts, and Facebook"
 
         # Load API credentials from environment
         self.instagram_token = os.getenv("INSTAGRAM_ACCESS_TOKEN")
+        self.instagram_user_id = os.getenv("INSTAGRAM_USER_ID")
+
+        self.twitter_bearer_token = os.getenv("X_BEARER_TOKEN")
         self.twitter_api_key = os.getenv("X_API_KEY")
         self.twitter_api_secret = os.getenv("X_API_SECRET")
         self.twitter_access_token = os.getenv("X_ACCESS_TOKEN")
         self.twitter_access_secret = os.getenv("X_ACCESS_SECRET")
-        self.linkedin_token = os.getenv("LINKEDIN_ACCESS_TOKEN")
+
+        self.tiktok_access_token = os.getenv("TIKTOK_ACCESS_TOKEN")
+
+        self.youtube_api_key = os.getenv("YOUTUBE_API_KEY")
+        self.youtube_client_id = os.getenv("YOUTUBE_CLIENT_ID")
+        self.youtube_client_secret = os.getenv("YOUTUBE_CLIENT_SECRET")
+
+        self.facebook_access_token = os.getenv("FACEBOOK_ACCESS_TOKEN")
+        self.facebook_page_id = os.getenv("FACEBOOK_PAGE_ID")
 
         # Rate limiting
         self.last_post_time = {}
@@ -54,7 +68,7 @@ class SocialMediaPublisherSkill:
         self,
         platforms: List[str],
         caption: str,
-        media_path: Optional[str] = None,
+        media_paths: Optional[List[str]] = None,
         content_type: str = "post",
         scheduled_time: Optional[str] = None
     ) -> Dict[str, Any]:
@@ -62,19 +76,18 @@ class SocialMediaPublisherSkill:
         Publish content to specified platforms.
 
         Args:
-            platforms: List of platforms ("instagram", "twitter", "linkedin")
+            platforms: List of platforms ("instagram", "twitter", "tiktok", "youtube_shorts", "facebook")
             caption: Text content/caption
-            media_path: Optional path to image/video
-            content_type: "post" or "story" (for Instagram)
+            media_paths: List of paths to images/videos
+            content_type: "post", "story", "carousel", "reel", "thread"
             scheduled_time: Optional ISO timestamp for scheduling
 
         Returns:
             {
                 "success": bool,
                 "results": {
-                    "instagram": {"success": bool, "post_id": str, "message": str},
-                    "twitter": {"success": bool, "tweet_id": str, "message": str},
-                    "linkedin": {"success": bool, "post_id": str, "message": str}
+                    "platform_name": {"success": bool, "post_id": str, "message": str},
+                    ...
                 },
                 "message": str
             }
@@ -84,7 +97,7 @@ class SocialMediaPublisherSkill:
         overall_success = True
 
         # Validate platforms
-        valid_platforms = ["instagram", "twitter", "linkedin"]
+        valid_platforms = ["instagram", "twitter", "tiktok", "youtube_shorts", "facebook"]
         for platform in platforms:
             if platform not in valid_platforms:
                 return {
@@ -100,65 +113,150 @@ class SocialMediaPublisherSkill:
                     "message": f"Rate limit exceeded for {platform}. Wait before posting."
                 }
 
+        # Validate content type and media
+        if content_type in ["carousel", "reel"] and not media_paths:
+            return {
+                "success": False,
+                "message": f"Content type '{content_type}' requires media_paths"
+            }
+
         # Publish to each platform
         if "instagram" in platforms:
             results["instagram"] = self._publish_instagram(
                 caption=caption,
-                media_path=media_path,
+                media_paths=media_paths or [],
                 content_type=content_type
             )
             if not results["instagram"]["success"]:
                 overall_success = False
 
         if "twitter" in platforms:
-            results["twitter"] = self._publish_twitter(
-                text=caption,
-                media_path=media_path
-            )
+            # If thread, tweets should be passed separately
+            if content_type == "thread" and isinstance(caption, list):
+                results["twitter"] = self._publish_twitter_thread(
+                    tweets=caption,
+                    media_paths=media_paths
+                )
+            else:
+                results["twitter"] = self._publish_twitter(
+                    text=caption,
+                    media_path=media_paths[0] if media_paths else None
+                )
             if not results["twitter"]["success"]:
                 overall_success = False
 
-        if "linkedin" in platforms:
-            results["linkedin"] = self._publish_linkedin(
-                text=caption,
-                media_path=media_path
+        if "tiktok" in platforms:
+            if content_type == "reel" and media_paths:
+                results["tiktok"] = self._publish_tiktok(
+                    caption=caption,
+                    video_path=media_paths[0]
+                )
+            else:
+                results["tiktok"] = {
+                    "success": False,
+                    "message": "TikTok requires video content (reel type)"
+                }
+            if not results["tiktok"]["success"]:
+                overall_success = False
+
+        if "youtube_shorts" in platforms:
+            if content_type == "reel" and media_paths:
+                results["youtube_shorts"] = self._publish_youtube_shorts(
+                    title=caption[:100],  # YouTube title limit
+                    description=caption,
+                    video_path=media_paths[0]
+                )
+            else:
+                results["youtube_shorts"] = {
+                    "success": False,
+                    "message": "YouTube Shorts requires video content (reel type)"
+                }
+            if not results["youtube_shorts"]["success"]:
+                overall_success = False
+
+        if "facebook" in platforms:
+            results["facebook"] = self._publish_facebook(
+                caption=caption,
+                media_paths=media_paths or [],
+                content_type=content_type
             )
-            if not results["linkedin"]["success"]:
+            if not results["facebook"]["success"]:
                 overall_success = False
 
         # Log published content
         if overall_success:
-            self._log_published_content(platforms, caption, results)
+            self._log_published_content(platforms, caption, content_type, results)
 
         return {
             "success": overall_success,
             "results": results,
-            "message": "Content published" if overall_success else "Some publications failed"
+            "message": "Content published successfully" if overall_success else "Some publications failed"
         }
 
     def _publish_instagram(
         self,
         caption: str,
-        media_path: Optional[str],
+        media_paths: List[str],
         content_type: str
     ) -> Dict[str, Any]:
         """Publish to Instagram using Graph API"""
 
-        if not self.instagram_token:
+        if not self.instagram_token or not self.instagram_user_id:
             return {
                 "success": False,
-                "message": "Instagram access token not configured"
+                "message": "Instagram access token or user ID not configured"
             }
 
-        # Placeholder implementation
-        # Real implementation requires:
-        # 1. Upload media to Instagram
-        # 2. Create media container
-        # 3. Publish container
+        # Different endpoints for different content types
+        if content_type == "story":
+            return self._publish_instagram_story(caption, media_paths[0] if media_paths else None)
+        elif content_type == "carousel":
+            return self._publish_instagram_carousel(caption, media_paths)
+        elif content_type == "reel":
+            return self._publish_instagram_reel(caption, media_paths[0] if media_paths else None)
+        else:  # post
+            return self._publish_instagram_post(caption, media_paths[0] if media_paths else None)
+
+    def _publish_instagram_post(self, caption: str, media_path: Optional[str]) -> Dict[str, Any]:
+        """Publish Instagram post"""
+        # Implementation placeholder
+        # Real: Upload media → Create container → Publish
+        return {
+            "success": False,
+            "message": "Instagram Post API integration pending. Use Meta Graph API."
+        }
+
+    def _publish_instagram_story(self, caption: str, media_path: Optional[str]) -> Dict[str, Any]:
+        """Publish Instagram story"""
+        return {
+            "success": False,
+            "message": "Instagram Story API integration pending. Use Meta Graph API."
+        }
+
+    def _publish_instagram_carousel(self, caption: str, media_paths: List[str]) -> Dict[str, Any]:
+        """Publish Instagram carousel (up to 10 images)"""
+        if len(media_paths) < 2 or len(media_paths) > 10:
+            return {
+                "success": False,
+                "message": "Instagram carousels require 2-10 images"
+            }
 
         return {
             "success": False,
-            "message": "Instagram publishing not fully implemented yet. Use manual posting or integrate Graph API."
+            "message": "Instagram Carousel API integration pending. Use Meta Graph API with carousel_item."
+        }
+
+    def _publish_instagram_reel(self, caption: str, video_path: Optional[str]) -> Dict[str, Any]:
+        """Publish Instagram Reel"""
+        if not video_path:
+            return {
+                "success": False,
+                "message": "Instagram Reel requires video file"
+            }
+
+        return {
+            "success": False,
+            "message": "Instagram Reel API integration pending. Use Meta Graph API video endpoint."
         }
 
     def _publish_twitter(
@@ -166,52 +264,125 @@ class SocialMediaPublisherSkill:
         text: str,
         media_path: Optional[str]
     ) -> Dict[str, Any]:
-        """Publish to X/Twitter using API v2"""
+        """Publish to X/Twitter (single tweet)"""
 
-        if not all([
-            self.twitter_api_key,
-            self.twitter_api_secret,
-            self.twitter_access_token,
-            self.twitter_access_secret
-        ]):
+        if not self.twitter_bearer_token:
             return {
                 "success": False,
-                "message": "Twitter API credentials not fully configured"
+                "message": "Twitter bearer token not configured"
             }
 
         # Placeholder implementation
-        # Real implementation requires:
-        # 1. OAuth1 authentication
-        # 2. Upload media (if applicable)
-        # 3. Create tweet with or without media
-
+        # Real: Use Twitter API v2 with tweepy or requests
         return {
             "success": False,
-            "message": "Twitter publishing not fully implemented yet. Use tweepy library for full integration."
+            "message": "Twitter API integration pending. Use tweepy library or Twitter API v2."
         }
 
-    def _publish_linkedin(
+    def _publish_twitter_thread(
         self,
-        text: str,
-        media_path: Optional[str]
+        tweets: List[str],
+        media_paths: Optional[List[str]] = None
     ) -> Dict[str, Any]:
-        """Publish to LinkedIn using API"""
+        """Publish Twitter thread (multiple connected tweets)"""
 
-        if not self.linkedin_token:
-            return {
-                "success": False,
-                "message": "LinkedIn access token not configured"
-            }
-
-        # Placeholder implementation
-        # Real implementation requires:
-        # 1. Upload media to LinkedIn (if applicable)
-        # 2. Create share/post
-        # 3. Publish to company page
+        # Validate tweet lengths
+        for i, tweet in enumerate(tweets):
+            if len(tweet) > 280:
+                return {
+                    "success": False,
+                    "message": f"Tweet {i+1} exceeds 280 characters ({len(tweet)} chars)"
+                }
 
         return {
             "success": False,
-            "message": "LinkedIn publishing not fully implemented yet. Use LinkedIn API documentation."
+            "message": "Twitter thread API integration pending. Use tweepy with reply_to_tweet_id."
+        }
+
+    def _publish_tiktok(
+        self,
+        caption: str,
+        video_path: str
+    ) -> Dict[str, Any]:
+        """Publish to TikTok"""
+
+        if not self.tiktok_access_token:
+            return {
+                "success": False,
+                "message": "TikTok access token not configured"
+            }
+
+        if not video_path or not os.path.exists(video_path):
+            return {
+                "success": False,
+                "message": "Valid video path required for TikTok"
+            }
+
+        # Placeholder implementation
+        # Real: Use TikTok Content Posting API
+        return {
+            "success": False,
+            "message": "TikTok API integration pending. Use TikTok Content Posting API v2."
+        }
+
+    def _publish_youtube_shorts(
+        self,
+        title: str,
+        description: str,
+        video_path: str
+    ) -> Dict[str, Any]:
+        """Publish to YouTube Shorts"""
+
+        if not self.youtube_api_key:
+            return {
+                "success": False,
+                "message": "YouTube API key not configured"
+            }
+
+        if not video_path or not os.path.exists(video_path):
+            return {
+                "success": False,
+                "message": "Valid video path required for YouTube Shorts"
+            }
+
+        # Placeholder implementation
+        # Real: Use YouTube Data API v3 with #Shorts in title/description
+        return {
+            "success": False,
+            "message": "YouTube Shorts API integration pending. Use YouTube Data API v3."
+        }
+
+    def _publish_facebook(
+        self,
+        caption: str,
+        media_paths: List[str],
+        content_type: str
+    ) -> Dict[str, Any]:
+        """Publish to Facebook Page"""
+
+        if not self.facebook_access_token or not self.facebook_page_id:
+            return {
+                "success": False,
+                "message": "Facebook access token or page ID not configured"
+            }
+
+        if content_type == "reel" and media_paths:
+            return self._publish_facebook_reel(caption, media_paths[0])
+        else:
+            return self._publish_facebook_post(caption, media_paths[0] if media_paths else None)
+
+    def _publish_facebook_post(self, caption: str, media_path: Optional[str]) -> Dict[str, Any]:
+        """Publish Facebook post"""
+        return {
+            "success": False,
+            "message": "Facebook Post API integration pending. Use Meta Graph API."
+        }
+
+    def _publish_facebook_reel(self, caption: str, video_path: str) -> Dict[str, Any]:
+        """Publish Facebook Reel"""
+        return {
+            "success": False,
+            "message": "Facebook Reel API integration pending. Use Meta Graph API video endpoint."
         }
 
     def _check_rate_limit(self, platform: str) -> bool:
@@ -234,14 +405,13 @@ class SocialMediaPublisherSkill:
         self,
         platforms: List[str],
         caption: str,
+        content_type: str,
         results: Dict[str, Any]
     ):
         """Log published content to file"""
 
-        log_file = "openclaw/agents/marketer/content/published_log.yml"
+        log_file = "agents/marketer/content/published_log.yml"
         os.makedirs(os.path.dirname(log_file), exist_ok=True)
-
-        import yaml
 
         # Load existing log
         if os.path.exists(log_file):
@@ -254,6 +424,7 @@ class SocialMediaPublisherSkill:
         entry = {
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
             "platforms": platforms,
+            "content_type": content_type,
             "caption": caption[:100] + "..." if len(caption) > 100 else caption,
             "post_ids": {
                 platform: results[platform].get("post_id", "N/A")
@@ -269,34 +440,74 @@ class SocialMediaPublisherSkill:
         with open(log_file, 'w') as f:
             yaml.dump(log, f, default_flow_style=False)
 
-    def publish_thread(
+    def publish_reel_cross_platform(
         self,
-        tweets: List[str],
-        media_paths: Optional[List[str]] = None
+        video_path: str,
+        caption: str
     ) -> Dict[str, Any]:
         """
-        Publish a Twitter thread (multiple connected tweets).
+        Convenience method: Publish a reel to all video platforms.
 
         Args:
-            tweets: List of tweet texts (each max 280 chars)
-            media_paths: Optional list of media paths (one per tweet or None)
+            video_path: Path to video file
+            caption: Caption/description
 
         Returns:
             Same as execute()
         """
 
-        # Validate tweet lengths
-        for i, tweet in enumerate(tweets):
-            if len(tweet) > 280:
-                return {
-                    "success": False,
-                    "message": f"Tweet {i+1} exceeds 280 characters ({len(tweet)} chars)"
-                }
+        return self.execute(
+            platforms=["instagram", "tiktok", "youtube_shorts", "facebook"],
+            caption=caption,
+            media_paths=[video_path],
+            content_type="reel"
+        )
 
-        # Placeholder for thread publishing
+    def publish_carousel_with_posts(
+        self,
+        carousel_paths: List[str],
+        caption: str,
+        single_image_platforms: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """
+        Convenience method: Publish carousel to Instagram, single image to other platforms.
+
+        Args:
+            carousel_paths: List of image paths for carousel
+            caption: Caption for post
+            single_image_platforms: Platforms to post first image only (default: ["twitter", "facebook"])
+
+        Returns:
+            Combined results from all platforms
+        """
+
+        if not single_image_platforms:
+            single_image_platforms = ["twitter", "facebook"]
+
+        # Publish carousel to Instagram
+        ig_result = self.execute(
+            platforms=["instagram"],
+            caption=caption,
+            media_paths=carousel_paths,
+            content_type="carousel"
+        )
+
+        # Publish first image to other platforms
+        other_result = self.execute(
+            platforms=single_image_platforms,
+            caption=caption,
+            media_paths=[carousel_paths[0]],
+            content_type="post"
+        )
+
+        # Combine results
+        all_results = {**ig_result.get("results", {}), **other_result.get("results", {})}
+        overall_success = ig_result.get("success", False) and other_result.get("success", False)
+
         return {
-            "success": False,
-            "message": "Thread publishing not fully implemented yet. Use tweepy for Twitter threads."
+            "success": overall_success,
+            "results": all_results,
+            "message": "Published carousel and images" if overall_success else "Some publications failed"
         }
 
 
@@ -320,13 +531,19 @@ if __name__ == "__main__":
     skill = SocialMediaPublisherSkill()
 
     print("🧪 Testing social_media_publisher skill...")
+    print("\n📱 Supported Platforms:")
+    print("  ✅ Instagram (posts, stories, carousels, reels)")
+    print("  ✅ X/Twitter (tweets, threads)")
+    print("  ✅ TikTok (videos)")
+    print("  ✅ YouTube Shorts (videos)")
+    print("  ✅ Facebook (posts, reels)")
+    print("  ❌ LinkedIn (removed)")
 
-    # Test publishing (dry run)
-    result = skill.execute(
-        platforms=["instagram", "twitter"],
-        caption="Test post: The future of trading is automated.",
-        media_path="openclaw/agents/marketer/content/test_image.jpg",
-        content_type="post"
+    # Test reel cross-platform publishing
+    print("\n🎥 Testing reel cross-platform publishing...")
+    result = skill.publish_reel_cross_platform(
+        video_path="agents/marketer/content/generated/video_test.mp4",
+        caption="The future of trading is automated. #AlgoTrading #SystematicTrading"
     )
 
     print(f"\n✅ Result:")
@@ -337,7 +554,9 @@ if __name__ == "__main__":
         print(f"  {platform}: {platform_result['message']}")
 
     print("\n⚠️  NOTE: Full social media API integration requires:")
-    print("  - Instagram: Graph API setup + Business account")
-    print("  - X/Twitter: OAuth1 + tweepy library")
-    print("  - LinkedIn: API app + Company page admin access")
-    print("\nThis is a placeholder implementation. Integrate real APIs for production.")
+    print("  - Instagram: Meta Graph API + Business account")
+    print("  - X/Twitter: Twitter API v2 + Bearer token")
+    print("  - TikTok: TikTok Content Posting API v2")
+    print("  - YouTube: YouTube Data API v3")
+    print("  - Facebook: Meta Graph API + Page access")
+    print("\nThis is a structure implementation. Integrate real APIs for production.")

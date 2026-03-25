@@ -42,10 +42,13 @@ agents:
     skills:
       - "telegram_hitl"
       - "content_parser"
-      - "visual_validator"
       - "tavily_search"
       - "image_generation"
       - "social_media_publisher"
+      - "video_generation"
+      - "video_to_tweet_thread"
+      - "video_to_carousel"
+      - "dynamic_prompt_generator"
 
   # The Innovator (Product Lead)
   - name: "innovator"

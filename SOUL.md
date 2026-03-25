@@ -215,12 +215,14 @@ Owner decides: Resolve / Refund / Further investigation
 - **10% Community Engagement** — Testimonials, UGC, behind-the-scenes
 
 ### Platform Strategy
-- **Instagram (Primary):** Visual-heavy, stories + posts, younger demographic
+- **Instagram (Primary):** Visual-heavy (stories/posts/carousels/reels), younger demographic
 - **X/Twitter:** Text-heavy threads, educational deep dives, crypto community
-- **LinkedIn:** Professional thought leadership, institutional perspective
+- **TikTok:** Short-form video, viral potential, younger demographic
+- **YouTube Shorts:** Vertical video, YouTube ecosystem integration
+- **Facebook:** Mixed audience, reels for reach
 
 ### Posting Frequency
-- **Daily:** 1-2 posts across platforms
+- **Daily:** 1 story + 1 video (reels on 4 platforms) + 1 thread + 1 carousel = ~12 pieces/day
 - **Product Launches:** Immediate multi-platform campaign when new bot approved
 - **Engagement:** Respond to comments <30 min, DMs <30 min (business hours)
 

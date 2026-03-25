@@ -197,7 +197,9 @@ class ImageGenerationSkill:
             "instagram_post": "1:1",
             "instagram_story": "9:16",
             "twitter": "16:9",
-            "linkedin": "1.91:1"
+            "tiktok": "9:16",
+            "youtube_shorts": "9:16",
+            "facebook": "1:1"
         }
 
         aspect_ratio = aspect_ratio_map.get(platform, "1:1")
@@ -236,7 +238,9 @@ class ImageGenerationSkill:
             "instagram_post": "1:1",
             "instagram_story": "9:16",
             "twitter": "16:9",
-            "linkedin": "1.91:1"
+            "tiktok": "9:16",
+            "youtube_shorts": "9:16",
+            "facebook": "1:1"
         }
 
         aspect_ratio = aspect_ratio_map.get(platform, "1:1")
@@ -259,6 +263,73 @@ class ImageGenerationSkill:
             prompt=prompt,
             aspect_ratio=aspect_ratio
         )
+
+    def generate_with_dynamic_prompt(
+        self,
+        topic: str,
+        style: str = "minimal",
+        platform: str = "instagram_post",
+        content_type: str = "educational"
+    ) -> Dict[str, Any]:
+        """
+        Generate image using dynamic prompt generator for unique, contextual prompts.
+
+        This method uses the dynamic_prompt_generator skill to create a unique prompt
+        based on the topic, avoiding repetitive template-based generation.
+
+        Args:
+            topic: Main topic/theme of the image
+            style: Visual style ("dashboard", "minimal", "abstract", "chart")
+            platform: Target platform
+            content_type: "educational", "product", "social_proof", "community"
+
+        Returns:
+            Same as execute() plus "dynamic_prompt_used": bool
+        """
+
+        try:
+            # Try to import and use dynamic prompt generator
+            from dynamic_prompt_generator import DynamicPromptGeneratorSkill
+
+            prompt_gen = DynamicPromptGeneratorSkill()
+            prompt_result = prompt_gen.execute(
+                topic=topic,
+                style=style,
+                platform=platform,
+                content_type=content_type
+            )
+
+            if not prompt_result.get("success"):
+                # Fallback to simple prompt
+                prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
+                dynamic_used = False
+                aspect_ratio = "1:1"
+            else:
+                prompt = prompt_result.get("prompt")
+                dynamic_used = True
+                aspect_ratio = prompt_result.get("aspect_ratio", "1:1")
+
+        except ImportError:
+            # Fallback if prompt generator not available
+            prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
+            aspect_ratio = "1:1"
+            dynamic_used = False
+
+        # Generate image with the prompt
+        result = self.execute(
+            prompt=prompt,
+            aspect_ratio=aspect_ratio,
+            validate_brand=True
+        )
+
+        # Add info about dynamic prompt usage
+        result["dynamic_prompt_used"] = dynamic_used
+        if dynamic_used:
+            result["topic"] = topic
+            result["style"] = style
+            result["content_type"] = content_type
+
+        return result
 
 
 # ========================================================================
