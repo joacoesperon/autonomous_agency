@@ -78,6 +78,55 @@ visual_identity:
     background_rule: "Always Carbon Black #101010"
 
 # ========================================================================
+# BRAND MASCOT (opcional - para videos/image prompts consistentes)
+# ========================================================================
+
+brand_mascot:
+  enabled: false
+  name: "Jess Candle"
+  description: "A bright neon-green trading candlestick with cartoon eyes and a mouth, expressive but clearly still a candlestick."
+  persona: "Playful, witty, confident trading guide"
+  visual_style: "Polished 3D cartoon mascot with clean fintech art direction"
+  speaking_role: "Use the mascot as the on-screen speaker when the content should feel character-led and social-first."
+  use_in_content_scripts: true
+
+  dialogue_style:
+    - "The mascot can speak directly to camera in first person when it feels natural."
+    - "Keep the tone clever and approachable, but still credible."
+    - "Do not make the mascot childish, annoying, or meme-chaotic."
+
+  default_scene: "A modern trading office with monitors, charts, keyboards, desks, and premium fintech lighting."
+
+  allowed_environments:
+    - "modern trading office"
+    - "desk with charts and multiple monitors"
+    - "glass-walled fintech office"
+    - "trading floor or market desk"
+
+  scene_rules:
+    - "Keep the mascot fully visible and easy to read."
+    - "Do not turn the mascot into a human."
+    - "Preserve the candle body, green color, and face placement."
+    - "The mascot can move and emote, but should stay recognizable."
+
+  # Up to 3 images for Veo subject consistency.
+  # Recommended: front, 3/4 angle, and profile or alternate expression.
+  # Paths can be relative to repo root, absolute, or replaced by gcs_uri entries later.
+  reference_images: []
+  # Example:
+  # reference_images:
+  #   - "assets/mascot/front.png"
+  #   - "assets/mascot/three_quarter.png"
+  #   - "assets/mascot/profile.png"
+
+  veo:
+    use_reference_images: true
+    require_reference_images: false
+    reference_type: "asset"
+    force_8s_when_using_references: true
+    speaking_prompt_suffix: "The mascot is clearly talking to camera with expressive mouth movement and natural animated body language."
+
+# ========================================================================
 # CONTENT GUIDELINES (por tipo de contenido)
 # ========================================================================
 
@@ -219,6 +268,160 @@ llm_defaults:
 
   fallback_provider: "openai"  # Si falla el primary
   fallback_model: "gpt-4o-mini"
+
+# ========================================================================
+# VIDEO GENERATION (configurable por provider)
+# ========================================================================
+
+video_generation:
+  provider: "d-id"  # d-id | veo | heygen | synthesia | runway | pika
+
+  # D-ID (AI Avatars) - Bueno para talking head videos
+  d-id:
+    api_key_env: "D_ID_API_KEY"
+    presenter_id: "amy-Aq6OmGZnMt"  # Default avatar
+    voice_id: "en-US-JennyNeural"
+    cost_per_minute: 0.30
+    notes: "Good baseline for simple talking-head videos, fast and cheaper than premium avatar tools"
+
+  # Google Veo (Vertex AI) - Mejor calidad generativa/cinematográfica
+  veo:
+    project_env: "GOOGLE_CLOUD_PROJECT"
+    location: "us-central1"
+    model: "veo-3.1-generate-preview"
+    resolution: "720p"
+    generate_audio: true
+    enhance_prompt: true
+    person_generation: "allow_adult"
+    sample_count: 1
+    storage_uri: null  # Opcional: gs://bucket/prefix/
+    cost_per_minute: 1.80
+    notes: "Best option in this repo for a non-human mascot with reference images and varied trading-related scenes"
+
+  # HeyGen (Popular para avatares realistas) - Mejor fit para personaje hablando
+  heygen:
+    api_key_env: "HEYGEN_API_KEY"
+    character_type: "avatar"  # avatar | talking_photo
+    avatar_id: "your_heygen_avatar_id_here"
+    # talking_photo_id: "your_talking_photo_id_here"
+    avatar_style: "normal"
+    voice_id: "your_heygen_voice_id_here"
+    speed: 1.0
+    pitch: 0
+    caption: false
+    background_type: "color"  # color | image
+    background_value: "#101010"
+    test: false
+    title: "Jess Trading AI Video"
+    cost_per_minute: 0.40
+    notes: "Best fit for a consistent created avatar or digital twin speaking directly to camera"
+
+  # Synthesia (Enterprise-grade)
+  synthesia:
+    api_key_env: "SYNTHESIA_API_KEY"
+    avatar_id: "anna"
+    voice_id: "en-US-female-1"
+    cost_per_minute: 0.50
+    notes: "Premium quality, best for professional content"
+
+  # Runway Gen-3 (Alta calidad cinematográfica)
+  runway:
+    api_key_env: "RUNWAY_API_KEY"
+    model: "gen3"
+    cost_per_minute: 1.20
+    notes: "Best visual quality, expensive, slower"
+
+  # Pika Labs (Estilo creativo)
+  pika:
+    api_key_env: "PIKA_API_KEY"
+    model: "pika-1.5"
+    cost_per_minute: 0.60
+    notes: "Creative style, good for dynamic content"
+
+# ========================================================================
+# IMAGE GENERATION (configurable por provider)
+# ========================================================================
+
+image_generation:
+  provider: "flux"  # flux | dalle | midjourney | sdxl | ideogram
+
+  # Flux (Replicate) - Gratis y rápido
+  flux:
+    api_key_env: "REPLICATE_API_TOKEN"
+    model: "black-forest-labs/flux-schnell"  # schnell | dev | pro
+    cost_per_image: 0.00  # Schnell es gratis
+    speed: "fast"  # 2-5 segundos
+    notes: "Best for high volume, free tier available"
+
+  # DALL-E 3 (OpenAI) - Muy buena calidad
+  dalle:
+    api_key_env: "OPENAI_API_KEY"
+    model: "dall-e-3"
+    size: "1024x1024"
+    quality: "hd"  # standard | hd
+    cost_per_image: 0.08  # HD pricing
+    notes: "Excellent quality, good text rendering"
+
+  # Midjourney v7 (A través de API no oficial)
+  midjourney:
+    api_key_env: "MIDJOURNEY_API_KEY"
+    version: "7"
+    cost_per_image: 0.10
+    notes: "Premium aesthetic, requires unofficial API"
+
+  # Stable Diffusion XL (Open source)
+  sdxl:
+    api_key_env: "REPLICATE_API_TOKEN"
+    model: "stabilityai/sdxl"
+    cost_per_image: 0.02
+    notes: "Open source, good customization"
+
+  # Ideogram (Mejor para texto en imágenes)
+  ideogram:
+    api_key_env: "IDEOGRAM_API_KEY"
+    model: "ideogram-v2"
+    cost_per_image: 0.06
+    notes: "Best for text in images, great for infographics"
+
+# ========================================================================
+# CONTENT SCHEDULE (configurar frecuencia de generación)
+# ========================================================================
+
+content_schedule:
+  # Cuántos videos generar por día
+  videos_per_day: 1  # Cambia a 10 para alta frecuencia
+
+  # Intervalo entre generaciones (auto-calculado si no se especifica)
+  # 24 horas / videos_per_day = intervalo en horas
+  generation_interval_hours: null  # null = auto-calculate
+
+  # O especifica horarios exactos (sobrescribe videos_per_day)
+  generation_times: []
+  # Ejemplo para 10 videos/día:
+  # generation_times:
+  #   - "08:00"
+  #   - "10:30"
+  #   - "13:00"
+  #   - "15:30"
+  #   - "18:00"
+  #   - "20:30"
+  #   - "23:00"
+  #   - "01:30"
+  #   - "04:00"
+  #   - "06:30"
+
+  # Días activos de la semana (0=Monday, 6=Sunday)
+  active_days: [0, 1, 2, 3, 4, 5, 6]  # Todos los días
+  # Ejemplo para solo lunes a viernes:
+  # active_days: [0, 1, 2, 3, 4]
+
+  # Pausar generación automática
+  auto_generation_enabled: true
+
+  # Hora de inicio/fin (24h format)
+  generation_window:
+    start: "08:00"
+    end: "23:00"
 
 # ========================================================================
 # NOTAS DE USO

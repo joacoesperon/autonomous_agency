@@ -1,8 +1,10 @@
 version: '3.8'
 
-# Jess Trading Autonomous Agency — Docker Orchestration
-# This file defines the containerized deployment of all 4 agents
-# Each agent runs in its own sandboxed container with no sudo access
+# Jess Trading Autonomous Agency — Legacy Docker Draft
+# NOTE:
+# - The supported install path for this repo is `setup.sh` + `openclaw run ...`
+# - This compose file still reflects an older container layout and is kept as
+#   reference only until dedicated Dockerfiles are added for the current repo.
 
 services:
   # =========================================================================

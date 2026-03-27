@@ -3,223 +3,65 @@
 Custom Skill: image_generation
 ========================================================================
 
-Generates brand-compliant images using Replicate API (Flux model).
-
-This skill creates visual content following Jess Trading brand guidelines:
-- Carbon Black backgrounds
-- Neon Green highlights
-- Premium fintech aesthetic
-- Multiple aspect ratios for different platforms
-
-Usage in OpenClaw:
-    Use the skill image_generation to create an image:
-    - Prompt: "Minimalist trading dashboard, dark mode, green profits"
-    - Aspect ratio: "1:1" (for Instagram) or "9:16" (for stories)
-    - Output path: "openclaw/agents/marketer/content/generated/image_001.jpg"
-
-Get API key: https://replicate.com
-
-========================================================================
+Generates brand-compliant images using the provider configured in
+`shared/brand_config.yml`.
 """
 
-import os
-import sys
-import time
-import yaml
-import requests
-from typing import Dict, Optional, Any
 from pathlib import Path
+import sys
+from typing import Any, Dict, Optional
 
-try:
-    import replicate
-except ImportError:
-    print("⚠️  ERROR: replicate library not installed")
-    print("Run: pip install replicate")
-    exit(1)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from shared.image_provider import ImageProvider
 
 
 class ImageGenerationSkill:
-    """Skill for AI image generation using Replicate"""
+    """Skill for configurable AI image generation."""
 
     def __init__(self):
         self.name = "image_generation"
-        self.description = "Generate brand-compliant images using AI (Replicate/Flux)"
-
-        # Load brand configuration
-        self.config = self._load_brand_config()
-
-        self.api_token = os.getenv("REPLICATE_API_TOKEN")
-
-        if not self.api_token:
-            print("⚠️  WARNING: REPLICATE_API_TOKEN not set in .env")
-        else:
-            os.environ["REPLICATE_API_TOKEN"] = self.api_token
-
-    def _load_brand_config(self) -> Dict[str, Any]:
-        """Load brand configuration from centralized YAML"""
-        config_path = Path(__file__).parent.parent / "shared" / "brand_config.yml"
-
-        if not config_path.exists():
-            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
-
-        with open(config_path) as f:
-            return yaml.safe_load(f)
-
-    def _build_brand_palette_prompt(self) -> str:
-        """Build brand palette prompt from config"""
-        colors = self.config["visual_identity"]["color_palette"]
-        aesthetic = self.config["visual_identity"]["aesthetic"]
-
-        return f"""
-    Color palette STRICT requirements:
-    - Background: {colors['primary']} (solid or radial gradient)
-    - Highlights: {colors['secondary']} (profits, key metrics, max 20% of image)
-    - Text: {colors['tertiary']} (labels, body text)
-    - CTAs: {colors['accent']} (buttons, action prompts only)
-    {aesthetic['style']}, {aesthetic['reference']}
-    """
+        self.description = (
+            "Generate brand-compliant images using the provider configured in shared/brand_config.yml"
+        )
 
     def execute(
         self,
         prompt: str,
         aspect_ratio: str = "1:1",
         output_path: Optional[str] = None,
-        model: str = "black-forest-labs/flux-schnell",
-        validate_brand: bool = True
+        model: Optional[str] = None,
+        validate_brand: bool = True,
+        provider: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """
-        Generate image using AI.
-
-        Args:
-            prompt: Description of image to generate
-            aspect_ratio: "1:1", "9:16", "16:9", "4:5", or "1.91:1"
-            output_path: Where to save generated image
-            model: Replicate model to use (default: Flux Schnell - fast & free)
-            validate_brand: If True, inject brand palette requirements
-
-        Returns:
-            {
-                "success": bool,
-                "image_url": str,
-                "local_path": str,
-                "prompt_used": str,
-                "model": str,
-                "message": str
-            }
-        """
-
-        if not self.api_token:
-            return {
-                "success": False,
-                "message": "REPLICATE_API_TOKEN not configured"
-            }
-
-        # Build full prompt with brand requirements
-        if validate_brand:
-            brand_palette = self._build_brand_palette_prompt()
-            full_prompt = f"{prompt}\n\n{brand_palette}"
-        else:
-            full_prompt = prompt
-
-        # Supported aspect ratios (común across platforms)
-        valid_aspect_ratios = ["1:1", "9:16", "16:9", "4:5", "1.91:1"]
-
-        # Validate aspect ratio
-        if aspect_ratio not in valid_aspect_ratios:
-            return {
-                "success": False,
-                "message": f"Invalid aspect ratio. Use: {valid_aspect_ratios}"
-            }
-
-        # Generate output path if not provided
-        if not output_path:
-            timestamp = int(time.time())
-            os.makedirs("openclaw/agents/marketer/content/generated", exist_ok=True)
-            output_path = f"openclaw/agents/marketer/content/generated/image_{timestamp}.jpg"
-
-        # Call Replicate API
-        try:
-            output = replicate.run(
-                model,
-                input={
-                    "prompt": full_prompt,
-                    "aspect_ratio": aspect_ratio,
-                    "output_format": "jpg",
-                    "output_quality": 90,
-                    "num_outputs": 1
-                }
-            )
-
-            # Get image URL (output is a list for Flux models)
-            if isinstance(output, list) and len(output) > 0:
-                image_url = output[0]
-            else:
-                image_url = str(output)
-
-        except Exception as e:
-            return {
-                "success": False,
-                "message": f"Image generation failed: {e}"
-            }
-
-        # Download image to local path
-        try:
-            response = requests.get(image_url, timeout=30)
-            response.raise_for_status()
-
-            with open(output_path, 'wb') as f:
-                f.write(response.content)
-
-        except Exception as e:
-            return {
-                "success": False,
-                "image_url": image_url,
-                "message": f"Downloaded image URL but failed to save locally: {e}"
-            }
-
-        return {
-            "success": True,
-            "image_url": image_url,
-            "local_path": output_path,
-            "prompt_used": full_prompt,
-            "model": model,
-            "aspect_ratio": aspect_ratio,
-            "message": f"Image generated and saved to {output_path}"
-        }
+        image_provider = ImageProvider(provider=provider)
+        return image_provider.generate(
+            prompt=prompt,
+            aspect_ratio=aspect_ratio,
+            output_path=output_path,
+            validate_brand=validate_brand,
+            model_override=model,
+        )
 
     def generate_product_visual(
         self,
         strategy_name: str,
         symbol: str,
         profit_factor: float,
-        platform: str = "instagram_post"
+        platform: str = "instagram_post",
+        provider: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """
-        Convenience method for generating product showcase visuals.
-
-        Args:
-            strategy_name: Name of trading strategy
-            symbol: Trading symbol (EURUSD, XAUUSD, etc.)
-            profit_factor: Profit factor metric
-            platform: Target platform (determines aspect ratio)
-
-        Returns:
-            Same as execute()
-        """
-
-        # Map platform to aspect ratio
         aspect_ratio_map = {
             "instagram_post": "1:1",
             "instagram_story": "9:16",
             "twitter": "16:9",
             "tiktok": "9:16",
             "youtube_shorts": "9:16",
-            "facebook": "1:1"
+            "facebook": "1:1",
         }
-
         aspect_ratio = aspect_ratio_map.get(platform, "1:1")
-
-        # Build optimized prompt
         prompt = f"""
         Minimalist fintech trading dashboard showing {symbol} chart.
         Main element: candlestick chart with bullish Neon Green candles.
@@ -227,56 +69,42 @@ class ImageGenerationSkill:
         Strategy name '{strategy_name}' in Light Gray subtitle.
         Clean, premium, professional. No clutter.
         """
-
         return self.execute(
             prompt=prompt,
-            aspect_ratio=aspect_ratio
+            aspect_ratio=aspect_ratio,
+            provider=provider,
         )
 
     def generate_educational_visual(
         self,
         theme: str,
-        platform: str = "instagram_post"
+        platform: str = "instagram_post",
+        provider: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """
-        Convenience method for educational content visuals.
-
-        Args:
-            theme: Educational theme (e.g., "volatility", "discipline", "automation")
-            platform: Target platform
-
-        Returns:
-            Same as execute()
-        """
-
         aspect_ratio_map = {
             "instagram_post": "1:1",
             "instagram_story": "9:16",
             "twitter": "16:9",
             "tiktok": "9:16",
             "youtube_shorts": "9:16",
-            "facebook": "1:1"
+            "facebook": "1:1",
         }
-
         aspect_ratio = aspect_ratio_map.get(platform, "1:1")
-
-        # Theme-based prompts
         theme_prompts = {
             "volatility": "Abstract visualization of market volatility, chaotic red lines transforming into calm green systematic patterns",
             "discipline": "Minimalist clock/calendar showing 24/7 automated trading, geometric precision",
-            "automation": "Robotic/AI elements managing trading charts, futuristic but professional",
-            "backtesting": "Timeline visualization showing 10+ years of data, historical chart analysis",
-            "risk": "Drawdown graph with clear risk zones, professional risk management visual"
+            "automation": "Robotic or AI elements managing trading charts, futuristic but professional",
+            "backtesting": "Timeline visualization showing 10 plus years of data, historical chart analysis",
+            "risk": "Drawdown graph with clear risk zones, professional risk management visual",
         }
-
         prompt = theme_prompts.get(
             theme.lower(),
-            f"Minimalist fintech visualization about {theme}, abstract and professional"
+            f"Minimalist fintech visualization about {theme}, abstract and professional",
         )
-
         return self.execute(
             prompt=prompt,
-            aspect_ratio=aspect_ratio
+            aspect_ratio=aspect_ratio,
+            provider=provider,
         )
 
     def generate_with_dynamic_prompt(
@@ -284,105 +112,65 @@ class ImageGenerationSkill:
         topic: str,
         style: str = "minimal",
         platform: str = "instagram_post",
-        content_type: str = "educational"
+        content_type: str = "educational",
+        provider: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """
-        Generate image using dynamic prompt generator for unique, contextual prompts.
-
-        This method uses the dynamic_prompt_generator skill to create a unique prompt
-        based on the topic, avoiding repetitive template-based generation.
-
-        Args:
-            topic: Main topic/theme of the image
-            style: Visual style ("dashboard", "minimal", "abstract", "chart")
-            platform: Target platform
-            content_type: "educational", "product", "social_proof", "community"
-
-        Returns:
-            Same as execute() plus "dynamic_prompt_used": bool
-        """
-
         try:
-            # Try to import and use dynamic prompt generator
-            from dynamic_prompt_generator import DynamicPromptGeneratorSkill
+            from skills.dynamic_prompt_generator import DynamicPromptGeneratorSkill
 
             prompt_gen = DynamicPromptGeneratorSkill()
             prompt_result = prompt_gen.execute(
                 topic=topic,
                 style=style,
                 platform=platform,
-                content_type=content_type
+                content_type=content_type,
             )
 
-            if not prompt_result.get("success"):
-                # Fallback to simple prompt
-                prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
-                dynamic_used = False
-                aspect_ratio = "1:1"
-            else:
+            if prompt_result.get("success"):
                 prompt = prompt_result.get("prompt")
-                dynamic_used = True
                 aspect_ratio = prompt_result.get("aspect_ratio", "1:1")
-
+                dynamic_used = True
+            else:
+                prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
+                aspect_ratio = "1:1"
+                dynamic_used = False
         except ImportError:
-            # Fallback if prompt generator not available
             prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
             aspect_ratio = "1:1"
             dynamic_used = False
 
-        # Generate image with the prompt
         result = self.execute(
             prompt=prompt,
             aspect_ratio=aspect_ratio,
-            validate_brand=True
+            validate_brand=True,
+            provider=provider,
         )
-
-        # Add info about dynamic prompt usage
         result["dynamic_prompt_used"] = dynamic_used
         if dynamic_used:
             result["topic"] = topic
             result["style"] = style
             result["content_type"] = content_type
-
         return result
 
 
-# ========================================================================
-# OpenClaw Skill Definition
-# ========================================================================
-
 def get_skill():
-    """Return skill instance for OpenClaw to load"""
     return ImageGenerationSkill()
 
 
-# ========================================================================
-# CLI Testing
-# ========================================================================
-
 if __name__ == "__main__":
-    from dotenv import load_dotenv
-    load_dotenv()
-
     skill = ImageGenerationSkill()
 
-    print("🧪 Testing image_generation skill...")
-
-    # Test product visual
+    print("Testing image_generation skill...")
     result = skill.generate_product_visual(
         strategy_name="EMA50_200_RSI_v1",
         symbol="EURUSD",
         profit_factor=1.87,
-        platform="instagram_post"
+        platform="instagram_post",
     )
 
-    print(f"\n✅ Result:")
     print(f"Success: {result.get('success')}")
     print(f"Message: {result.get('message')}")
-
     if result.get("success"):
+        print(f"Provider: {result.get('provider')}")
         print(f"Image URL: {result.get('image_url')}")
         print(f"Local Path: {result.get('local_path')}")
-        print(f"Aspect Ratio: {result.get('aspect_ratio')}")
-    else:
-        print("Image generation failed. Check API key and configuration.")

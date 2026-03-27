@@ -3,305 +3,330 @@
 Telegram Gateway — HITL (Human in the Loop) Approval System
 ========================================================================
 
-This module provides the core approval system for Jess Trading Agency.
-ALL content publishing and financial transactions require explicit owner
-approval via Telegram.
-
-Key Features:
-- Send approval requests with inline buttons
-- Track approval state (pending/approved/denied)
-- Timeout handling (48h auto-expire)
-- Rich media previews (images, formatted text)
-- Secure token validation
-
-Security:
-- Bot token stored in .env (never hardcoded)
-- Owner chat ID validated before accepting commands
-- All approvals logged with timestamp
-
-Usage:
-    from telegram_gateway import TelegramGateway
-
-    gateway = TelegramGateway()
-
-    # Send approval request
-    approval_id = gateway.request_approval(
-        title="New Instagram Post",
-        content="Caption text here...",
-        media_url="path/to/image.jpg",
-        options=["Approve", "Deny", "Edit"]
-    )
-
-    # Wait for approval (blocking)
-    result = gateway.wait_for_approval(approval_id, timeout=172800)
-
-    if result == "Approve":
-        # Publish content
-        pass
-
-========================================================================
+This module manages owner approvals through Telegram and persists the
+approval queue in `shared/approval_queue.yml`.
 """
 
-import os
 import json
-import time
-import yaml
-from typing import Dict, List, Optional, Any
-from datetime import datetime, timedelta
 import logging
+import os
+import time
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+import requests
+import yaml
 
 try:
-    import telegram
-    from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-    from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
+    from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+    from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
+
+    TELEGRAM_LIB_AVAILABLE = True
 except ImportError:
-    print("⚠️  ERROR: python-telegram-bot not installed")
-    print("Run: pip install python-telegram-bot")
-    exit(1)
+    TELEGRAM_LIB_AVAILABLE = False
+    Update = Any  # type: ignore
 
+    class _ContextTypesPlaceholder:
+        DEFAULT_TYPE = Any
 
-# ========================================================================
-# Configuration
-# ========================================================================
+    ContextTypes = _ContextTypesPlaceholder  # type: ignore
+    Application = Any  # type: ignore
+    InlineKeyboardButton = Any  # type: ignore
+    InlineKeyboardMarkup = Any  # type: ignore
+    CallbackQueryHandler = Any  # type: ignore
+    CommandHandler = Any  # type: ignore
+
 
 class TelegramGatewayConfig:
-    """Configuration for Telegram Gateway"""
+    """Configuration for Telegram Gateway."""
 
     def __init__(self):
+        self.project_root = Path(__file__).resolve().parent.parent
         self.bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
         self.owner_chat_id = os.getenv("TELEGRAM_OWNER_CHAT_ID")
 
-        # Validation
         if not self.bot_token:
             raise ValueError("TELEGRAM_BOT_TOKEN not set in .env")
         if not self.owner_chat_id:
             raise ValueError("TELEGRAM_OWNER_CHAT_ID not set in .env")
 
-        # Convert chat_id to integer
         try:
             self.owner_chat_id = int(self.owner_chat_id)
-        except ValueError:
-            raise ValueError("TELEGRAM_OWNER_CHAT_ID must be a valid integer")
+        except ValueError as exc:
+            raise ValueError("TELEGRAM_OWNER_CHAT_ID must be a valid integer") from exc
 
-        # Approval queue file
-        self.queue_file = "openclaw/shared/approval_queue.yml"
+        self.queue_file = self.project_root / "shared" / "approval_queue.yml"
+        self.approval_timeout = 172800
+        self.reminder_interval = 86400
+        self.log_file = self.project_root / "shared" / "logs" / "telegram_gateway.log"
 
-        # Timeouts
-        self.approval_timeout = 172800  # 48 hours in seconds
-        self.reminder_interval = 86400  # 24 hours
-
-        # Logging
-        self.log_file = "openclaw/shared/logs/telegram_gateway.log"
-
-
-# ========================================================================
-# Telegram Gateway
-# ========================================================================
 
 class TelegramGateway:
-    """
-    Main gateway for HITL approvals via Telegram.
-
-    This class handles:
-    - Sending approval requests to owner
-    - Processing owner responses
-    - Managing approval queue
-    - Timeout and reminder logic
-    """
+    """Main gateway for HITL approvals via Telegram."""
 
     def __init__(self, config: Optional[TelegramGatewayConfig] = None):
         self.config = config or TelegramGatewayConfig()
         self.app = None
         self.setup_logging()
-
-        # Load approval queue
         self.load_queue()
 
     def setup_logging(self):
-        """Setup logging for gateway"""
-        os.makedirs(os.path.dirname(self.config.log_file), exist_ok=True)
-
+        self.config.log_file.parent.mkdir(parents=True, exist_ok=True)
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             handlers=[
                 logging.FileHandler(self.config.log_file),
-                logging.StreamHandler()
-            ]
+                logging.StreamHandler(),
+            ],
         )
         self.logger = logging.getLogger("TelegramGateway")
 
+    def _default_queue_data(self) -> Dict[str, List[Dict[str, Any]]]:
+        return {"queue": [], "archived": []}
+
+    def _normalize_queue_data(self, raw_data: Any) -> Dict[str, List[Dict[str, Any]]]:
+        if raw_data is None:
+            return self._default_queue_data()
+
+        if isinstance(raw_data, dict) and "queue" in raw_data:
+            queue = raw_data.get("queue") or []
+            archived = raw_data.get("archived") or []
+            return {
+                "queue": queue if isinstance(queue, list) else [],
+                "archived": archived if isinstance(archived, list) else [],
+            }
+
+        if isinstance(raw_data, dict):
+            return {"queue": list(raw_data.values()), "archived": []}
+
+        if isinstance(raw_data, list):
+            return {"queue": raw_data, "archived": []}
+
+        return self._default_queue_data()
+
     def load_queue(self):
-        """Load approval queue from file"""
-        if os.path.exists(self.config.queue_file):
-            with open(self.config.queue_file, 'r') as f:
-                self.queue = yaml.safe_load(f) or {}
+        if self.config.queue_file.exists():
+            with open(self.config.queue_file, "r", encoding="utf-8") as f:
+                raw_data = yaml.safe_load(f)
         else:
-            self.queue = {}
-            self.save_queue()
+            raw_data = None
+
+        self.queue_data = self._normalize_queue_data(raw_data)
+        self.save_queue()
 
     def save_queue(self):
-        """Save approval queue to file"""
-        os.makedirs(os.path.dirname(self.config.queue_file), exist_ok=True)
-        with open(self.config.queue_file, 'w') as f:
-            yaml.dump(self.queue, f, default_flow_style=False)
+        self.config.queue_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.config.queue_file, "w", encoding="utf-8") as f:
+            yaml.safe_dump(self.queue_data, f, default_flow_style=False, sort_keys=False)
 
-    async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Handle /start command"""
-        chat_id = update.effective_chat.id
+    def _find_record(self, approval_id: str) -> Optional[Dict[str, Any]]:
+        for collection in ("queue", "archived"):
+            for item in self.queue_data[collection]:
+                if item.get("id") == approval_id:
+                    return item
+        return None
 
-        if chat_id != self.config.owner_chat_id:
-            await update.message.reply_text(
-                "⛔ Unauthorized. This bot is for Jess Trading owner only."
-            )
-            self.logger.warning(f"Unauthorized access attempt from chat_id: {chat_id}")
-            return
+    def _pending_records(self) -> List[Dict[str, Any]]:
+        return [item for item in self.queue_data["queue"] if item.get("status") == "pending"]
 
-        welcome_message = """
-🤖 **Jess Trading Agency — HITL Gateway Online**
+    def _normalize_action(self, action: str) -> str:
+        action = action.strip().lower().replace(" ", "_")
+        if action in {"approve", "approved"}:
+            return "approved"
+        if action in {"deny", "denied"}:
+            return "denied"
+        if action in {"edit", "edit_requested"}:
+            return "edit_requested"
+        return action
 
-This bot manages approval requests from your autonomous agents.
+    def _options_to_keyboard(self, options: List[str], approval_id: str) -> Dict[str, Any]:
+        buttons = []
+        for option in options:
+            action = self._normalize_action(option)
+            buttons.append({"text": option, "callback_data": f"{action}:{approval_id}"})
+        return {"inline_keyboard": [buttons]}
 
-**Active Agents:**
-• Marketer (Content Lead)
-• Innovator (Product Lead)
-• Support (Community Manager)
-• Operator (Finance Lead)
-
-**Your Role:**
-You'll receive approval requests for:
-✅ Content publishing (all platforms)
-✅ Refund requests (all amounts)
-✅ Major operational decisions
-
-**Commands:**
-/start — Show this message
-/pending — Show pending approvals
-/stats — Show agency statistics
-
-**How it works:**
-1. Agent prepares action (e.g., Instagram post)
-2. You receive notification with preview + buttons
-3. Click [Approve] / [Deny] / [Edit]
-4. Agent executes based on your decision
-
-**Security:**
-• All actions logged with timestamp
-• 48h timeout for approvals (auto-expire)
-• Only your chat ID can approve
-
-Ready to automate 90% of Jess Trading 🚀
-        """
-
-        await update.message.reply_text(
-            welcome_message,
-            parse_mode='Markdown'
+    def _format_approval_message(self, approval_record: Dict[str, Any]) -> str:
+        platforms = approval_record.get("metadata", {}).get("platforms", [])
+        platforms_text = ", ".join(platforms) if platforms else "not specified"
+        return (
+            "Approval Request\n\n"
+            f"Title: {approval_record['title']}\n"
+            f"Agent: {approval_record['agent']}\n"
+            f"Type: {approval_record['type']}\n"
+            f"Platforms: {platforms_text}\n"
+            f"Created: {approval_record['created_at']}\n"
+            f"Expires: {approval_record['expires_at']}\n"
+            f"ID: {approval_record['id']}\n\n"
+            f"{approval_record['content']}"
         )
 
-        self.logger.info(f"Owner {chat_id} started bot")
+    def _resolve_media_path(self, media_url: str) -> Optional[Path]:
+        media_path = Path(media_url)
+        if not media_path.is_absolute():
+            media_path = self.config.project_root / media_path
+        if media_path.exists():
+            return media_path
+        return None
+
+    def _send_approval_notification(self, approval_record: Dict[str, Any]):
+        message_text = self._format_approval_message(approval_record)
+        reply_markup = self._options_to_keyboard(approval_record["options"], approval_record["id"])
+        base_url = f"https://api.telegram.org/bot{self.config.bot_token}"
+
+        data = {
+            "chat_id": str(self.config.owner_chat_id),
+            "reply_markup": json.dumps(reply_markup),
+        }
+
+        media_path = None
+        if approval_record.get("media_url"):
+            media_path = self._resolve_media_path(approval_record["media_url"])
+
+        try:
+            if media_path:
+                caption_text = message_text[:1000] + "..." if len(message_text) > 1000 else message_text
+                suffix = media_path.suffix.lower()
+                if suffix in {".jpg", ".jpeg", ".png", ".webp"}:
+                    endpoint = "sendPhoto"
+                    data["caption"] = caption_text
+                    file_field = "photo"
+                elif suffix in {".mp4", ".mov", ".webm"}:
+                    endpoint = "sendVideo"
+                    data["caption"] = caption_text
+                    file_field = "video"
+                else:
+                    endpoint = "sendDocument"
+                    data["caption"] = caption_text
+                    file_field = "document"
+
+                with open(media_path, "rb") as media_file:
+                    response = requests.post(
+                        f"{base_url}/{endpoint}",
+                        data=data,
+                        files={file_field: media_file},
+                        timeout=30,
+                    )
+            else:
+                data["text"] = message_text
+                response = requests.post(f"{base_url}/sendMessage", data=data, timeout=30)
+
+            response.raise_for_status()
+            payload = response.json()
+            if not payload.get("ok"):
+                raise RuntimeError(payload)
+
+            telegram_result = payload.get("result", {})
+            approval_record["telegram"] = {
+                "message_id": telegram_result.get("message_id"),
+                "chat_id": telegram_result.get("chat", {}).get("id", self.config.owner_chat_id),
+            }
+            self.save_queue()
+            self.logger.info("Approval notification sent: %s", approval_record["id"])
+        except Exception as exc:
+            self.logger.error("Failed to send approval notification %s: %s", approval_record["id"], exc)
+
+    async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        chat_id = update.effective_chat.id
+        if chat_id != self.config.owner_chat_id:
+            await update.message.reply_text("Unauthorized. This bot is for the owner only.")
+            self.logger.warning("Unauthorized access attempt from chat_id: %s", chat_id)
+            return
+
+        welcome_message = (
+            "Jess Trading Agency HITL Gateway Online\n\n"
+            "Commands:\n"
+            "/start - show this message\n"
+            "/pending - show pending approvals\n"
+            "/stats - queue summary"
+        )
+        await update.message.reply_text(welcome_message)
 
     async def pending_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Handle /pending command — show all pending approvals"""
         chat_id = update.effective_chat.id
-
         if chat_id != self.config.owner_chat_id:
-            await update.message.reply_text("⛔ Unauthorized")
+            await update.message.reply_text("Unauthorized")
             return
 
-        pending = [
-            item for item in self.queue.values()
-            if item.get("status") == "pending"
-        ]
-
+        self.load_queue()
+        pending = self._pending_records()
         if not pending:
-            await update.message.reply_text(
-                "✅ No pending approvals. All clear!"
-            )
+            await update.message.reply_text("No pending approvals.")
             return
 
-        message = f"📋 **Pending Approvals: {len(pending)}**\n\n"
-
-        for item in pending[:10]:  # Show max 10
-            message += f"**{item['title']}**\n"
-            message += f"Type: {item['type']}\n"
-            message += f"Agent: {item['agent']}\n"
-            message += f"Submitted: {item['created_at']}\n"
-            message += f"ID: `{item['id']}`\n\n"
+        lines = [f"Pending approvals: {len(pending)}", ""]
+        for item in pending[:10]:
+            lines.append(f"- {item['title']} ({item['agent']} / {item['type']})")
+            lines.append(f"  ID: {item['id']}")
 
         if len(pending) > 10:
-            message += f"_...and {len(pending) - 10} more_\n"
+            lines.append(f"...and {len(pending) - 10} more")
 
-        await update.message.reply_text(message, parse_mode='Markdown')
+        await update.message.reply_text("\n".join(lines))
 
-        self.logger.info(f"Owner requested pending approvals: {len(pending)} found")
+    async def stats_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        chat_id = update.effective_chat.id
+        if chat_id != self.config.owner_chat_id:
+            await update.message.reply_text("Unauthorized")
+            return
+
+        self.load_queue()
+        pending = len(self._pending_records())
+        approved = len([item for item in self.queue_data["queue"] if item.get("status") == "approved"])
+        denied = len([item for item in self.queue_data["queue"] if item.get("status") == "denied"])
+        archived = len(self.queue_data["archived"])
+        await update.message.reply_text(
+            "\n".join(
+                [
+                    "Queue stats",
+                    f"Pending: {pending}",
+                    f"Approved: {approved}",
+                    f"Denied: {denied}",
+                    f"Archived: {archived}",
+                ]
+            )
+        )
 
     async def handle_approval_callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Handle inline button callbacks (Approve/Deny/Edit)"""
         query = update.callback_query
         await query.answer()
 
         chat_id = query.message.chat_id
-
         if chat_id != self.config.owner_chat_id:
-            await query.message.reply_text("⛔ Unauthorized")
+            await query.message.reply_text("Unauthorized")
             return
 
-        # Parse callback data: "approve:approval_id" or "deny:approval_id"
         action, approval_id = query.data.split(":", 1)
+        action = self._normalize_action(action)
 
-        if approval_id not in self.queue:
-            await query.message.reply_text(
-                f"⚠️ Approval {approval_id} not found (may have expired)"
-            )
+        self.load_queue()
+        item = self._find_record(approval_id)
+        if not item:
+            await query.message.reply_text(f"Approval {approval_id} not found.")
             return
-
-        item = self.queue[approval_id]
 
         if item["status"] != "pending":
-            await query.message.reply_text(
-                f"⚠️ This approval was already {item['status']}"
-            )
+            await query.message.reply_text(f"This approval was already {item['status']}.")
             return
 
-        # Update status
         item["status"] = action
         item["decided_at"] = datetime.now().isoformat()
         item["decided_by"] = str(chat_id)
-
         self.save_queue()
 
-        # Send confirmation
-        if action == "approve":
-            emoji = "✅"
-            status_text = "APPROVED"
-        elif action == "deny":
-            emoji = "❌"
-            status_text = "DENIED"
-        elif action == "edit":
-            emoji = "✏️"
-            status_text = "EDIT REQUESTED"
-        else:
-            emoji = "❓"
-            status_text = action.upper()
-
-        confirmation = f"""
-{emoji} **{status_text}**
-
-**{item['title']}**
-Type: {item['type']}
-Agent: {item['agent']}
-Decision Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-
-The {item['agent']} agent has been notified.
-        """
-
-        await query.message.reply_text(confirmation, parse_mode='Markdown')
-
-        # Log decision
-        self.logger.info(
-            f"Approval {approval_id} {action}ed by owner. "
-            f"Type: {item['type']}, Agent: {item['agent']}"
+        await query.message.reply_text(
+            "\n".join(
+                [
+                    f"Decision recorded: {action}",
+                    f"Title: {item['title']}",
+                    f"Agent: {item['agent']}",
+                    f"ID: {item['id']}",
+                ]
+            )
         )
+        self.logger.info("Approval %s updated to %s", approval_id, action)
 
     def request_approval(
         self,
@@ -311,32 +336,11 @@ The {item['agent']} agent has been notified.
         approval_type: str,
         media_url: Optional[str] = None,
         options: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> str:
-        """
-        Request approval from owner via Telegram.
-
-        Args:
-            agent: Name of requesting agent (marketer, innovator, etc.)
-            title: Short title for approval (e.g., "New Instagram Post")
-            content: Full content text (caption, description, etc.)
-            approval_type: Type of approval (content, refund, financial, etc.)
-            media_url: Optional path to media file (image, video)
-            options: List of button options (default: ["Approve", "Deny"])
-            metadata: Additional data to store with approval
-
-        Returns:
-            approval_id: Unique ID for tracking this approval
-        """
-
-        # Generate unique approval ID
         approval_id = f"{agent}_{approval_type}_{int(time.time())}"
+        normalized_options = options or ["Approve", "Deny"]
 
-        # Default options
-        if options is None:
-            options = ["Approve", "Deny"]
-
-        # Create approval record
         approval_record = {
             "id": approval_id,
             "agent": agent,
@@ -344,182 +348,130 @@ The {item['agent']} agent has been notified.
             "content": content,
             "type": approval_type,
             "media_url": media_url,
-            "options": options,
+            "options": normalized_options,
             "metadata": metadata or {},
             "status": "pending",
             "created_at": datetime.now().isoformat(),
             "expires_at": (datetime.now() + timedelta(seconds=self.config.approval_timeout)).isoformat(),
             "decided_at": None,
-            "decided_by": None
+            "decided_by": None,
+            "telegram": {
+                "message_id": None,
+                "chat_id": self.config.owner_chat_id,
+            },
         }
 
-        # Add to queue
-        self.queue[approval_id] = approval_record
+        self.queue_data["queue"].append(approval_record)
         self.save_queue()
-
-        # Send to Telegram (async, will be handled by bot)
         self._send_approval_notification(approval_record)
-
-        self.logger.info(
-            f"Approval requested: {approval_id} by {agent} ({approval_type})"
-        )
-
+        self.logger.info("Approval requested: %s by %s (%s)", approval_id, agent, approval_type)
         return approval_id
-
-    def _send_approval_notification(self, approval_record: Dict[str, Any]):
-        """
-        Internal method to send approval notification to Telegram.
-        This would normally be called via async bot method.
-        For now, queued for bot to pick up.
-        """
-        # This will be handled by the bot's main loop
-        # For now, just log that notification is queued
-        self.logger.info(
-            f"Notification queued for approval: {approval_record['id']}"
-        )
 
     def wait_for_approval(
         self,
         approval_id: str,
         timeout: Optional[int] = None,
-        check_interval: int = 5
+        check_interval: int = 5,
     ) -> Optional[str]:
-        """
-        Wait for approval decision (blocking).
-
-        Args:
-            approval_id: ID of approval to wait for
-            timeout: Max time to wait in seconds (default: 48h)
-            check_interval: How often to check in seconds (default: 5s)
-
-        Returns:
-            Decision string ("approve", "deny", "edit", etc.) or None if timeout
-        """
-
-        if timeout is None:
-            timeout = self.config.approval_timeout
-
+        timeout = timeout or self.config.approval_timeout
         start_time = time.time()
 
         while (time.time() - start_time) < timeout:
-            self.load_queue()  # Reload to get latest state
-
-            if approval_id not in self.queue:
-                self.logger.warning(f"Approval {approval_id} disappeared from queue")
+            self.load_queue()
+            item = self._find_record(approval_id)
+            if not item:
+                self.logger.warning("Approval %s disappeared from queue", approval_id)
                 return None
 
-            item = self.queue[approval_id]
-
             if item["status"] != "pending":
-                self.logger.info(
-                    f"Approval {approval_id} decided: {item['status']}"
-                )
                 return item["status"]
 
-            # Check if expired
             expires_at = datetime.fromisoformat(item["expires_at"])
             if datetime.now() > expires_at:
-                self.logger.info(f"Approval {approval_id} expired")
                 item["status"] = "expired"
+                item["decided_at"] = datetime.now().isoformat()
                 self.save_queue()
                 return "expired"
 
             time.sleep(check_interval)
 
-        # Timeout reached
-        self.logger.info(f"Approval {approval_id} wait timeout")
         return None
 
     def get_approval_status(self, approval_id: str) -> Optional[str]:
-        """
-        Get current status of an approval (non-blocking).
-
-        Returns:
-            Status string or None if not found
-        """
         self.load_queue()
-
-        if approval_id not in self.queue:
+        item = self._find_record(approval_id)
+        if not item:
             return None
-
-        return self.queue[approval_id]["status"]
+        return item["status"]
 
     async def send_notification(
         self,
         message: str,
-        parse_mode: str = 'Markdown',
-        media_url: Optional[str] = None
+        parse_mode: str = "Markdown",
+        media_url: Optional[str] = None,
     ):
-        """
-        Send a simple notification to owner (no approval needed).
-        Used for alerts, reports, status updates.
-        """
-
+        if not TELEGRAM_LIB_AVAILABLE:
+            self.logger.error("python-telegram-bot not installed")
+            return
         if not self.app:
             self.logger.error("Bot not running, cannot send notification")
             return
 
         try:
-            if media_url and os.path.exists(media_url):
-                with open(media_url, 'rb') as f:
-                    await self.app.bot.send_photo(
-                        chat_id=self.config.owner_chat_id,
-                        photo=f,
-                        caption=message,
-                        parse_mode=parse_mode
-                    )
+            if media_url:
+                media_path = self._resolve_media_path(media_url)
+            else:
+                media_path = None
+
+            if media_path and media_path.exists():
+                with open(media_path, "rb") as f:
+                    if media_path.suffix.lower() in {".mp4", ".mov", ".webm"}:
+                        await self.app.bot.send_video(
+                            chat_id=self.config.owner_chat_id,
+                            video=f,
+                            caption=message,
+                            parse_mode=parse_mode,
+                        )
+                    else:
+                        await self.app.bot.send_photo(
+                            chat_id=self.config.owner_chat_id,
+                            photo=f,
+                            caption=message,
+                            parse_mode=parse_mode,
+                        )
             else:
                 await self.app.bot.send_message(
                     chat_id=self.config.owner_chat_id,
                     text=message,
-                    parse_mode=parse_mode
+                    parse_mode=parse_mode,
                 )
 
             self.logger.info("Notification sent to owner")
-
-        except Exception as e:
-            self.logger.error(f"Failed to send notification: {e}")
+        except Exception as exc:
+            self.logger.error("Failed to send notification: %s", exc)
 
     def run_bot(self):
-        """
-        Run the Telegram bot (blocking).
-        This should run in a separate process/thread.
-        """
+        if not TELEGRAM_LIB_AVAILABLE:
+            raise ImportError("python-telegram-bot is required to run the Telegram gateway bot")
 
         self.logger.info("Starting Telegram Gateway Bot...")
-
-        # Create application
         self.app = Application.builder().token(self.config.bot_token).build()
-
-        # Register handlers
         self.app.add_handler(CommandHandler("start", self.start_command))
         self.app.add_handler(CommandHandler("pending", self.pending_command))
+        self.app.add_handler(CommandHandler("stats", self.stats_command))
         self.app.add_handler(CallbackQueryHandler(self.handle_approval_callback))
-
-        # Start bot
-        self.logger.info("Telegram Gateway Bot started successfully")
         self.app.run_polling()
 
 
-# ========================================================================
-# Standalone Execution
-# ========================================================================
-
 if __name__ == "__main__":
-    print("🤖 Starting Telegram Gateway...")
-
-    # Load .env
     from dotenv import load_dotenv
+
     load_dotenv()
 
     try:
         gateway = TelegramGateway()
         gateway.run_bot()
-
     except KeyboardInterrupt:
-        print("\n⏹️  Telegram Gateway stopped by user")
-
-    except Exception as e:
-        print(f"❌ Error starting gateway: {e}")
-        import traceback
-        traceback.print_exc()
+        print("Telegram Gateway stopped by user")
+    except Exception as exc:
+        print(f"Error starting gateway: {exc}")

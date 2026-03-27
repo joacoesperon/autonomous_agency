@@ -90,6 +90,31 @@ class ContentScriptGeneratorSkill:
     - FORBIDDEN WORDS: {forbidden}
     """
 
+    def _build_mascot_section(self) -> str:
+        """Build optional mascot guidance section from config"""
+        mascot = self.config.get("brand_mascot", {})
+        if not mascot.get("enabled") or not mascot.get("use_in_content_scripts", True):
+            return ""
+
+        dialogue_style = mascot.get("dialogue_style", [])
+        dialogue_guidance = (
+            "\n".join([f"      - {rule}" for rule in dialogue_style])
+            if dialogue_style
+            else "      - Keep the mascot on-brand."
+        )
+
+        return f"""
+    MASCOT MODE:
+    - On-screen speaker: {mascot.get('name', 'Brand mascot')}
+    - Description: {mascot.get('description', '')}
+    - Persona: {mascot.get('persona', '')}
+    - Visual style: {mascot.get('visual_style', '')}
+    - Speaking role: {mascot.get('speaking_role', '')}
+    - Dialogue guidance:
+{dialogue_guidance}
+    - Write the video script so it can be spoken naturally by this mascot on camera.
+    """
+
     def _get_content_guidelines(self, content_type: str) -> Dict[str, Any]:
         """Get guidelines for specific content type from config"""
         if content_type not in self.config["content_types"]:
@@ -178,12 +203,14 @@ Use this context to make the content specific and data-driven.
 
         # Build brand voice section
         brand_voice_section = self._build_brand_voice_section()
+        mascot_section = self._build_mascot_section()
 
         # Build comprehensive prompt
         prompt = f"""
 You are the content strategist for {self.config['brand_name']}, a premium algorithmic trading brand.
 
 {brand_voice_section}
+{mascot_section}
 
 CONTENT TYPE: {content_type}
 GUIDELINES FOR THIS TYPE:

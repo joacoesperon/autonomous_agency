@@ -24,6 +24,15 @@ This system orchestrates 4 specialized AI agents to automate product development
 - ~30-60 min/day owner time (approvals only)
 - 24/7 operations while you sleep, travel, or focus on strategy
 
+**Current State of This Repo:**
+- Install path is oriented around `setup.sh`, `start_all.sh`, and `openclaw run ...`
+- Marketer workflow is the most complete agent and now supports configurable video/image providers
+- Talking-avatar video generation is implemented for D-ID and HeyGen
+- Prompt-based generative video is implemented for Veo on Vertex AI
+- Brand mascot scaffolding is available for Veo reference-image workflows
+- Scheduling is controlled by `shared/brand_config.yml` plus the marketer heartbeat
+- Other agents are still scaffolded and need deeper API integration
+
 ---
 
 ## 🏗️ System Architecture
@@ -60,11 +69,12 @@ This system orchestrates 4 specialized AI agents to automate product development
 - Outputs: `.mq5` bot files + comprehensive backtest reports
 - Notifies Marketer when new product ready
 
-**2. Marketer (Content Lead)** ✅ **Status: Fully implemented**
+**2. Marketer (Content Lead)** ✅ **Status: Baseline workflow implemented**
 - Monitors trends via Tavily search (crypto, algo trading)
 - Generates brand-compliant content (Carbon Black + Neon Green palette)
 - Creates multi-platform content (Instagram, X, LinkedIn)
-- AI image generation (Replicate API)
+- Video provider configurable via `shared/brand_config.yml`
+- Image provider configurable via `shared/brand_config.yml`
 - **HITL:** Sends ALL content to Telegram for approval before publishing
 - Heartbeat: Every 30 minutes
 
@@ -93,6 +103,10 @@ Install before starting:
 - **Python** ≥ 3.10 → https://python.org
 - **Git** (for cloning)
 
+Supported development environment:
+- macOS and Linux are the primary supported environments for the current scripts
+- Windows would need WSL or some script adjustments
+
 ### Step 1: Clone Project
 
 ```bash
@@ -102,7 +116,7 @@ cd autonomus_agency/
 
 ### Step 2: Get API Keys
 
-Required for Marketer agent (minimum):
+Required for the default Marketer stack:
 
 **Google Gemini API** (LLM - Free tier)
 - Get at: https://aistudio.google.com/app/apikey
@@ -122,9 +136,22 @@ Required for Marketer agent (minimum):
 - Get at: https://tavily.com
 - Save: `TAVILY_API_KEY=tvly-...`
 
-**Replicate API** (Image generation - Free credits)
+**D-ID API** (Default video provider, easiest baseline)
+- Save: `D_ID_API_KEY=...`
+
+**Replicate API** (Default image provider - Flux / SDXL)
 - Get at: https://replicate.com
 - Save: `REPLICATE_API_TOKEN=r8_...`
+
+Optional provider alternatives:
+- `OPENAI_API_KEY` for DALL-E
+- `HEYGEN_API_KEY` for HeyGen talking avatars / digital twins
+- `GOOGLE_CLOUD_PROJECT` + ADC credentials for Veo on Vertex AI
+- `SYNTHESIA_API_KEY` for Synthesia
+- `RUNWAY_API_KEY` for Runway
+- `PIKA_API_KEY` for Pika
+- `IDEOGRAM_API_KEY` for Ideogram
+- `MIDJOURNEY_API_KEY` for Midjourney
 
 Optional (for other agents):
 - Instagram Graph API
@@ -165,11 +192,19 @@ GEMINI_API_KEY=your_key_here
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_OWNER_CHAT_ID=your_chat_id
 
-# Services (required for Marketer)
+# Services (required for default Marketer stack)
 TAVILY_API_KEY=your_key
+D_ID_API_KEY=your_video_key
 REPLICATE_API_TOKEN=your_token
 
-# Social Media (optional - for publishing)
+# Optional alternative providers
+OPENAI_API_KEY=your_openai_key
+HEYGEN_API_KEY=your_heygen_key
+GOOGLE_CLOUD_PROJECT=your_gcp_project
+GOOGLE_APPLICATION_CREDENTIALS=/abs/path/to/service-account.json
+RUNWAY_API_KEY=your_runway_key
+
+# Social Media (optional - only needed for publishing)
 INSTAGRAM_ACCESS_TOKEN=your_token
 X_API_KEY=your_key
 X_ACCESS_TOKEN=your_token
@@ -222,7 +257,8 @@ tail -f shared/logs/*.log
 ```
 
 **Wait for First Heartbeat:**
-- After 30 minutes, Marketer will search trends and generate content
+- After the next heartbeat window, Marketer will read `shared/brand_config.yml`
+- It will only generate if `content_schedule` says the current slot is active
 - You'll receive approval request in Telegram with preview
 - Click [Approve] or [Deny]
 - Marketer responds based on your decision
@@ -240,6 +276,54 @@ Defines:
 - HITL configuration (Telegram, approval timeouts)
 - Security constraints (file boundaries, sandboxing)
 - Logging & error handling
+
+### Brand + Media Config: `shared/brand_config.yml`
+
+Defines:
+- LLM defaults for content skills
+- Video generation provider and per-provider settings
+- Image generation provider and per-provider settings
+- Optional `brand_mascot` settings for consistent mascot-led scenes
+- `content_schedule` for generation cadence
+
+Example:
+```yaml
+brand_mascot:
+  enabled: true
+  reference_images:
+    - "assets/mascot/front.png"
+    - "assets/mascot/three_quarter.png"
+    - "assets/mascot/profile.png"
+
+video_generation:
+  provider: "veo"
+
+image_generation:
+  provider: "flux"
+
+content_schedule:
+  videos_per_day: 10
+  generation_window:
+    start: "08:00"
+    end: "23:00"
+```
+
+For Veo:
+- Set `video_generation.provider: "veo"` in `shared/brand_config.yml`
+- Configure `GOOGLE_CLOUD_PROJECT`
+- Authenticate with Google Application Default Credentials
+  You can do that either with `GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json`
+  or with `gcloud auth application-default login`
+- If using a mascot, set `brand_mascot.enabled: true`
+- Add up to 3 mascot reference images in `brand_mascot.reference_images`
+- Place those images in [assets/mascot/README.md](/home/jesperon/autonomus_agency/assets/mascot/README.md) or another repo path
+- Veo prompts are automatically adapted so the mascot stays in trading-related scenes and speaks the generated script
+
+For HeyGen:
+- Set `video_generation.provider: "heygen"` in `shared/brand_config.yml`
+- Configure `HEYGEN_API_KEY`
+- Set `heygen.avatar_id` plus `heygen.voice_id`
+- Optional: switch to `character_type: "talking_photo"` and provide `talking_photo_id`
 
 ### Brand Identity: `SOUL.md`
 
@@ -263,9 +347,9 @@ Each agent has:
 Located in `skills/` directory:
 - `telegram_hitl.py` — Send approval requests (HITL)
 - `content_parser.py` — Extract metrics from strategy reports
-- `visual_validator.py` — Validate brand color palette
 - `tavily_search.py` — Web search for trends
-- `image_generation.py` — AI image generation (Replicate)
+- `video_generation.py` — Configurable AI video generation
+- `image_generation.py` — Configurable AI image generation
 - `social_media_publisher.py` — Publish to social platforms
 
 Each skill has standalone testing: `python3 skills/[skill_name].py`
@@ -276,20 +360,20 @@ Each skill has standalone testing: `python3 skills/[skill_name].py`
 
 **Every 30 minutes, Marketer:**
 
-1. **Searches trends** using Tavily (e.g., "crypto bot trading 2026")
-2. **Generates caption** following brand voice (premium, transparent, no hype)
-3. **Creates image** using Replicate with exact brand palette
-   - Carbon Black background (#101010)
-   - Neon Green highlights (#45B14F)
-   - Clean, minimalist fintech aesthetic
-4. **Validates image** color compliance (automatic)
+1. **Checks `shared/brand_config.yml`** to decide whether the current slot should generate content
+2. **Searches trends** using Tavily when needed
+3. **Generates script/caption** following brand voice (premium, transparent, no hype)
+4. **Creates media** using the configured providers from `shared/brand_config.yml`
+   - Video provider: D-ID by default, configurable to HeyGen or Veo
+   - Image provider: Flux by default, configurable
+   - Brand palette stays centralized
 5. **Sends to Telegram** for your approval with:
    - Caption preview
-   - Image preview
+   - Media preview
    - Buttons: [Approve] [Deny] [Edit]
 6. **Waits 48h** for your decision (timeout if no response)
-7. **If approved:** Publishes to Instagram, X, LinkedIn
-8. **Logs published** content for analytics
+7. **If approved:** Publishes to configured platforms
+8. **Logs queue state** and publication history
 
 **Your role:** Review on your phone, click [Approve] or [Deny]. That's it.
 
@@ -381,7 +465,12 @@ Repeat for each agent.
 - Solution: Free tier has daily limits. Reduce search frequency or upgrade
 
 **"Image generation failed"**
-- Solution: Check `REPLICATE_API_TOKEN` in .env. Verify API credits.
+- Solution: Check the active image provider in `shared/brand_config.yml`
+- Then verify the matching key in `.env` (`REPLICATE_API_TOKEN`, `OPENAI_API_KEY`, etc.)
+
+**"Video generation failed"**
+- Solution: Check the active video provider in `shared/brand_config.yml`
+- Then verify the matching key in `.env` (`D_ID_API_KEY`, `HEYGEN_API_KEY`, etc.)
 
 **"Social media publishing failed"**
 - Solution: APIs require platform-specific integration:
@@ -487,10 +576,11 @@ Agents CANNOT access:
 ### Phase 1: Foundation (Current)
 - [x] OpenClaw structure
 - [x] Telegram Gateway (HITL)
-- [x] Marketer agent (fully functional)
-- [x] 6 custom skills
+- [x] Marketer baseline workflow
+- [x] Configurable media providers via `shared/brand_config.yml`
+- [x] Core custom skills
 - [x] Deployment scripts
-- [ ] Test Marketer end-to-end
+- [ ] Test Marketer end-to-end on a clean machine
 
 ### Phase 2: Expand Agents
 - [ ] Implement Innovator (EA_developer integration)

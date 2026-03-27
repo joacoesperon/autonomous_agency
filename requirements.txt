@@ -20,6 +20,10 @@ Pillow==10.1.0                 # Image loading and analysis
 numpy==1.26.2                  # Array operations for color analysis
 
 # AI/ML Services
+google-generativeai>=0.8,<1     # Gemini SDK for shared.llm_provider
+google-auth>=2.35,<3            # ADC auth for Vertex AI / Veo
+openai>=1.30,<2                 # OpenAI SDK for DALL-E and LLM fallback
+anthropic>=0.25,<1              # Claude SDK for shared.llm_provider
 replicate==0.22.0              # Replicate API (image generation)
 
 # Social Media APIs (Optional - for full integration)

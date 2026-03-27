@@ -16,19 +16,31 @@ This file defines the autonomous, scheduled tasks that The Marketer executes eve
 
 **Actions:**
 ```bash
-1. Check today's content status:
+1. Load scheduling + provider config:
+   - Read `shared/brand_config.yml`
+   - Check `content_schedule.auto_generation_enabled`
+   - Check `content_schedule.active_days`
+   - Check `content_schedule.generation_window`
+   - Check `content_schedule.generation_times` or auto-calculate from `videos_per_day`
+   - Use configured `video_generation.provider` and `image_generation.provider`
+
+2. Check today's content status:
    - Video + derivatives generated today? (YES/NO)
    - Total pieces pending approval: [count]
 
-2. If daily requirement missing:
+3. If content generation is paused or current time is outside the configured schedule:
+   → Skip generation for this heartbeat
+   → Still run queue monitoring, publishing, trends, and sync tasks
+
+4. If the current heartbeat matches an active generation slot and daily requirement is missing:
    → IMMEDIATELY generate using NEW optimized workflow
    → Priority: Use content_script_generator FIRST
 
-3. If all daily content done AND approval queue <10 items:
+5. If all daily content for the current slot is done AND approval queue <10 items:
    → Generate additional content for tomorrow
    → Use next day's content type in rotation
 
-4. Content type selection (rotate daily):
+6. Content type selection (rotate daily):
    Day % 7:
    0 (Monday):    Educational (40%)
    1 (Tuesday):   Social Proof (30%)
@@ -75,18 +87,20 @@ package = content_script_generator.generate_product_package(
 # }
 
 # ========================================================================
-# STEP 2: Generate Video from Script (D-ID API call)
+# STEP 2: Generate Video from Script (provider from brand_config.yml)
 # ========================================================================
 
 video_result = video_generation.execute(
     script=package["video_script"],
-    duration=package["estimated_duration"]
+    duration=package["estimated_duration"],
+    # Optional for mascot-led Veo scenes:
+    # avatar_config={"scene_prompt": "inside a trading office at market open"}
 )
 
 # Output: video.mp4 (9:16 vertical)
 
 # ========================================================================
-# STEP 3: Generate Carousel Images from Points (6 Replicate calls)
+# STEP 3: Generate Carousel Images from Points (provider from brand_config.yml)
 # ========================================================================
 
 carousel_images = []
@@ -124,34 +138,26 @@ for point in package["tweet_points"]:
 # STEP 5: Send to HITL Approval (Telegram)
 # ========================================================================
 
-telegram_hitl.execute({
-    "title": f"Daily Content - {content_type} - {date}",
-    "items": [
-        {
-            "type": "video",
-            "platforms": ["instagram_reel", "tiktok", "youtube_shorts", "facebook_reel"],
-            "media": video_result["local_path"],
-            "caption": generate_caption(package["video_script"])
-        },
-        {
-            "type": "carousel",
-            "platforms": ["instagram"],
-            "media": carousel_images,  # List of 6 images
-            "caption": "See slides for key points"
-        },
-        {
-            "type": "thread",
-            "platforms": ["twitter"],
-            "tweets": tweets  # List of 5 tweets
-        }
-    ],
-    "priority": "normal",
-    "metadata": {
+telegram_hitl.execute(
+    agent="marketer",
+    title=f"Daily Content - {content_type} - {date}",
+    approval_type="content_bundle",
+    content=build_content_bundle_summary(
+        video_caption=generate_caption(package["video_script"]),
+        carousel_points=package["carousel_points"],
+        tweets=tweets,
+    ),
+    media_url=video_result["local_path"],
+    platforms=["instagram", "twitter", "tiktok", "youtube_shorts", "facebook"],
+    metadata={
+        "carousel_images": carousel_images,
+        "tweets": tweets,
         "llm_provider": package["llm_provider"],
-        "llm_calls": 2,  # content_script_generator + dynamic_prompt_generator
-        "cost_estimate": "$0.16"
-    }
-})
+        "llm_calls": 2,
+        "cost_estimate": "$0.16",
+    },
+    wait=False,
+)
 ```
 
 **Performance Metrics:**
@@ -465,6 +471,7 @@ Note: Content older than 48h will be auto-archived."
 **Memory Variables to Track:**
 ```yaml
 heartbeat_state:
+  last_heartbeat_run: "2026-03-25T14:30:00Z"
   last_content_generated: "2026-03-25T14:30:00Z"
   last_queue_check: "2026-03-25T14:30:00Z"
   last_trend_scan: "2026-03-25T12:00:00Z"
@@ -472,26 +479,36 @@ heartbeat_state:
   last_analytics_update: "2026-03-25T08:00:00Z"
   last_brand_mention_scan: "2026-03-25T10:00:00Z"
 
+  next_generation_due_at: "2026-03-25T16:00:00Z"
+  last_generation_slot: "2026-03-25T14:30:00Z"
+
   known_bots:
     - "EMA50_200_RSI_v1"
     - "BreakoutGold_v2"
 
   content_generated_today:
+    date: "2026-03-25"
     story: true
     video: true
     derivatives: true
+    videos: 1
+    last_video_timestamp: "2026-03-25T14:30:00Z"
     total_pieces: 12
 
   posts_published_today: 8
+  posts_published_this_week: 22
   drafts_awaiting_approval: 15
+  approval_queue_count: 15
 
   weekly_content_mix:
+    week_start: "2026-03-24"
     educational: 12  # 40%
     social_proof: 9  # 30%
     product: 6       # 20%
     community: 3     # 10%
 
   content_calendar_status: "balanced"  # or "rebalance_needed"
+  content_paused: false
 ```
 
 **Persistence:** Save after each heartbeat to `/agents/marketer/heartbeat_state.yml`

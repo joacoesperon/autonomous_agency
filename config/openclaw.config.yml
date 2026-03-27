@@ -117,10 +117,13 @@ skills:
   telegram_hitl:
     approval_queue_path: "shared/approval_queue.yml"
 
+  video_generation:
+    config_file: "shared/brand_config.yml"
+    default_provider: "brand_config"
+
   image_generation:
-    provider: "replicate"
-    model: "black-forest-labs/flux-schnell"
-    default_size: "1080x1080"
+    config_file: "shared/brand_config.yml"
+    default_provider: "brand_config"
 
   tavily_search:
     api_key_env: "TAVILY_API_KEY"

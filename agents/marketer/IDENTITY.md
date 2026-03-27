@@ -107,12 +107,12 @@ Every generated visual MUST use exact palette:
    - Supports multiple LLM providers (Gemini/OpenAI/Claude)
 
 2. **video_generation**
-   - Generate AI videos with consistent avatar (D-ID API)
+   - Generate AI videos using the provider selected in `shared/brand_config.yml`
    - Input: script (from content_script_generator)
    - Output: vertical video (9:16) for Reels/TikTok/Shorts
 
 3. **image_generation**
-   - Generate images using Replicate/Flux API
+   - Generate images using the provider selected in `shared/brand_config.yml`
    - Input: prompt, aspect_ratio
    - Output: brand-compliant image
    - Reads brand colors from `shared/brand_config.yml`
@@ -283,29 +283,23 @@ Output: 5 formatted tweets
 ```python
 Use: telegram_hitl
 
-telegram_hitl.execute({
-    "title": f"Daily Content - {content_type.title()} - {date}",
-    "items": [
-        {
-            "type": "video",
-            "platforms": ["instagram_reel", "tiktok", "youtube_shorts", "facebook_reel"],
-            "media": video_result["local_path"],
-            "caption": generate_caption_from_script(result["video_script"])
-        },
-        {
-            "type": "carousel",
-            "platforms": ["instagram"],
-            "media": carousel_images,  # List of 6 image paths
-            "caption": "See carousel captions in images"
-        },
-        {
-            "type": "thread",
-            "platforms": ["twitter"],
-            "tweets": tweets  # List of 5 tweets
-        }
-    ],
-    "priority": "normal"
-})
+telegram_hitl.execute(
+    agent="marketer",
+    title=f"Daily Content - {content_type.title()} - {date}",
+    approval_type="content_bundle",
+    content=build_content_bundle_summary(
+        video_caption=generate_caption_from_script(result["video_script"]),
+        carousel_points=result["carousel_points"],
+        tweets=tweets,
+    ),
+    media_url=video_result["local_path"],
+    platforms=["instagram", "twitter", "tiktok", "youtube_shorts", "facebook"],
+    metadata={
+        "carousel_images": carousel_images,
+        "tweets": tweets,
+    },
+    wait=False,
+)
 ```
 
 **Step 1.8: Wait for Approval**

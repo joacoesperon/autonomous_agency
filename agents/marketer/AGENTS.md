@@ -66,7 +66,7 @@ The agent uses 10 custom Python skills:
 
 **Core Skills (New Optimized Pipeline):**
 - `content_script_generator` ⭐ **NEW** → Generates complete content package in 1 LLM call
-- `video_generation` → Creates AI videos with consistent avatar
+- `video_generation` → Creates AI videos with consistent avatar or mascot-led Veo scenes
 - `image_generation` → Generates brand-compliant images
 - `video_to_carousel` → Converts video to Instagram carousel (5-8 slides)
 - `video_to_tweet_thread` → Converts video script to 5-tweet thread
@@ -123,16 +123,16 @@ Every 30 minutes, the agent:
 
 3. [VIDEO_GENERATION]
    Input: video_script
-   Output: video.mp4 (AI avatar speaking)
-   Cost: 1 D-ID API call (~$0.15 for 30s)
+   Output: video.mp4 (AI avatar speaking or mascot-led clip)
+   Cost: depends on `shared/brand_config.yml` video provider (D-ID by default)
 
 4. [CAROUSEL_IMAGE_GENERATION]
    Input: carousel_points[] (from step 2)
    For each point:
      4a. Generate image prompt (dynamic_prompt_generator)
-     4b. Generate image (Replicate/Flux)
+     4b. Generate image (provider from `shared/brand_config.yml`)
    Output: 6 carousel images
-   Cost: 6 Replicate calls (free with Flux Schnell)
+   Cost: depends on configured image provider (Flux by default)
 
 5. [TWEET_FORMATTING]
    Input: tweet_points[] (from step 2)
@@ -170,14 +170,14 @@ Every 30 minutes, the agent:
 |------|------|-----------|---------|-----------|-----------|----------|------------|
 | 1 | Tavily Search | Tavily API | Find trending topics | 0-1 | $0.01 | $0.01 | $0.30 |
 | 2 | **content_script_generator** | **Gemini 2.0 Flash** | **Generate script + all points** | **1** | **$0.001** | **$0.001** | **$0.03** |
-| 3 | video_generation | D-ID API | Text-to-video (AI avatar) | 1 | $0.15 | $0.15 | $4.50 |
+| 3 | video_generation | Configurable video provider | Text-to-video (AI avatar) | 1 | varies | varies | varies |
 | 4a | dynamic_prompt_generator | Gemini 2.0 Flash | Image prompts (batch) | 1 | $0.001 | $0.001 | $0.03 |
-| 4b | image_generation | Replicate Flux | Generate carousel images | 6 | $0.00¹ | $0.00 | $0.00 |
+| 4b | image_generation | Configurable image provider | Generate carousel images | 6 | varies | varies | varies |
 | **TOTAL** | | | | **10** | | **$0.16** | **$4.86** |
 
-¹ Flux Schnell is free but rate-limited. Flux Pro costs ~$0.03/image if needed.
+¹ Flux Schnell is free but rate-limited. Actual cost depends on the provider selected in `shared/brand_config.yml`.
 
-**Key Takeaway:** LLM costs are negligible (~$0.06/month). Main cost is D-ID for video generation (~$4.50/month).
+**Key Takeaway:** LLM costs are negligible. Media cost depends on the configured video/image providers.
 
 ### Cost Projections
 
@@ -191,7 +191,7 @@ Every 30 minutes, the agent:
 
 ## Critical Prompts (Quality Control)
 
-**IMPORTANTE:** Estos son los prompts EXACTOS que se envían a los LLMs. Modificar `shared/brand_config.yml` actualiza automáticamente estos prompts.
+**IMPORTANTE:** Estos son los prompts base que se envían a los LLMs. Si `brand_mascot.enabled: true`, se agrega además una sección dinámica para que el guion pueda ser hablado por la mascota.
 
 ---
 
@@ -304,7 +304,7 @@ CRITICAL: Return ONLY valid JSON. No markdown formatting, no ```json```, just th
 Now generate the content package:
 ```
 
-**Para modificar este prompt:** Edita `shared/brand_config.yml` (brand_voice, content_types, etc.)
+**Para modificar este prompt:** Edita `shared/brand_config.yml` (brand_voice, content_types, `brand_mascot`, etc.)
 
 ---
 
@@ -605,7 +605,10 @@ content_paused: true
 
 **Clear approval queue:**
 ```bash
-> shared/approval_queue.yml
+cat > shared/approval_queue.yml <<'YAML'
+queue: []
+archived: []
+YAML
 ```
 
 **Force regenerate today's content:**

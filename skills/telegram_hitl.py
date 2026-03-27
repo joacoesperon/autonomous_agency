@@ -20,15 +20,17 @@ Usage in OpenClaw:
 ========================================================================
 """
 
-import sys
-import os
 import json
+import os
+import sys
+from pathlib import Path
 from typing import Dict, List, Optional, Any
 
-# Add parent directory to path to import telegram_gateway
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
 
-from telegram_gateway import TelegramGateway
+from shared.telegram_gateway import TelegramGateway
 
 
 class TelegramHITLSkill:
