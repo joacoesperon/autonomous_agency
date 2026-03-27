@@ -22,57 +22,67 @@ Usage in OpenClaw:
 """
 
 import os
+import sys
 import time
+import yaml
 from typing import Dict, List, Any, Optional
+from pathlib import Path
 
 try:
-    import google.generativeai as genai
     import replicate
     import requests
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError as e:
     print(f"⚠️  ERROR: Required library not installed: {e}")
-    print("Run: pip install google-generativeai replicate requests")
+    print("Run: pip install replicate requests pyyaml")
+    exit(1)
+
+# Add parent directory to path for shared imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+try:
+    from shared.llm_provider import LLMProvider
+except ImportError:
+    print("⚠️  ERROR: Cannot import LLMProvider from shared/")
+    print("Make sure shared/llm_provider.py exists")
     exit(1)
 
 
 class VideoToCarouselSkill:
     """Skill for converting video content to Instagram carousels"""
 
-    # Brand visual guidelines
-    BRAND_COLORS = {
-        "background": "#101010",  # Carbon Black
-        "highlight": "#45B14F",   # Neon Green
-        "text": "#A7A7A7",        # Light Gray
-        "cta": "#2979FF"          # Electric Blue
-    }
-
-    # Carousel design templates
-    SLIDE_TEMPLATES = {
-        "title": "Bold statement or question, minimal design, centered text",
-        "point": "Key point with supporting detail, bullet or number format",
-        "data": "Metric or statistic, large number with context",
-        "conclusion": "Summary or CTA, call to action prominent"
-    }
-
     def __init__(self):
         self.name = "video_to_carousel"
         self.description = "Convert video scripts into Instagram carousel posts"
 
-        self.gemini_api_key = os.getenv("GEMINI_API_KEY")
+        # Load brand configuration
+        self.config = self._load_brand_config()
+
+        # Initialize LLM provider
+        try:
+            self.llm = LLMProvider()
+            print(f"✅ LLM initialized: {self.llm.provider} - {self.llm.model}")
+        except Exception as e:
+            print(f"⚠️  ERROR: Failed to initialize LLM: {e}")
+            self.llm = None
+
+        # Check Replicate API
         self.replicate_api_key = os.getenv("REPLICATE_API_TOKEN")
-
-        if not self.gemini_api_key:
-            print("⚠️  WARNING: GEMINI_API_KEY not set in .env")
-        else:
-            genai.configure(api_key=self.gemini_api_key)
-            self.model = genai.GenerativeModel('gemini-2.0-flash')
-
         if not self.replicate_api_key:
             print("⚠️  WARNING: REPLICATE_API_TOKEN not set in .env")
         else:
             os.environ["REPLICATE_API_TOKEN"] = self.replicate_api_key
+
+    def _load_brand_config(self) -> Dict[str, Any]:
+        """Load brand configuration from centralized YAML"""
+        config_path = Path(__file__).parent.parent / "shared" / "brand_config.yml"
+
+        if not config_path.exists():
+            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
+
+        with open(config_path) as f:
+            return yaml.safe_load(f)
 
     def execute(
         self,
@@ -187,8 +197,11 @@ class VideoToCarouselSkill:
             {"success": bool, "points": List[str]}
         """
 
+        # Build brand voice from config
+        voice_chars = "\n        - ".join(self.config["brand_voice"]["characteristics"][:4])
+
         prompt = f"""
-        You are creating an Instagram carousel post for Jess Trading (algorithmic trading brand).
+        You are creating an Instagram carousel post for {self.config['brand_name']} (algorithmic trading brand).
 
         TASK: Extract {num_points} key points from the video script below for a carousel post.
 
@@ -205,10 +218,7 @@ class VideoToCarouselSkill:
         - Point {num_points}: CTA/Conclusion (call to action, max 10 words)
 
         BRAND VOICE:
-        - Professional and concise
-        - Data-driven when possible
-        - No hype language
-        - Transparent and educational
+        - {voice_chars}
 
         OUTPUT FORMAT:
         Return ONLY the points, one per line, numbered 1-{num_points}.
@@ -225,8 +235,7 @@ class VideoToCarouselSkill:
         """
 
         try:
-            response = self.model.generate_content(prompt)
-            generated_text = response.text.strip()
+            generated_text = self.llm.generate(prompt)
 
             # Parse points
             points = []
@@ -295,13 +304,16 @@ class VideoToCarouselSkill:
             {"success": bool, "local_path": str, "message": str}
         """
 
+        # Get brand colors from config
+        colors = self.config["visual_identity"]["color_palette"]
+
         # Build prompt based on slide type
         if slide_type == "title":
             visual_prompt = f"""
             Instagram carousel title slide, minimalist design.
-            Carbon Black #101010 solid background.
+            {colors['primary']} solid background.
             Large bold text in center: "{point}"
-            Text color: White or Neon Green #45B14F.
+            Text color: White or {colors['secondary']}.
             Subtle geometric accent (thin lines or dots).
             Clean, premium, Apple keynote aesthetic.
             Square format 1080x1080px.
@@ -309,9 +321,9 @@ class VideoToCarouselSkill:
         elif slide_type == "conclusion":
             visual_prompt = f"""
             Instagram carousel CTA slide, final slide design.
-            Carbon Black #101010 background with subtle radial gradient.
+            {colors['primary']} background with subtle radial gradient.
             Main text: "{point}"
-            Electric Blue #2979FF accent for CTA emphasis.
+            {colors['accent']} accent for CTA emphasis.
             Small "Swipe back for more" hint at top.
             Minimalist, premium fintech aesthetic.
             Square format 1080x1080px.
@@ -319,23 +331,22 @@ class VideoToCarouselSkill:
         else:  # point or data
             visual_prompt = f"""
             Instagram carousel content slide {slide_number} of {total_slides}.
-            Carbon Black #101010 background.
+            {colors['primary']} background.
             Main point displayed: "{point}"
-            Slide number indicator "{slide_number}/{total_slides}" in corner (Light Gray #A7A7A7).
-            Neon Green #45B14F accent element (line, dot, or highlight).
+            Slide number indicator "{slide_number}/{total_slides}" in corner ({colors['tertiary']}).
+            {colors['secondary']} accent element (line, dot, or highlight).
             Clean typography, spacious layout, premium fintech style.
             Square format 1080x1080px.
             """
 
-        # Add brand color enforcement
+        # Add brand color enforcement from config
         full_prompt = f"""
         {visual_prompt}
 
         STRICT COLOR REQUIREMENTS:
-        - Background: Carbon Black #101010
-        - Text: White or Light Gray #A7A7A7
-        - Accents: Neon Green #45B14F or Electric Blue #2979FF only
-        - NO other colors allowed
+        - Background: {colors['primary']}
+        - Text: White or {colors['tertiary']}
+        - Accents: {colors['secondary']} or {colors['accent']} only
         """
 
         # Generate image using Replicate

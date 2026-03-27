@@ -21,62 +21,67 @@ Usage in OpenClaw:
 """
 
 import os
+import sys
+import yaml
 from typing import Dict, List, Any, Optional
+from pathlib import Path
 
 try:
-    import google.generativeai as genai
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    print("⚠️  ERROR: google-generativeai library not installed")
-    print("Run: pip install google-generativeai")
+    print("⚠️  WARNING: python-dotenv not installed")
+
+# Add parent directory to path for shared imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+try:
+    from shared.llm_provider import LLMProvider
+except ImportError:
+    print("⚠️  ERROR: Cannot import LLMProvider from shared/")
+    print("Make sure shared/llm_provider.py exists")
     exit(1)
 
 
 class VideoToTweetThreadSkill:
     """Skill for converting video content to X/Twitter threads"""
 
-    # Brand voice guidelines
-    BRAND_VOICE = """
-    Jess Trading Brand Voice:
-    - Professional but human (not corporate)
-    - Concise and direct (no fluff)
-    - Data-driven (lead with metrics)
-    - Transparent (show risks, admit limitations)
-    - Aspirational but not hypey
-    - No: "guaranteed", "100%", "get rich quick", hype emojis
-    """
-
-    # Thread structure template
-    THREAD_STRUCTURE = """
-    Tweet Thread Structure (5 tweets):
-
-    Tweet 1: HOOK (Attention-grabber, make them want to read more)
-    - Max 280 characters
-    - Question, bold statement, or surprising fact
-    - No CTA yet
-
-    Tweet 2-4: VALUE (Educational insights, data, explanation)
-    - Each tweet stands alone but flows together
-    - Lead with facts and metrics
-    - Use short sentences, impactful
-
-    Tweet 5: CTA + DISCLAIMER (Call to action + risk disclosure if needed)
-    - Clear next step ("Link in bio", "Learn more")
-    - Include disclaimer if showing metrics: "Past performance ≠ future results"
-    """
-
     def __init__(self):
         self.name = "video_to_tweet_thread"
         self.description = "Convert video scripts into X/Twitter threads (5 tweets)"
 
-        self.api_key = os.getenv("GEMINI_API_KEY")
+        # Load brand configuration
+        self.config = self._load_brand_config()
 
-        if not self.api_key:
-            print("⚠️  WARNING: GEMINI_API_KEY not set in .env")
-        else:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel('gemini-2.0-flash')
+        # Initialize LLM provider
+        try:
+            self.llm = LLMProvider()
+            print(f"✅ LLM initialized: {self.llm.provider} - {self.llm.model}")
+        except Exception as e:
+            print(f"⚠️  ERROR: Failed to initialize LLM: {e}")
+            self.llm = None
+
+    def _load_brand_config(self) -> Dict[str, Any]:
+        """Load brand configuration from centralized YAML"""
+        config_path = Path(__file__).parent.parent / "shared" / "brand_config.yml"
+
+        if not config_path.exists():
+            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
+
+        with open(config_path) as f:
+            return yaml.safe_load(f)
+
+    def _build_brand_voice_section(self) -> str:
+        """Build brand voice section from config"""
+        voice = self.config["brand_voice"]
+        forbidden = ", ".join([f'"{w}"' for w in voice["forbidden_words"][:6]])
+        characteristics = "\n    - ".join(voice["characteristics"])
+
+        return f"""
+    {self.config['brand_name']} Brand Voice:
+    - {characteristics}
+    - No: {forbidden}
+    """
 
     def execute(
         self,
@@ -104,10 +109,10 @@ class VideoToTweetThreadSkill:
             }
         """
 
-        if not self.api_key:
+        if not self.llm:
             return {
                 "success": False,
-                "message": "GEMINI_API_KEY not configured"
+                "message": "LLM provider not initialized. Check API keys."
             }
 
         # Validate script
@@ -124,13 +129,35 @@ class VideoToTweetThreadSkill:
         if has_metrics:
             include_disclaimer = True
 
+        # Get max tweet length from config
+        max_chars = self.config["platforms"]["twitter"]["tweet"]["max_chars"]
+
+        # Get disclaimer from config
+        disclaimer = self.config["disclaimers"]["performance"] if include_disclaimer else None
+
         # Build LLM prompt
+        brand_voice = self._build_brand_voice_section()
+
         prompt = f"""
-        You are a social media expert for Jess Trading, a premium algorithmic trading brand.
+        You are a social media expert for {self.config['brand_name']}, a premium algorithmic trading brand.
 
-        {self.BRAND_VOICE}
+        {brand_voice}
 
-        {self.THREAD_STRUCTURE}
+        Tweet Thread Structure ({max_tweets} tweets):
+
+        Tweet 1: HOOK (Attention-grabber, make them want to read more)
+        - Max {max_chars} characters
+        - Question, bold statement, or surprising fact
+        - No CTA yet
+
+        Tweet 2-{max_tweets-1}: VALUE (Educational insights, data, explanation)
+        - Each tweet stands alone but flows together
+        - Lead with facts and metrics
+        - Use short sentences, impactful
+
+        Tweet {max_tweets}: CTA + DISCLAIMER (Call to action + risk disclosure if needed)
+        - Clear next step ("Link in bio", "Learn more")
+        - {"Include disclaimer: " + disclaimer if disclaimer else "No disclaimer needed"}
 
         TASK: Convert the following video script into a {max_tweets}-tweet thread.
 
@@ -142,10 +169,10 @@ class VideoToTweetThreadSkill:
         CONTENT TYPE: {content_type}
 
         REQUIREMENTS:
-        - Each tweet must be ≤280 characters (STRICT)
+        - Each tweet must be ≤{max_chars} characters (STRICT)
         - Follow the thread structure above
         - Maintain brand voice (professional, concise, transparent)
-        - {"Include disclaimer in Tweet 5" if include_disclaimer else "No disclaimer needed"}
+        - {"Include disclaimer in Tweet " + str(max_tweets) if include_disclaimer else "No disclaimer needed"}
         - No hashtags (clean threads only)
         - Max 1 emoji per tweet (use sparingly)
 
@@ -157,15 +184,14 @@ class VideoToTweetThreadSkill:
         2. In milliseconds, opportunities pass. This is why institutional traders automated decades ago.
         3. Today, retail traders have the same advantage. Systematic. Disciplined. Emotion-free.
         4. Automation doesn't guarantee profits. But it removes the biggest obstacle: human emotion.
-        5. Link in bio to explore proven strategies. Past performance ≠ future results.
+        5. Link in bio to explore proven strategies. {disclaimer if disclaimer else ""}
 
         NOW GENERATE THE THREAD:
         """
 
         # Call LLM
         try:
-            response = self.model.generate_content(prompt)
-            generated_text = response.text.strip()
+            generated_text = self.llm.generate(prompt)
 
         except Exception as e:
             return {

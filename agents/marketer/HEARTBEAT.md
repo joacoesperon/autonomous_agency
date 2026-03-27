@@ -10,21 +10,19 @@ This file defines the autonomous, scheduled tasks that The Marketer executes eve
 
 ### TASK 1: Daily Content Generation (Priority: CRITICAL)
 
-**Objective:** Maintain constant content flow. Quantity > Quality. Generate, don't overthink.
+**Objective:** Maintain constant content flow using OPTIMIZED pipeline (1 LLM call).
 
 **Target:** 10+ drafts in approval queue at all times
 
 **Actions:**
 ```bash
 1. Check today's content status:
-   - Story generated today? (YES/NO)
-   - Video generated today? (YES/NO)
-   - Derivatives created? (Thread + Carousel) (YES/NO)
+   - Video + derivatives generated today? (YES/NO)
    - Total pieces pending approval: [count]
 
-2. If ANY daily requirement missing:
-   → IMMEDIATELY generate missing content
-   → Priority order: Video > Derivatives > Story
+2. If daily requirement missing:
+   → IMMEDIATELY generate using NEW optimized workflow
+   → Priority: Use content_script_generator FIRST
 
 3. If all daily content done AND approval queue <10 items:
    → Generate additional content for tomorrow
@@ -41,33 +39,133 @@ This file defines the autonomous, scheduled tasks that The Marketer executes eve
    6 (Sunday):    Product (20% or rest)
 ```
 
-**Generation Process:**
+**NEW OPTIMIZED Generation Process (66% fewer LLM calls):**
+
+```python
+# ========================================================================
+# STEP 1: Generate Complete Content Package (1 LLM call) ⭐
+# ========================================================================
+
+# 1.1 Select topic (optional search)
+topic = tavily_search("algorithmic trading news") OR manual_topic
+
+# 1.2 Generate ALL content in ONE call
+Use: content_script_generator
+
+# Educational example
+package = content_script_generator.generate_educational_package(
+    topic="Why emotional trading fails during volatility",
+    duration=30
+)
+
+# Product example (when Innovator releases new bot)
+package = content_script_generator.generate_product_package(
+    strategy_name="EMA50_200_RSI_Scalper",
+    symbol="EURUSD",
+    metrics={"pf": 1.87, "sharpe": 2.34, "dd": 12.5, "win_rate": 68.3},
+    backtest_years=10,
+    duration=45
+)
+
+# package now contains:
+# {
+#   "video_script": "...",
+#   "carousel_points": ["point1", "point2", ..., "point6"],
+#   "tweet_points": ["hook", "value1", ..., "cta"]
+# }
+
+# ========================================================================
+# STEP 2: Generate Video from Script (D-ID API call)
+# ========================================================================
+
+video_result = video_generation.execute(
+    script=package["video_script"],
+    duration=package["estimated_duration"]
+)
+
+# Output: video.mp4 (9:16 vertical)
+
+# ========================================================================
+# STEP 3: Generate Carousel Images from Points (6 Replicate calls)
+# ========================================================================
+
+carousel_images = []
+for i, point in enumerate(package["carousel_points"], 1):
+    # Generate prompt for this slide
+    prompt = dynamic_prompt_generator.execute(
+        topic=point,
+        style="minimal",
+        platform="instagram_post"
+    )
+
+    # Generate image
+    image = image_generation.execute(
+        prompt=prompt["prompt"],
+        aspect_ratio="1:1"
+    )
+
+    carousel_images.append(image["local_path"])
+
+# Output: 6 images (1080x1080px)
+
+# ========================================================================
+# STEP 4: Format Tweets from Points (NO LLM call, just formatting)
+# ========================================================================
+
+tweets = []
+for point in package["tweet_points"]:
+    # Format to ≤280 chars
+    tweet = ensure_max_length(point, 280)
+    tweets.append(tweet)
+
+# Output: 5 tweets
+
+# ========================================================================
+# STEP 5: Send to HITL Approval (Telegram)
+# ========================================================================
+
+telegram_hitl.execute({
+    "title": f"Daily Content - {content_type} - {date}",
+    "items": [
+        {
+            "type": "video",
+            "platforms": ["instagram_reel", "tiktok", "youtube_shorts", "facebook_reel"],
+            "media": video_result["local_path"],
+            "caption": generate_caption(package["video_script"])
+        },
+        {
+            "type": "carousel",
+            "platforms": ["instagram"],
+            "media": carousel_images,  # List of 6 images
+            "caption": "See slides for key points"
+        },
+        {
+            "type": "thread",
+            "platforms": ["twitter"],
+            "tweets": tweets  # List of 5 tweets
+        }
+    ],
+    "priority": "normal",
+    "metadata": {
+        "llm_provider": package["llm_provider"],
+        "llm_calls": 2,  # content_script_generator + dynamic_prompt_generator
+        "cost_estimate": "$0.16"
+    }
+})
 ```
-A. Generate Story:
-   1. Use: tavily_search for current trend
-   2. Use: dynamic_prompt_generator(topic, style="minimal", platform="instagram_story")
-   3. Use: image_generation.generate_with_dynamic_prompt()
-   4. Save to drafts/
-   5. Add to approval queue via telegram_hitl
 
-B. Generate Video:
-   1. Select topic based on content type
-   2. Use: video_generation.generate_[educational/product/social_proof]_video()
-   3. Save to generated/
-   4. Add to approval queue via telegram_hitl
+**Performance Metrics:**
+```
+OLD WORKFLOW:
+- LLM calls per cycle: 3 (video_to_carousel + video_to_tweet_thread + prompts)
+- Cost per cycle: ~$0.25
+- Coherence: Medium (3 separate calls = 3 different contexts)
 
-C. Generate Derivatives (from video):
-   1. Use: video_to_tweet_thread(video_result.script_used, content_type)
-   2. Use: video_to_carousel(video_result.script_used, num_slides=6)
-   3. Save all outputs
-   4. Bundle with video in approval queue
-
-D. Send to HITL:
-   telegram_hitl.send({
-       "title": f"Daily Content - {content_type} - {date}",
-       "items": [story, video, thread, carousel],
-       "priority": "normal"
-   })
+NEW WORKFLOW:
+- LLM calls per cycle: 2 (content_script_generator + dynamic_prompt_generator)
+- Cost per cycle: ~$0.16
+- Coherence: High (1 unified generation = consistent voice)
+- Time saved: ~30% faster
 ```
 
 **Stop Conditions:**
@@ -76,7 +174,7 @@ DO NOT generate if:
 - >20 drafts awaiting approval (owner backlog)
 - Critical system error detected
 - Owner flagged "pause content" in settings
-- Negative PR crisis active
+- LLM provider unavailable (check shared/brand_config.yml for fallback)
 
 KEEP generating if:
 - Approval queue <20 items
@@ -85,9 +183,10 @@ KEEP generating if:
 ```
 
 **Success Metrics:**
-- Daily: 1 story + 1 video + 1 thread + 1 carousel minimum
+- Daily: 1 video + 1 thread + 1 carousel minimum (12 total pieces)
 - Weekly: 40-60 total pieces created
 - Approval queue: 10-20 items pending at all times
+- LLM cost: <$5/month
 
 ---
 

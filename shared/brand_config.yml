@@ -1,0 +1,236 @@
+# ========================================================================
+# Jess Trading - Brand Configuration (Centralized)
+# ========================================================================
+#
+# Este archivo contiene TODA la configuración de marca del proyecto.
+# Si cambias la voz de marca aquí, se actualiza en TODOS los agentes y skills.
+#
+# IMPORTANTE: Todos los skills deben leer de este archivo, NO hardcodear valores.
+#
+# ========================================================================
+
+brand_name: "Jess Trading"
+brand_tagline: "Systematic trading. Disciplined execution."
+
+# ========================================================================
+# BRAND VOICE (usado en todos los prompts de contenido)
+# ========================================================================
+
+brand_voice:
+  description: "Professional but human, data-driven, transparent"
+
+  characteristics:
+    - "Professional but human (not corporate)"
+    - "Concise and direct (no fluff)"
+    - "Data-driven (lead with metrics when applicable)"
+    - "Transparent (show risks, admit limitations)"
+    - "Aspirational but not hypey"
+    - "Confident, educational, slightly technical"
+
+  forbidden_words:
+    - "guaranteed"
+    - "100% success"
+    - "get rich quick"
+    - "never lose"
+    - "foolproof"
+    - "can't fail"
+
+  forbidden_phrases:
+    - "make money fast"
+    - "guaranteed profits"
+    - "risk-free trading"
+    - "secret strategy"
+
+  encouraged_language:
+    - "systematic"
+    - "disciplined"
+    - "data-driven"
+    - "transparent"
+    - "backtested"
+    - "validated"
+    - "risk-managed"
+
+# ========================================================================
+# VISUAL IDENTITY (usado en generación de imágenes/videos)
+# ========================================================================
+
+visual_identity:
+  color_palette:
+    primary: "#101010"          # Carbon Black (backgrounds)
+    secondary: "#45B14F"        # Neon Green (highlights, profits, CTAs)
+    tertiary: "#A7A7A7"         # Light Gray (text, labels)
+    accent: "#2979FF"           # Electric Blue (CTAs, interactive elements)
+
+  aesthetic:
+    style: "Minimalist premium fintech"
+    reference: "Apple keynote presentation style"
+    characteristics:
+      - "Dark mode by default"
+      - "Generous white space"
+      - "Clean typography"
+      - "Geometric accents (lines, dots, subtle patterns)"
+      - "Glassmorphism for depth"
+      - "No gradients (except subtle radial on backgrounds)"
+
+  image_constraints:
+    max_colors: 4  # Only use colors from palette
+    highlight_percentage: 20  # Neon Green max 20% of image
+    background_rule: "Always Carbon Black #101010"
+
+# ========================================================================
+# CONTENT GUIDELINES (por tipo de contenido)
+# ========================================================================
+
+content_types:
+  educational:
+    focus: "Teaching concepts, psychology, or technical aspects of algo trading"
+    hook_style: "Question or surprising fact"
+    metrics_usage: "Minimal, use only for context"
+    cta: "Link in bio to learn more"
+    disclaimer_required: false
+    examples:
+      - "Why emotional trading fails during volatility"
+      - "How backtesting separates amateurs from pros"
+      - "The compounding power of consistent 2% monthly returns"
+
+  product:
+    focus: "Showcase specific bot with performance metrics"
+    hook_style: "Bold performance claim with immediate data"
+    metrics_usage: "Essential - PF, Sharpe, DD, Win Rate, Backtest years"
+    cta: "Link in bio to access this strategy"
+    disclaimer_required: true
+    disclaimer_text: "Past performance ≠ future results. Trading involves risk."
+    examples:
+      - "New EURUSD bot: 1.87 PF, 10 years backtested"
+      - "EMA50_200_RSI strategy breakdown"
+
+  social_proof:
+    focus: "Real user testimonials, case studies, results"
+    hook_style: "User quote or result"
+    metrics_usage: "User-specific results"
+    cta: "Link in bio to join the community"
+    disclaimer_required: true
+    disclaimer_text: "Individual results vary. Trading involves risk."
+    examples:
+      - "How @user turned $5k into $12k in 6 months"
+      - "User testimonial: consistency over hype"
+
+  community:
+    focus: "Behind-the-scenes, Q&A, engagement"
+    hook_style: "Personal or conversational"
+    metrics_usage: "None"
+    cta: "Comment your thoughts below"
+    disclaimer_required: false
+    examples:
+      - "Behind the scenes: how we backtest strategies"
+      - "Q&A: Your algo trading questions answered"
+
+# ========================================================================
+# CONTENT MIX (porcentaje semanal)
+# ========================================================================
+
+content_mix:
+  educational: 40
+  social_proof: 30
+  product: 20
+  community: 10
+
+  rebalance_threshold: 15  # % deviation before auto-rebalance
+
+# ========================================================================
+# PLATFORM SPECS (formatos y límites)
+# ========================================================================
+
+platforms:
+  instagram:
+    post:
+      aspect_ratio: "1:1"
+      max_caption: 2200
+      hashtags_max: 30
+    story:
+      aspect_ratio: "9:16"
+      duration_max: 15
+    reel:
+      aspect_ratio: "9:16"
+      duration_min: 15
+      duration_max: 60
+    carousel:
+      slides_min: 2
+      slides_max: 10
+      slides_optimal: 6
+
+  twitter:
+    tweet:
+      max_chars: 280
+      thread_optimal: 5
+    media:
+      aspect_ratio: "16:9"
+      video_max: 140  # seconds
+
+  tiktok:
+    video:
+      aspect_ratio: "9:16"
+      duration_min: 15
+      duration_max: 60
+      duration_optimal: 30
+
+  youtube_shorts:
+    video:
+      aspect_ratio: "9:16"
+      duration_max: 60
+
+# ========================================================================
+# VIDEO GUIDELINES (para D-ID o similar)
+# ========================================================================
+
+video_settings:
+  default_duration: 30  # seconds
+  min_duration: 15
+  max_duration: 60
+
+  script_pacing:
+    words_per_second: 3
+    pause_markers: "..."
+
+  avatar_settings:
+    style: "Professional presenter"
+    background: "#101010"  # Carbon Black
+    lighting: "Soft key light from left"
+
+# ========================================================================
+# DISCLAIMERS (legales)
+# ========================================================================
+
+disclaimers:
+  performance: "Past performance does not guarantee future results."
+  risk: "Trading involves risk of loss. Only trade with capital you can afford to lose."
+  not_advice: "This content is for educational purposes only and is not financial advice."
+  full: "Past performance ≠ future results. Trading involves risk. Not financial advice."
+
+# ========================================================================
+# LLM CONFIGURATION (modelo a usar por defecto)
+# ========================================================================
+
+llm_defaults:
+  provider: "gemini"  # gemini | openai | claude
+  model: "gemini-2.0-flash-exp"
+  temperature: 0.7
+  max_tokens: 2000
+
+  fallback_provider: "openai"  # Si falla el primary
+  fallback_model: "gpt-4o-mini"
+
+# ========================================================================
+# NOTAS DE USO
+# ========================================================================
+#
+# Para usar en Python:
+#
+#   import yaml
+#   with open('shared/brand_config.yml') as f:
+#       config = yaml.safe_load(f)
+#
+#   brand_voice = config['brand_voice']['description']
+#   colors = config['visual_identity']['color_palette']
+#
+# ========================================================================

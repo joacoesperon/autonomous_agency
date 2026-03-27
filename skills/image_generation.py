@@ -23,9 +23,12 @@ Get API key: https://replicate.com
 """
 
 import os
+import sys
 import time
+import yaml
 import requests
 from typing import Dict, Optional, Any
+from pathlib import Path
 
 try:
     import replicate
@@ -38,28 +41,12 @@ except ImportError:
 class ImageGenerationSkill:
     """Skill for AI image generation using Replicate"""
 
-    # Brand color palette for prompts
-    BRAND_PALETTE_PROMPT = """
-    Color palette STRICT requirements:
-    - Background: Carbon Black #101010 (solid or radial gradient)
-    - Highlights: Neon Green #45B14F (profits, key metrics, max 20% of image)
-    - Text: Light Gray #A7A7A7 (labels, body text)
-    - CTAs: Electric Blue #2979FF (buttons, action prompts only)
-    Premium fintech aesthetic, dark mode, Apple keynote style, glassmorphism
-    """
-
-    # Aspect ratios for different platforms
-    ASPECT_RATIOS = {
-        "1:1": "square",       # Instagram post
-        "9:16": "vertical",    # Instagram story
-        "16:9": "horizontal",  # Twitter, YouTube
-        "4:5": "portrait",     # Instagram portrait
-        "1.91:1": "wide"       # LinkedIn
-    }
-
     def __init__(self):
         self.name = "image_generation"
         self.description = "Generate brand-compliant images using AI (Replicate/Flux)"
+
+        # Load brand configuration
+        self.config = self._load_brand_config()
 
         self.api_token = os.getenv("REPLICATE_API_TOKEN")
 
@@ -67,6 +54,30 @@ class ImageGenerationSkill:
             print("⚠️  WARNING: REPLICATE_API_TOKEN not set in .env")
         else:
             os.environ["REPLICATE_API_TOKEN"] = self.api_token
+
+    def _load_brand_config(self) -> Dict[str, Any]:
+        """Load brand configuration from centralized YAML"""
+        config_path = Path(__file__).parent.parent / "shared" / "brand_config.yml"
+
+        if not config_path.exists():
+            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
+
+        with open(config_path) as f:
+            return yaml.safe_load(f)
+
+    def _build_brand_palette_prompt(self) -> str:
+        """Build brand palette prompt from config"""
+        colors = self.config["visual_identity"]["color_palette"]
+        aesthetic = self.config["visual_identity"]["aesthetic"]
+
+        return f"""
+    Color palette STRICT requirements:
+    - Background: {colors['primary']} (solid or radial gradient)
+    - Highlights: {colors['secondary']} (profits, key metrics, max 20% of image)
+    - Text: {colors['tertiary']} (labels, body text)
+    - CTAs: {colors['accent']} (buttons, action prompts only)
+    {aesthetic['style']}, {aesthetic['reference']}
+    """
 
     def execute(
         self,
@@ -105,15 +116,19 @@ class ImageGenerationSkill:
 
         # Build full prompt with brand requirements
         if validate_brand:
-            full_prompt = f"{prompt}\n\n{self.BRAND_PALETTE_PROMPT}"
+            brand_palette = self._build_brand_palette_prompt()
+            full_prompt = f"{prompt}\n\n{brand_palette}"
         else:
             full_prompt = prompt
 
+        # Supported aspect ratios (común across platforms)
+        valid_aspect_ratios = ["1:1", "9:16", "16:9", "4:5", "1.91:1"]
+
         # Validate aspect ratio
-        if aspect_ratio not in self.ASPECT_RATIOS:
+        if aspect_ratio not in valid_aspect_ratios:
             return {
                 "success": False,
-                "message": f"Invalid aspect ratio. Use: {list(self.ASPECT_RATIOS.keys())}"
+                "message": f"Invalid aspect ratio. Use: {valid_aspect_ratios}"
             }
 
         # Generate output path if not provided

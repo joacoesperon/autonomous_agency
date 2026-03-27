@@ -19,17 +19,18 @@ The Marketer is an autonomous content generation agent that creates high-volume,
 ### Daily Workflow
 Every day, the Marketer automatically:
 
-1. **Generates 1 Instagram Story** (image, 9:16 format)
-2. **Generates 1 Video** (15-60 seconds, vertical)
-   - Uses AI avatar with consistent character
-   - Publishes to: Instagram Reels, TikTok, YouTube Shorts, Facebook
-3. **Derives content from that video:**
-   - 5-tweet X/Twitter thread
-   - 6-8 slide Instagram carousel
-4. **Sends everything to you for approval** via Telegram
-5. **Publishes approved content** to all platforms
+1. **Generates content idea** (manual or Tavily trend search)
+2. **Generates complete content package in 1 LLM call:**
+   - Video script (15-60 seconds)
+   - Carousel key points (6-8 slides)
+   - Tweet thread key points (5 tweets)
+3. **Creates video** with AI avatar speaking the script
+4. **Generates 6-8 carousel images** from key points
+5. **Formats tweets** from key points (≤280 chars each)
+6. **Sends everything to you for approval** via Telegram
+7. **Publishes approved content** to all platforms
 
-**Result:** ~12 content pieces per day from one core video.
+**Result:** ~12 content pieces per day (1 video + 6 images + 5 tweets) from ONE core generation cycle.
 
 ---
 
@@ -61,16 +62,17 @@ The agent automatically rotates through these types daily.
 ## How It Works Technically
 
 ### 1. Content Generation
-The agent uses 9 custom Python skills:
+The agent uses 10 custom Python skills:
 
-**New Skills (Video-Based):**
+**Core Skills (New Optimized Pipeline):**
+- `content_script_generator` ⭐ **NEW** → Generates complete content package in 1 LLM call
 - `video_generation` → Creates AI videos with consistent avatar
-- `video_to_tweet_thread` → Converts video script to 5-tweet thread
+- `image_generation` → Generates brand-compliant images
 - `video_to_carousel` → Converts video to Instagram carousel (5-8 slides)
+- `video_to_tweet_thread` → Converts video script to 5-tweet thread
 - `dynamic_prompt_generator` → Creates unique image prompts (no templates)
 
-**Existing Skills:**
-- `image_generation` → Generates brand-compliant images
+**Supporting Skills:**
 - `telegram_hitl` → Sends content for owner approval
 - `content_parser` → Extracts metrics from EA reports
 - `tavily_search` → Searches web for trends
@@ -97,6 +99,372 @@ Every 30 minutes, the agent:
 - **HIGH:** Publishes approved content immediately
 - **MEDIUM:** Monitors trends, checks for brand mentions
 - **LOW:** Checks for new bot launches (~1/month)
+
+---
+
+## Content Generation Workflow (Optimized)
+
+### Step-by-Step Process
+
+```
+1. [IDEA GENERATION] (Manual or Tavily search)
+   Input: Topic or trend
+   Output: Content idea
+   Cost: $0 (manual) or $0.01 (Tavily API)
+
+2. [CONTENT_SCRIPT_GENERATOR] ⭐ NEW OPTIMIZED SKILL
+   Input: Topic + content_type + duration
+   Output: {
+     video_script: "30s spoken script",
+     carousel_points: ["point1", "point2", ..., "point6"],
+     tweet_points: ["hook", "value1", "value2", "value3", "cta"]
+   }
+   Cost: 1 LLM call (Gemini 2.0 Flash)
+
+3. [VIDEO_GENERATION]
+   Input: video_script
+   Output: video.mp4 (AI avatar speaking)
+   Cost: 1 D-ID API call (~$0.15 for 30s)
+
+4. [CAROUSEL_IMAGE_GENERATION]
+   Input: carousel_points[] (from step 2)
+   For each point:
+     4a. Generate image prompt (dynamic_prompt_generator)
+     4b. Generate image (Replicate/Flux)
+   Output: 6 carousel images
+   Cost: 6 Replicate calls (free with Flux Schnell)
+
+5. [TWEET_FORMATTING]
+   Input: tweet_points[] (from step 2)
+   Output: 5 formatted tweets (≤280 chars each)
+   Cost: 0 LLM calls (pure string formatting)
+
+6. [TELEGRAM_HITL]
+   Input: video + carousel + tweets
+   Output: Approval request to owner
+   Cost: $0 (Telegram API is free)
+
+7. [SOCIAL_MEDIA_PUBLISHER]
+   Input: Approved content bundle
+   Output: Published to all platforms
+   Cost: $0 (platform APIs are free)
+```
+
+### Key Optimization
+
+**BEFORE:** 3 separate LLM calls for script extraction
+- `video_to_carousel` → Extract carousel points
+- `video_to_tweet_thread` → Extract tweet thread
+- `dynamic_prompt_generator` → Generate image prompts
+
+**AFTER:** 1 unified LLM call
+- `content_script_generator` → Generates ALL content in one shot
+
+**Result:** 66% reduction in LLM calls, more coherent content
+
+---
+
+## LLM & API Usage Table
+
+| Step | Tool | Model/API | Purpose | Calls/Day | Cost/Call | Cost/Day | Cost/Month |
+|------|------|-----------|---------|-----------|-----------|----------|------------|
+| 1 | Tavily Search | Tavily API | Find trending topics | 0-1 | $0.01 | $0.01 | $0.30 |
+| 2 | **content_script_generator** | **Gemini 2.0 Flash** | **Generate script + all points** | **1** | **$0.001** | **$0.001** | **$0.03** |
+| 3 | video_generation | D-ID API | Text-to-video (AI avatar) | 1 | $0.15 | $0.15 | $4.50 |
+| 4a | dynamic_prompt_generator | Gemini 2.0 Flash | Image prompts (batch) | 1 | $0.001 | $0.001 | $0.03 |
+| 4b | image_generation | Replicate Flux | Generate carousel images | 6 | $0.00¹ | $0.00 | $0.00 |
+| **TOTAL** | | | | **10** | | **$0.16** | **$4.86** |
+
+¹ Flux Schnell is free but rate-limited. Flux Pro costs ~$0.03/image if needed.
+
+**Key Takeaway:** LLM costs are negligible (~$0.06/month). Main cost is D-ID for video generation (~$4.50/month).
+
+### Cost Projections
+
+| Scenario | Content/Day | Videos/Month | LLM Calls/Month | Total Cost/Month |
+|----------|-------------|--------------|-----------------|------------------|
+| Current (1/day) | 12 pieces | 30 | 90 | $4.86 |
+| Scaled (2/day) | 24 pieces | 60 | 180 | $9.72 |
+| Scaled (3/day) | 36 pieces | 90 | 270 | $14.58 |
+
+---
+
+## Critical Prompts (Quality Control)
+
+**IMPORTANTE:** Estos son los prompts EXACTOS que se envían a los LLMs. Modificar `shared/brand_config.yml` actualiza automáticamente estos prompts.
+
+---
+
+### 1. Main Content Generation Prompt (content_script_generator)
+
+**Location:** `skills/content_script_generator.py:180-268`
+**Model:** Configurable (default: Gemini 2.0 Flash Exp)
+**Input:** Topic, content_type, duration, carousel_slides, num_tweets, context
+**Output:** JSON con video_script + carousel_points[] + tweet_points[]
+
+**PROMPT COMPLETO (ejemplo con topic="Why algo trading beats emotions", educational, 30s):**
+
+```
+You are the content strategist for Jess Trading, a premium algorithmic trading brand.
+
+    Jess Trading Brand Voice:
+    - Professional but human (not corporate)
+    - Concise and direct (no fluff)
+    - Data-driven (lead with metrics when applicable)
+    - Transparent (show risks, admit limitations)
+    - Aspirational but not hypey
+    - Confident, educational, slightly technical
+    - FORBIDDEN WORDS: "guaranteed", "100% success", "get rich quick", "never lose", "foolproof", "can't fail"
+
+CONTENT TYPE: educational
+GUIDELINES FOR THIS TYPE:
+- Focus: Teaching concepts, psychology, or technical aspects of algo trading
+- Hook Style: Question or surprising fact
+- Metrics Usage: Minimal, use only for context
+- CTA Style: Link in bio to learn more
+
+
+TASK: Generate a complete content package for the following topic:
+
+TOPIC: "Why algo trading beats emotions"
+
+TARGET VIDEO DURATION: 30 seconds
+
+OUTPUT 3 COMPONENTS:
+
+═══════════════════════════════════════════════════════════════
+
+1. VIDEO SCRIPT (30 seconds):
+
+Structure:
+- HOOK (first 3-5 seconds): Question or surprising fact
+- MAIN CONTENT (next 20 seconds): 3-4 key points, rapid-fire
+- CTA (last 5-7 seconds): Link in bio to learn more
+
+Requirements:
+- Write EXACTLY for 30 seconds (estimate ~3 words per second)
+- Use short, punchy sentences
+- Natural spoken language (contractions OK)
+- Include verbal pauses with "..." where natural
+- NO stage directions, NO [brackets], just pure spoken text
+- Professional but conversational
+
+═══════════════════════════════════════════════════════════════
+
+2. CAROUSEL KEY POINTS (6 slides):
+
+Structure:
+- Slide 1: Title/Hook (max 8 words, engaging question or statement)
+- Slides 2-5: Key insights (each 10-15 words, 1-2 sentences)
+- Slide 6: CTA/Conclusion (max 12 words, clear call to action)
+
+Requirements:
+- Each point should work as standalone text overlay on an image
+- Use simple, impactful language
+- Can include 1 emoji per point (optional, use sparingly)
+- Extract different angles than the video (complement, don't duplicate)
+
+═══════════════════════════════════════════════════════════════
+
+3. TWEET THREAD KEY POINTS (5 tweets):
+
+Structure:
+- Tweet 1: HOOK (attention-grabbing, make them want thread)
+- Tweets 2-4: VALUE (insights, data, explanation)
+- Tweet 5: CTA + DISCLAIMER (if metrics present)
+
+Requirements:
+- Plan for ≤280 characters per tweet (will be formatted later)
+- Extract essence, not full sentences (these are KEY POINTS)
+- Different perspective than video (repurpose, don't copy)
+- No hashtags needed (key points only)
+
+═══════════════════════════════════════════════════════════════
+
+OUTPUT FORMAT (STRICT JSON):
+
+{
+  "video_script": "Your 30-second script here...",
+  "carousel_points": [
+    "Slide 1 text here",
+    "Slide 2 text here",
+    ...
+    "Slide 6 text here"
+  ],
+  "tweet_points": [
+    "Tweet 1 key point",
+    "Tweet 2 key point",
+    ...
+    "Tweet 5 key point"
+  ]
+}
+
+CRITICAL: Return ONLY valid JSON. No markdown formatting, no ```json```, just the JSON object.
+
+Now generate the content package:
+```
+
+**Para modificar este prompt:** Edita `shared/brand_config.yml` (brand_voice, content_types, etc.)
+
+---
+
+### 2. Carousel Image Generation Prompt (video_to_carousel)
+
+**Location:** `skills/video_to_carousel.py:298-338`
+**Model:** Replicate/Flux Schnell
+**Input:** Carousel point text, slide_type, slide_number
+**Output:** Image 1080x1080px
+
+**PROMPT COMPLETO (ejemplo para slide title):**
+
+```
+Instagram carousel title slide, minimalist design.
+Carbon Black #101010 solid background.
+Large bold text in center: "Why emotions kill your trades?"
+Text color: White or Neon Green #45B14F.
+Subtle geometric accent (thin lines or dots).
+Clean, premium, Apple keynote aesthetic.
+Square format 1080x1080px.
+
+STRICT COLOR REQUIREMENTS:
+- Background: Carbon Black #101010
+- Text: White or Light Gray #A7A7A7
+- Accents: Neon Green #45B14F or Electric Blue #2979FF only
+```
+
+**Para modificar:** Edita `shared/brand_config.yml` (visual_identity section)
+
+---
+
+### 3. Tweet Thread Extraction Prompt (video_to_tweet_thread)
+
+**Location:** `skills/video_to_tweet_thread.py:128-163`
+**Model:** Configurable (legacy skill, usa Gemini 2.0 Flash hardcoded)
+**Input:** Video script
+**Output:** 5 tweets ≤280 chars
+
+**PROMPT COMPLETO:**
+
+```
+You are a social media expert for Jess Trading, a premium algorithmic trading brand.
+
+Jess Trading Brand Voice:
+- Professional but human (not corporate)
+- Concise and direct (no fluff)
+- Data-driven (lead with metrics)
+- Transparent (show risks, admit limitations)
+- Aspirational but not hypey
+- No: "guaranteed", "100%", "get rich quick", hype emojis
+
+Tweet Thread Structure (5 tweets):
+
+Tweet 1: HOOK (Attention-grabber, make them want to read more)
+- Max 280 characters
+- Question, bold statement, or surprising fact
+- No CTA yet
+
+Tweet 2-4: VALUE (Educational insights, data, explanation)
+- Each tweet stands alone but flows together
+- Lead with facts and metrics
+- Use short sentences, impactful
+
+Tweet 5: CTA + DISCLAIMER (Call to action + risk disclosure if needed)
+- Clear next step ("Link in bio", "Learn more")
+- Include disclaimer if showing metrics: "Past performance ≠ future results"
+
+TASK: Convert the following video script into a 5-tweet thread.
+
+VIDEO SCRIPT:
+---
+[Script aquí]
+---
+
+CONTENT TYPE: educational
+
+REQUIREMENTS:
+- Each tweet must be ≤280 characters (STRICT)
+- Follow the thread structure above
+- Maintain brand voice (professional, concise, transparent)
+- No disclaimer needed
+- No hashtags (clean threads only)
+- Max 1 emoji per tweet (use sparingly)
+
+OUTPUT FORMAT:
+Return ONLY the tweets, one per line, numbered 1-5.
+
+Example:
+1. The market doesn't wait for you to wake up.
+2. In milliseconds, opportunities pass. This is why institutional traders automated decades ago.
+3. Today, retail traders have the same advantage. Systematic. Disciplined. Emotion-free.
+4. Automation doesn't guarantee profits. But it removes the biggest obstacle: human emotion.
+5. Link in bio to explore proven strategies. Past performance ≠ future results.
+
+NOW GENERATE THE THREAD:
+```
+
+**Nota:** Este skill está legacy, recomendamos usar `content_script_generator` que ya genera los tweet points.
+
+---
+
+### Prompt Variables (Configurables en brand_config.yml)
+
+Todas estas variables se cargan automáticamente desde `shared/brand_config.yml`:
+
+| Variable | Ubicación en YAML | Uso |
+|----------|------------------|-----|
+| `brand_name` | `brand_name` | Nombre de marca en prompts |
+| `brand_voice` | `brand_voice.characteristics[]` | Lista de características de voz |
+| `forbidden_words` | `brand_voice.forbidden_words[]` | Palabras prohibidas |
+| `content_types` | `content_types.{type}` | Guidelines por tipo de contenido |
+| `color_palette` | `visual_identity.color_palette` | Colores de marca |
+| `video_pacing` | `video_settings.script_pacing` | Palabras/segundo, pausas |
+| `platform_limits` | `platforms.{platform}` | Límites de caracteres, aspect ratios |
+
+---
+
+### Cómo Modificar Prompts
+
+1. **Cambiar brand voice:**
+   ```bash
+   vim shared/brand_config.yml
+   # Edita brand_voice.characteristics
+   ```
+
+2. **Agregar palabras prohibidas:**
+   ```yaml
+   forbidden_words:
+     - "guaranteed"
+     - "tu_nueva_palabra"
+   ```
+
+3. **Cambiar guidelines de contenido educativo:**
+   ```yaml
+   content_types:
+     educational:
+       focus: "Tu nuevo enfoque aquí"
+       hook_style: "Tu estilo de hook"
+   ```
+
+4. **Reiniciar agent:**
+   ```bash
+   openclaw restart marketer
+   ```
+
+Los cambios se aplican **inmediatamente** sin tocar código Python.
+
+---
+
+### Prompt Review Checklist
+
+Antes de publicar contenido, verifica:
+
+✅ Video scripts incluyen pausas naturales ("...")
+✅ No contiene palabras prohibidas (ver `brand_config.yml`)
+✅ Contenido de producto incluye disclaimer
+✅ Carousel points son legibles sin contexto del video
+✅ Brand colors estrictamente respetados en imágenes
+✅ Tweets ≤280 caracteres
+✅ Tono profesional sin hype
 
 ---
 

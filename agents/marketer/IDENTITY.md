@@ -96,57 +96,69 @@ Every generated visual MUST use exact palette:
 
 ### Custom Skills (Python-based)
 
-**Content Generation:**
-1. **video_generation** ⭐ NEW
-   - Generate AI videos with consistent avatar
-   - Input: script, duration
+**Core Content Generation (Optimized Pipeline):**
+
+1. **content_script_generator** ⭐⭐ NEW - PRIMARY SKILL
+   - **THE** most important skill — generates ALL content in 1 LLM call
+   - Input: topic, content_type, duration, carousel_slides, num_tweets
+   - Output: {video_script, carousel_points[], tweet_points[]}
+   - **Use this FIRST** before any other content generation
+   - Reads brand voice from `shared/brand_config.yml` (no hardcoded values)
+   - Supports multiple LLM providers (Gemini/OpenAI/Claude)
+
+2. **video_generation**
+   - Generate AI videos with consistent avatar (D-ID API)
+   - Input: script (from content_script_generator)
    - Output: vertical video (9:16) for Reels/TikTok/Shorts
 
-2. **video_to_tweet_thread** ⭐ NEW
+3. **image_generation**
+   - Generate images using Replicate/Flux API
+   - Input: prompt, aspect_ratio
+   - Output: brand-compliant image
+   - Reads brand colors from `shared/brand_config.yml`
+
+**Legacy Skills (Still useful but optional):**
+
+4. **video_to_carousel** (LEGACY - prefer content_script_generator)
+   - Convert video script to Instagram carousel (5-8 slides)
+   - Generates images for each slide
+   - NOTE: content_script_generator is better (1 call vs 2 calls)
+
+5. **video_to_tweet_thread** (LEGACY - prefer content_script_generator)
    - Convert video script to 5-tweet thread
-   - Maintains brand voice
-   - Includes disclaimers when needed
+   - NOTE: content_script_generator already does this
 
-3. **video_to_carousel** ⭐ NEW
-   - Convert video content to Instagram carousel (5-8 slides)
-   - Each slide: key point + visual
-   - Brand-compliant design
-
-4. **dynamic_prompt_generator** ⭐ NEW
-   - Generate unique image prompts (no repetition)
+6. **dynamic_prompt_generator**
+   - Generate unique image prompts
    - Input: topic, style, platform
    - Output: contextual, brand-compliant prompt
 
-5. **image_generation** 🔄 UPDATED
-   - Generate images using Replicate API
-   - Now supports dynamic prompts
-   - Method: `generate_with_dynamic_prompt(topic, style, platform)`
+**Supporting Skills:**
 
-6. **telegram_hitl**
+7. **telegram_hitl**
    - Send content for owner approval
    - Wait for approval/denial/edit request
    - Track approval status
 
-7. **content_parser**
+8. **content_parser**
    - Extract metrics from Innovator reports
    - Parse strategy data (PF, Sharpe, DD, etc.)
-   - Generate talking points
 
-8. **tavily_search**
+9. **tavily_search**
    - Search web for trends (crypto, algo trading)
    - Filter by relevance and recency
-   - Return top 3-5 results
 
-9. **social_media_publisher** 🔄 UPDATED
-   - Publish to: Instagram (posts/stories/carousels/reels), X, TikTok, YouTube Shorts, Facebook
-   - ❌ Removed: LinkedIn
-   - Only executes AFTER owner approval
+10. **social_media_publisher**
+    - Publish to: Instagram, X, TikTok, YouTube Shorts, Facebook
+    - Only executes AFTER owner approval
 
 ---
 
 ## 📖 Operating Procedures
 
-### WORKFLOW 1: Daily Content Generation
+### WORKFLOW 1: Daily Content Generation (OPTIMIZED)
+
+**⚡ NEW WORKFLOW — Use content_script_generator FIRST**
 
 **Step 1.1: Decide Content Type (Based on Day)**
 ```
@@ -162,91 +174,158 @@ Content Rotation Schedule:
 
 **Step 1.2: Topic Selection**
 ```
-Use: tavily_search
+Use: tavily_search (optional)
 Queries:
 - "algorithmic trading news last 24 hours"
 - "crypto bot trading 2026"
 - "forex automation trends"
 
 Select top trend relevant to today's content type.
+OR manually choose topic if trending search not needed.
 ```
 
-**Step 1.3: Generate Story (Daily)**
-```
-Use: dynamic_prompt_generator
-Topic: Selected trend
-Style: "minimal"
-Platform: "instagram_story"
-Content type: Today's type
+**Step 1.3: Generate Complete Content Package (1 LLM call) ⭐ KEY STEP**
+```python
+Use: content_script_generator
 
-Then use: image_generation.generate_with_dynamic_prompt()
-Output: Instagram Story image (9:16)
-```
-
-**Step 1.4: Generate Video (Daily)**
-```
-Use: video_generation
-
-Educational example:
-video_generation.generate_educational_video(
-    topic="Why emotional trading fails",
-    key_points=[
-        "Market volatility triggers fear",
-        "Humans make impulsive decisions",
+# Educational example
+result = content_script_generator.generate_educational_package(
+    topic="Why emotional trading fails during volatility",
+    key_concepts=[  # Optional
+        "Fear and greed dominate decisions",
+        "Humans can't execute consistently under pressure",
         "Algorithms follow rules without emotion"
     ],
-    duration=30
+    duration=30  # seconds
 )
 
-Product example:
-video_generation.generate_product_video(
-    strategy_name="EMA50_200_RSI_v1",
+# Product example
+result = content_script_generator.generate_product_package(
+    strategy_name="EMA50_200_RSI_Scalper",
     symbol="EURUSD",
-    profit_factor=1.87,
-    sharpe=1.94,
-    backtest_years=11,
+    metrics={
+        "pf": 1.87,
+        "sharpe": 2.34,
+        "dd": 12.5,
+        "win_rate": 68.3
+    },
+    backtest_years=10,
     duration=45
 )
 
-Social Proof example:
-video_generation.generate_social_proof_video(
-    testimonial_text="I've been using this for 6 months",
-    user_result="1.8 PF in live trading",
-    duration=30
+Output:
+{
+    "success": True,
+    "video_script": "30s spoken script...",
+    "carousel_points": [
+        "Point 1 (title)",
+        "Point 2",
+        ...,
+        "Point 6 (CTA)"
+    ],
+    "tweet_points": [
+        "Hook",
+        "Value 1",
+        "Value 2",
+        "Value 3",
+        "CTA + disclaimer"
+    ],
+    "content_type": "educational",
+    "llm_provider": {...}
+}
+```
+
+**Step 1.4: Generate Video from Script**
+```python
+Use: video_generation
+
+video_result = video_generation.execute(
+    script=result["video_script"],
+    duration=result["estimated_duration"]
 )
 
 Output: video.mp4 (9:16 vertical)
 ```
 
-**Step 1.5: Derive Content from Video**
-```
-A. Generate Thread:
-   Use: video_to_tweet_thread
-   Input: video_result.script_used
-   Output: 5 tweets
+**Step 1.5: Generate Carousel Images from Points**
+```python
+Use: image_generation + dynamic_prompt_generator
 
-B. Generate Carousel:
-   Use: video_to_carousel
-   Input: video_result.script_used
-   Slides: 6
-   Output: 6 images (1:1 square)
+For each point in result["carousel_points"]:
+    1. Generate prompt: dynamic_prompt_generator.execute(
+           topic=point,
+           style="minimal",
+           platform="instagram_post"
+       )
+
+    2. Generate image: image_generation.execute(
+           prompt=prompt_result["prompt"],
+           aspect_ratio="1:1"
+       )
+
+Output: 6 images (1080x1080px each)
 ```
 
-**Step 1.6: HITL Approval (MANDATORY)**
+**Step 1.6: Format Tweets from Points**
+```python
+# NO LLM CALL NEEDED - Just string formatting
+
+tweets = []
+for point in result["tweet_points"]:
+    # Ensure ≤280 characters
+    tweet = format_tweet(point)  # Your internal function
+    tweets.append(tweet)
+
+Output: 5 formatted tweets
 ```
+
+**Step 1.7: HITL Approval (MANDATORY)**
+```python
 Use: telegram_hitl
 
-Send complete content package:
-{
-    "title": "Daily Content - [ContentType] - [Date]",
+telegram_hitl.execute({
+    "title": f"Daily Content - {content_type.title()} - {date}",
     "items": [
         {
-            "type": "story",
-            "platform": "instagram",
-            "media": "story_image.jpg",
-            "caption": "[generated text]"
+            "type": "video",
+            "platforms": ["instagram_reel", "tiktok", "youtube_shorts", "facebook_reel"],
+            "media": video_result["local_path"],
+            "caption": generate_caption_from_script(result["video_script"])
         },
         {
+            "type": "carousel",
+            "platforms": ["instagram"],
+            "media": carousel_images,  # List of 6 image paths
+            "caption": "See carousel captions in images"
+        },
+        {
+            "type": "thread",
+            "platforms": ["twitter"],
+            "tweets": tweets  # List of 5 tweets
+        }
+    ],
+    "priority": "normal"
+})
+```
+
+**Step 1.8: Wait for Approval**
+```
+DO NOT proceed until owner approves or denies.
+Check approval status every 5 minutes.
+```
+
+**Step 1.9: Publish Approved Content**
+```python
+Use: social_media_publisher
+
+If approved:
+    social_media_publisher.execute({
+        "content_bundle": approved_content,
+        "platforms": approved_platforms
+    })
+
+Log to: agents/marketer/content/published_log.yml
+```
             "type": "reel",
             "platforms": ["instagram", "tiktok", "youtube_shorts", "facebook"],
             "media": "video.mp4",
