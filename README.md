@@ -10,7 +10,7 @@ This system orchestrates 4 specialized AI agents to automate product development
 
 **Automates:**
 - Trading strategy development (EA_developer pipeline integration)
-- Social media content generation (Instagram, X/Twitter, LinkedIn)
+- Social media content generation (Instagram, X/Twitter, TikTok, YouTube Shorts, Facebook)
 - Customer support & engagement (DMs, comments, FAQs)
 - Sales tracking & financial reporting (Whop integration)
 
@@ -72,14 +72,14 @@ This system orchestrates 4 specialized AI agents to automate product development
 **2. Marketer (Content Lead)** ✅ **Status: Baseline workflow implemented**
 - Monitors trends via Tavily search (crypto, algo trading)
 - Generates brand-compliant content (Carbon Black + Neon Green palette)
-- Creates multi-platform content (Instagram, X, LinkedIn)
+- Creates multi-platform content (Instagram, X, TikTok, YouTube Shorts, Facebook)
 - Video provider configurable via `shared/brand_config.yml`
 - Image provider configurable via `shared/brand_config.yml`
 - **HITL:** Sends ALL content to Telegram for approval before publishing
 - Heartbeat: Every 30 minutes
 
 **3. Community Manager (Support Lead)** ⚠️ **Status: Configured, needs API integration**
-- 24/7 customer support (Instagram, X, LinkedIn DMs)
+- Planned support coverage across customer channels once messaging APIs are connected
 - Knowledge Base powered responses
 - Sentiment analysis & escalation
 - <30 min response time (business hours)
@@ -106,19 +106,24 @@ Install before starting:
 Supported development environment:
 - macOS and Linux are the primary supported environments for the current scripts
 - Windows would need WSL or some script adjustments
+- If you later enable `Innovator`, the `EA_developer` MT5 pipeline still needs a Windows environment with MetaTrader 5 available
 
 ### Step 1: Clone Project
 
 ```bash
-git clone <your-repo> autonomus_agency
-cd autonomus_agency/
+git clone <your-repo> autonomous_agency
+cd autonomous_agency/
 ```
 
 ### Step 2: Get API Keys
 
 Required for the default Marketer stack:
 
-**Google Gemini API** (LLM - Free tier)
+**OpenAI API** (current default Marketer profiles: copy + image + video)
+- Get at: https://platform.openai.com
+- Save: `OPENAI_API_KEY=sk-...`
+
+**Google Gemini API** (currently used by the default OpenClaw runtime in `config/openclaw.config.yml`)
 - Get at: https://aistudio.google.com/app/apikey
 - Save: `GEMINI_API_KEY=AIzaSy...`
 
@@ -136,17 +141,12 @@ Required for the default Marketer stack:
 - Get at: https://tavily.com
 - Save: `TAVILY_API_KEY=tvly-...`
 
-**D-ID API** (Default video provider, easiest baseline)
-- Save: `D_ID_API_KEY=...`
-
-**Replicate API** (Default image provider - Flux / SDXL)
-- Get at: https://replicate.com
-- Save: `REPLICATE_API_TOKEN=r8_...`
-
 Optional provider alternatives:
-- `OPENAI_API_KEY` for DALL-E
-- `HEYGEN_API_KEY` for HeyGen talking avatars / digital twins
+- `ANTHROPIC_API_KEY` for Claude-based marketer copy profiles
+- `HEYGEN_API_KEY` for HeyGen avatar-first video profiles
 - `GOOGLE_CLOUD_PROJECT` + ADC credentials for Veo on Vertex AI
+- `D_ID_API_KEY` for the D-ID baseline avatar profile
+- `REPLICATE_API_TOKEN` for Flux / SDXL image profiles
 - `SYNTHESIA_API_KEY` for Synthesia
 - `RUNWAY_API_KEY` for Runway
 - `PIKA_API_KEY` for Pika
@@ -156,7 +156,9 @@ Optional provider alternatives:
 Optional (for other agents):
 - Instagram Graph API
 - X/Twitter API
-- LinkedIn API
+- TikTok API / access token
+- YouTube Data API
+- Facebook Graph API
 - Whop API (sales)
 - Stripe API (payments)
 
@@ -185,30 +187,41 @@ nano .env
 
 Add your API keys:
 ```bash
-# Core LLM (required)
+# OpenClaw runtime (required with the current default runtime config)
 GEMINI_API_KEY=your_key_here
+
+# Current default Marketer stack
+OPENAI_API_KEY=your_openai_key
 
 # Telegram (required for HITL)
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_OWNER_CHAT_ID=your_chat_id
 
-# Services (required for default Marketer stack)
+# Optional but recommended for trend discovery
 TAVILY_API_KEY=your_key
-D_ID_API_KEY=your_video_key
-REPLICATE_API_TOKEN=your_token
 
-# Optional alternative providers
-OPENAI_API_KEY=your_openai_key
+# Alternative Marketer copy providers
 HEYGEN_API_KEY=your_heygen_key
+ANTHROPIC_API_KEY=your_anthropic_key
 GOOGLE_CLOUD_PROJECT=your_gcp_project
 GOOGLE_APPLICATION_CREDENTIALS=/abs/path/to/service-account.json
 RUNWAY_API_KEY=your_runway_key
+D_ID_API_KEY=your_video_key
+REPLICATE_API_TOKEN=your_token
 
 # Social Media (optional - only needed for publishing)
 INSTAGRAM_ACCESS_TOKEN=your_token
+INSTAGRAM_USER_ID=your_instagram_user_id
 X_API_KEY=your_key
+X_API_SECRET=your_secret
 X_ACCESS_TOKEN=your_token
-LINKEDIN_ACCESS_TOKEN=your_token
+X_ACCESS_SECRET=your_secret
+TIKTOK_ACCESS_TOKEN=your_token
+YOUTUBE_API_KEY=your_key
+YOUTUBE_CLIENT_ID=your_client_id
+YOUTUBE_CLIENT_SECRET=your_client_secret
+FACEBOOK_ACCESS_TOKEN=your_token
+FACEBOOK_PAGE_ID=your_page_id
 
 # Financial APIs (optional - read-only)
 WHOP_API_KEY_READ=your_key
@@ -227,6 +240,7 @@ Save: `Ctrl+O`, `Enter`, `Ctrl+X`
 This starts:
 - Telegram Gateway (HITL approval system)
 - Enabled agents (Marketer by default)
+- A runtime preflight that validates the active LLM, video, image, and HITL setup before boot
 
 To stop: Press `Ctrl+C`
 
@@ -250,6 +264,11 @@ openclaw run marketer
 2. Find your bot
 3. Send: `/start`
 4. Receive: "Jess Trading Agency — HITL Gateway Online"
+
+**Run preflight manually:**
+```bash
+python3 check_system_setup.py --mode runtime
+```
 
 **Check Logs:**
 ```bash
@@ -286,6 +305,101 @@ Defines:
 - Optional `brand_mascot` settings for consistent mascot-led scenes
 - `content_schedule` for generation cadence
 
+### Switching Providers Quickly
+
+The preferred way to switch the `Marketer` stack is now through curated profiles in `shared/brand_config.yml`.
+
+**1. Change the active profiles**
+
+Edit:
+
+```yaml
+provider_selections:
+  llm: "openai_gpt_5_2_copy"
+  image: "openai_gpt_image_1_5_high"
+  video: "openai_sora_2_pro_cinematic"
+```
+
+This lets you mix providers independently per modality.
+
+Examples:
+
+```yaml
+provider_selections:
+  llm: "claude_sonnet_4_copy"
+  image: "openai_gpt_image_1_5_high"
+  video: "google_veo_3_1_cinematic"
+```
+
+```yaml
+provider_selections:
+  llm: "google_gemini_2_5_flash_copy"
+  image: "flux_schnell_free"
+  video: "d_id_baseline_avatar"
+```
+
+**2. Current curated profiles included**
+
+Language:
+- `openai_gpt_5_2_copy`
+- `openai_gpt_5_2_chat_copy`
+- `openai_gpt_5_2_pro_copy`
+- `claude_sonnet_4_copy`
+- `claude_opus_4_1_copy`
+- `google_gemini_2_5_pro_copy`
+- `google_gemini_2_5_flash_copy`
+
+Images:
+- `openai_gpt_image_1_5_high`
+- `openai_gpt_image_1_mini`
+- `flux_schnell_free`
+- `sdxl_balanced`
+
+Video:
+- `openai_sora_2_pro_cinematic`
+- `openai_sora_2_fast`
+- `google_veo_3_1_cinematic`
+- `heygen_avatar_consistent`
+- `d_id_baseline_avatar`
+
+**3. Which ones are actually implemented today**
+
+Implemented now:
+- LLM: OpenAI, Claude, Gemini
+- Image: `openai-image`, `flux`, `sdxl`, legacy `dalle`
+- Video: `openai-sora`, `veo`, `heygen`, `d-id`
+
+Configurable placeholders only:
+- Image: `midjourney`, `ideogram`
+- Video: `synthesia`, `runway`, `pika`
+
+**4. Change the OpenClaw runtime model separately if you want**
+
+The OpenClaw runtime is still configured independently in `config/openclaw.config.yml`.
+
+Example:
+
+```yaml
+llm:
+  provider: "openai"
+  model: "gpt-5.2"
+  api_key_env: "OPENAI_API_KEY"
+```
+
+**5. Validate before starting**
+
+After any switch, run:
+
+```bash
+python3 check_system_setup.py --mode runtime
+```
+
+That check confirms:
+- active LLM/image/video profiles
+- required env vars
+- whether the selected providers are implemented
+- whether the current `Marketer` stack is bootable
+
 Example:
 ```yaml
 brand_mascot:
@@ -316,7 +430,7 @@ For Veo:
   or with `gcloud auth application-default login`
 - If using a mascot, set `brand_mascot.enabled: true`
 - Add up to 3 mascot reference images in `brand_mascot.reference_images`
-- Place those images in [assets/mascot/README.md](/home/jesperon/autonomus_agency/assets/mascot/README.md) or another repo path
+- Place those images under `assets/mascot/` or another repo path you control
 - Veo prompts are automatically adapted so the mascot stays in trading-related scenes and speaks the generated script
 
 For HeyGen:
@@ -423,11 +537,11 @@ After=network.target
 [Service]
 Type=simple
 User=your_user
-WorkingDirectory=/path/to/autonomus_agency/shared
+WorkingDirectory=/path/to/autonomous_agency/shared
 ExecStart=/usr/bin/python3 telegram_gateway.py
 Restart=always
 RestartSec=10
-EnvironmentFile=/path/to/autonomus_agency/.env
+EnvironmentFile=/path/to/autonomous_agency/.env
 
 [Install]
 WantedBy=multi-user.target
@@ -473,10 +587,13 @@ Repeat for each agent.
 - Then verify the matching key in `.env` (`D_ID_API_KEY`, `HEYGEN_API_KEY`, etc.)
 
 **"Social media publishing failed"**
-- Solution: APIs require platform-specific integration:
+- Solution: Auto-publishing currently targets Instagram, X, TikTok, YouTube Shorts, and Facebook
+- APIs require platform-specific integration:
   - Instagram: Graph API + Business Account
   - X: Twitter API v2 + OAuth
-  - LinkedIn: LinkedIn API + Company Page access
+  - TikTok: Business or creator publishing access
+  - YouTube Shorts: YouTube Data API + OAuth client
+  - Facebook: Graph API + Page access
 
 ### Debug Mode
 

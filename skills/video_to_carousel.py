@@ -24,7 +24,6 @@ Usage in OpenClaw:
 import os
 import sys
 import time
-import yaml
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 
@@ -43,9 +42,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 try:
     from shared.llm_provider import LLMProvider
+    from shared.provider_profiles import load_brand_config
 except ImportError:
-    print("⚠️  ERROR: Cannot import LLMProvider from shared/")
-    print("Make sure shared/llm_provider.py exists")
+    print("⚠️  ERROR: Cannot import shared provider helpers")
+    print("Make sure shared/llm_provider.py and shared/provider_profiles.py exist")
     exit(1)
 
 
@@ -75,14 +75,8 @@ class VideoToCarouselSkill:
             os.environ["REPLICATE_API_TOKEN"] = self.replicate_api_key
 
     def _load_brand_config(self) -> Dict[str, Any]:
-        """Load brand configuration from centralized YAML"""
-        config_path = Path(__file__).parent.parent / "shared" / "brand_config.yml"
-
-        if not config_path.exists():
-            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
-
-        with open(config_path) as f:
-            return yaml.safe_load(f)
+        """Load resolved brand configuration from centralized YAML"""
+        return load_brand_config()
 
     def execute(
         self,
@@ -109,10 +103,10 @@ class VideoToCarouselSkill:
             }
         """
 
-        if not self.gemini_api_key or not self.replicate_api_key:
+        if not self.llm or not self.replicate_api_key:
             return {
                 "success": False,
-                "message": "GEMINI_API_KEY or REPLICATE_API_TOKEN not configured"
+                "message": "LLM provider or REPLICATE_API_TOKEN not configured"
             }
 
         # Validate inputs

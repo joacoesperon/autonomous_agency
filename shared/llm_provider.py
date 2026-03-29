@@ -17,7 +17,7 @@ Usage:
     llm = LLMProvider(provider="openai", model="gpt-4o-mini")
 
 Supports:
-- Google Gemini (gemini-2.0-flash-exp, gemini-1.5-pro, etc.)
+- Google Gemini (gemini-2.5-flash and related models)
 - OpenAI (gpt-4o, gpt-4o-mini, etc.)
 - Anthropic Claude (claude-3-5-sonnet, claude-3-5-haiku, etc.)
 
@@ -25,9 +25,9 @@ Supports:
 """
 
 import os
-import yaml
 from typing import Optional, Dict, Any
-from pathlib import Path
+
+from shared.provider_profiles import load_brand_config
 
 
 class LLMProvider:
@@ -38,6 +38,13 @@ class LLMProvider:
         "gemini": "GEMINI_API_KEY",
         "openai": "OPENAI_API_KEY",
         "claude": "ANTHROPIC_API_KEY"
+    }
+
+    PROVIDER_ALIASES = {
+        "chatgpt": "openai",
+        "anthropic": "claude",
+        "google": "gemini",
+        "google-gemini": "gemini",
     }
 
     def __init__(
@@ -61,7 +68,8 @@ class LLMProvider:
         self.config = self._load_brand_config()
 
         # Use provided values or fall back to config
-        self.provider = provider or self.config["llm_defaults"]["provider"]
+        configured_provider = provider or self.config["llm_defaults"]["provider"]
+        self.provider = self._normalize_provider_name(configured_provider)
         self.model = model or self.config["llm_defaults"]["model"]
         self.temperature = temperature if temperature is not None else self.config["llm_defaults"]["temperature"]
         self.max_tokens = max_tokens or self.config["llm_defaults"]["max_tokens"]
@@ -71,13 +79,11 @@ class LLMProvider:
 
     def _load_brand_config(self) -> Dict[str, Any]:
         """Load brand config from YAML"""
-        config_path = Path(__file__).parent / "brand_config.yml"
+        return load_brand_config()
 
-        if not config_path.exists():
-            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
-
-        with open(config_path) as f:
-            return yaml.safe_load(f)
+    def _normalize_provider_name(self, provider_name: str) -> str:
+        normalized = provider_name.strip().lower()
+        return self.PROVIDER_ALIASES.get(normalized, normalized)
 
     def _init_client(self):
         """Initialize the appropriate LLM client"""
@@ -89,6 +95,7 @@ class LLMProvider:
             # Try fallback provider
             fallback_provider = self.config["llm_defaults"].get("fallback_provider")
             if fallback_provider and fallback_provider != self.provider:
+                fallback_provider = self._normalize_provider_name(fallback_provider)
                 print(f"⚠️  WARNING: {env_var} not set. Trying fallback: {fallback_provider}")
                 self.provider = fallback_provider
                 self.model = self.config["llm_defaults"].get("fallback_model", self.model)

@@ -84,9 +84,9 @@ visual_identity:
 brand_mascot:
   enabled: false
   name: "Jess Candle"
-  description: "A bright neon-green trading candlestick with cartoon eyes and a mouth, expressive but clearly still a candlestick."
-  persona: "Playful, witty, confident trading guide"
-  visual_style: "Polished 3D cartoon mascot with clean fintech art direction"
+  description: "A humanized neon-green trading candlestick mascot with a clean cartoon face, small expressive arms and hands, subtle body language, and a clearly recognizable candle body. It must always read as a trading candle first, never as a human in costume."
+  persona: "Charismatic, witty, confident trading guide and brand spokesperson"
+  visual_style: "Premium 3D cartoon character design with polished fintech art direction, studio-quality lighting, and consistent mascot proportions"
   speaking_role: "Use the mascot as the on-screen speaker when the content should feel character-led and social-first."
   use_in_content_scripts: true
 
@@ -262,7 +262,7 @@ disclaimers:
 
 llm_defaults:
   provider: "gemini"  # gemini | openai | claude
-  model: "gemini-2.0-flash-exp"
+  model: "gemini-2.5-flash"
   temperature: 0.7
   max_tokens: 2000
 
@@ -270,11 +270,246 @@ llm_defaults:
   fallback_model: "gpt-4o-mini"
 
 # ========================================================================
+# PROVIDER SELECTIONS (forma preferida de cambiar stack del Marketer)
+# ========================================================================
+
+provider_selections:
+  llm: "openai_gpt_5_2_copy"
+  image: "openai_gpt_image_1_5_high"
+  video: "openai_sora_2_pro_cinematic"
+
+# ========================================================================
+# LLM PROFILES (curados para copy, scripts y threads del Marketer)
+# ========================================================================
+
+llm_profiles:
+  openai_gpt_5_2_copy:
+    label: "OpenAI GPT-5.2"
+    description: "Perfil premium general para scripts, hooks, tweets y copy del Marketer."
+    best_for: "Máxima calidad general y buen equilibrio entre creatividad, instrucción y consistencia."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/models/gpt-5.2"
+    provider: "openai"
+    config:
+      model: "gpt-5.2"
+      temperature: 0.7
+      max_tokens: 2000
+
+  openai_gpt_5_2_chat_copy:
+    label: "OpenAI GPT-5.2 Chat"
+    description: "Variante estilo ChatGPT para probar mejoras de chat/copy conversacional."
+    best_for: "Copy más conversacional y pruebas rápidas con sabor ChatGPT."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/models/gpt-5.2-chat-latest"
+    provider: "openai"
+    config:
+      model: "gpt-5.2-chat-latest"
+      temperature: 0.7
+      max_tokens: 2000
+
+  openai_gpt_5_2_pro_copy:
+    label: "OpenAI GPT-5.2 Pro"
+    description: "La variante más cara y precisa de OpenAI para tareas difíciles."
+    best_for: "Cuando priorizás calidad máxima sobre costo y velocidad."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/models/gpt-5.2-pro"
+    provider: "openai"
+    config:
+      model: "gpt-5.2-pro"
+      temperature: 0.7
+      max_tokens: 2000
+
+  claude_sonnet_4_copy:
+    label: "Claude Sonnet 4"
+    description: "Perfil de alto rendimiento para copy largo y tono consistente."
+    best_for: "Excelente equilibrio entre calidad de escritura, razonamiento y costo."
+    as_of: "2026-03-28"
+    source_url: "https://docs.anthropic.com/en/docs/about-claude/models/overview"
+    provider: "claude"
+    config:
+      model: "claude-sonnet-4-20250514"
+      temperature: 0.7
+      max_tokens: 2000
+
+  claude_opus_4_1_copy:
+    label: "Claude Opus 4.1"
+    description: "Perfil Anthropic más capaz para tareas complejas y escritura muy cuidada."
+    best_for: "Máxima calidad cuando el costo importa menos que el resultado."
+    as_of: "2026-03-28"
+    source_url: "https://docs.anthropic.com/en/docs/about-claude/models/overview"
+    provider: "claude"
+    config:
+      model: "claude-opus-4-1-20250805"
+      temperature: 0.7
+      max_tokens: 2000
+
+  google_gemini_2_5_pro_copy:
+    label: "Gemini 2.5 Pro"
+    description: "Perfil fuerte para razonamiento, research-style prompts y trabajo largo."
+    best_for: "Buenas respuestas largas y razonamiento fuerte dentro del ecosistema Google."
+    as_of: "2026-03-28"
+    source_url: "https://ai.google.dev/gemini-api/docs/models"
+    provider: "gemini"
+    config:
+      model: "gemini-2.5-pro"
+      temperature: 0.7
+      max_tokens: 2000
+
+  google_gemini_2_5_flash_copy:
+    label: "Gemini 2.5 Flash"
+    description: "Perfil rápido y eficiente para alto volumen."
+    best_for: "Más velocidad/costo, menos ambición máxima."
+    as_of: "2026-03-28"
+    source_url: "https://ai.google.dev/gemini-api/docs/models/gemini"
+    provider: "gemini"
+    config:
+      model: "gemini-2.5-flash"
+      temperature: 0.7
+      max_tokens: 2000
+
+# ========================================================================
+# IMAGE PROFILES (curados para visuals del Marketer)
+# ========================================================================
+
+image_profiles:
+  openai_gpt_image_1_5_high:
+    label: "OpenAI GPT Image 1.5 High"
+    description: "Perfil premium de imagen con máxima calidad del stack OpenAI."
+    best_for: "Creatividad + seguimiento de instrucciones + look pulido."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/models/gpt-image-1.5"
+    provider: "openai-image"
+    config:
+      model: "gpt-image-1.5"
+      quality: "high"
+      size: "1024x1024"
+      cost_per_image: 0.133
+      notes: "Premium OpenAI image profile for high-quality marketer visuals"
+
+  openai_gpt_image_1_mini:
+    label: "OpenAI GPT Image 1 Mini"
+    description: "Perfil OpenAI más barato para testing y volumen."
+    best_for: "Bajar costo manteniendo compatibilidad con el stack OpenAI."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/guides/tools-image-generation"
+    provider: "openai-image"
+    config:
+      model: "gpt-image-1-mini"
+      quality: "medium"
+      size: "1024x1024"
+      cost_per_image: 0.034
+      notes: "Cost-optimized OpenAI image profile"
+
+  flux_schnell_free:
+    label: "Flux Schnell"
+    description: "Perfil rápido y económico vía Replicate."
+    best_for: "Volumen alto, testing y costo casi cero."
+    as_of: "2026-03-28"
+    source_url: "https://replicate.com/black-forest-labs/flux-schnell"
+    provider: "flux"
+    config:
+      model: "black-forest-labs/flux-schnell"
+      cost_per_image: 0.0
+      speed: "fast"
+
+  sdxl_balanced:
+    label: "SDXL"
+    description: "Perfil open model balanceado para customización."
+    best_for: "Más control o experimentación con costo moderado."
+    as_of: "2026-03-28"
+    source_url: "https://replicate.com/stability-ai/sdxl"
+    provider: "sdxl"
+    config:
+      model: "stabilityai/sdxl"
+      cost_per_image: 0.02
+      notes: "Open model profile for flexible experimentation"
+
+# ========================================================================
+# VIDEO PROFILES (curados para el Marketer)
+# ========================================================================
+
+video_profiles:
+  openai_sora_2_pro_cinematic:
+    label: "OpenAI Sora 2 Pro"
+    description: "Perfil premium para video generativo con audio sincronizado."
+    best_for: "Clips generativos de máxima calidad cuando priorizás impacto visual."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/models/sora-2/"
+    provider: "openai-sora"
+    config:
+      model: "sora-2-pro"
+      size: "720x1280"
+      fps: 24
+      cost_per_second: 0.30
+      audio_instruction: "Create premium vertical fintech video. Generate synced spoken audio or narration that naturally follows the prompt."
+      notes: "Flagship OpenAI video profile for premium marketer clips"
+
+  openai_sora_2_fast:
+    label: "OpenAI Sora 2"
+    description: "Perfil balanceado de Sora para bajar costo respecto a Pro."
+    best_for: "Buen equilibrio entre calidad, audio y costo."
+    as_of: "2026-03-28"
+    source_url: "https://platform.openai.com/docs/models/sora-2/"
+    provider: "openai-sora"
+    config:
+      model: "sora-2"
+      size: "720x1280"
+      fps: 24
+      cost_per_second: 0.10
+      audio_instruction: "Create premium vertical fintech video with synced spoken audio or narration."
+      notes: "Balanced Sora profile"
+
+  google_veo_3_1_cinematic:
+    label: "Google Veo 3.1"
+    description: "Perfil fuerte para cinematic generation y workflows con mascot/reference images."
+    best_for: "Escenas de mayor dirección visual y consistencia con assets del repo."
+    as_of: "2026-03-28"
+    source_url: "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/veo/3-1-fast-generate-preview"
+    provider: "veo"
+    config:
+      model: "veo-3.1-generate-preview"
+      resolution: "720p"
+      generate_audio: true
+      enhance_prompt: true
+      sample_count: 1
+      cost_per_minute: 1.80
+      notes: "Best Google-native cinematic option in this repo"
+
+  heygen_avatar_consistent:
+    label: "HeyGen Avatar"
+    description: "Perfil recomendado cuando querés avatar consistente hablando directo a cámara."
+    best_for: "Presentador/avatar estable para contenidos educativos o sales-led."
+    as_of: "2026-03-28"
+    source_url: "https://www.heygen.com/"
+    provider: "heygen"
+    config:
+      character_type: "avatar"
+      avatar_style: "normal"
+      caption: false
+      background_type: "color"
+      background_value: "#101010"
+      cost_per_minute: 0.40
+      notes: "Best avatar-first profile"
+
+  d_id_baseline_avatar:
+    label: "D-ID Baseline"
+    description: "Perfil simple y más barato para talking head."
+    best_for: "Baseline rápido cuando querés algo funcional con setup simple."
+    as_of: "2026-03-28"
+    source_url: "https://www.d-id.com/"
+    provider: "d-id"
+    config:
+      presenter_id: "amy-Aq6OmGZnMt"
+      voice_id: "en-US-JennyNeural"
+      cost_per_minute: 0.30
+      notes: "Fast baseline avatar profile"
+
+# ========================================================================
 # VIDEO GENERATION (configurable por provider)
 # ========================================================================
 
 video_generation:
-  provider: "d-id"  # d-id | veo | heygen | synthesia | runway | pika
+  provider: "d-id"  # overridden by provider_selections.video when set
 
   # D-ID (AI Avatars) - Bueno para talking head videos
   d-id:
@@ -316,6 +551,15 @@ video_generation:
     cost_per_minute: 0.40
     notes: "Best fit for a consistent created avatar or digital twin speaking directly to camera"
 
+  # OpenAI Sora 2 / 2 Pro - Video generativo premium con audio sincronizado
+  openai-sora:
+    api_key_env: "OPENAI_API_KEY"
+    model: "sora-2"
+    size: "720x1280"
+    fps: 24
+    cost_per_second: 0.10
+    notes: "Premium synced-audio generative video via OpenAI"
+
   # Synthesia (Enterprise-grade)
   synthesia:
     api_key_env: "SYNTHESIA_API_KEY"
@@ -343,7 +587,7 @@ video_generation:
 # ========================================================================
 
 image_generation:
-  provider: "flux"  # flux | dalle | midjourney | sdxl | ideogram
+  provider: "flux"  # overridden by provider_selections.image when set
 
   # Flux (Replicate) - Gratis y rápido
   flux:
@@ -361,6 +605,15 @@ image_generation:
     quality: "hd"  # standard | hd
     cost_per_image: 0.08  # HD pricing
     notes: "Excellent quality, good text rendering"
+
+  # GPT Image (OpenAI) - Mejor imagen del stack OpenAI actual
+  openai-image:
+    api_key_env: "OPENAI_API_KEY"
+    model: "gpt-image-1.5"
+    size: "1024x1024"
+    quality: "high"  # low | medium | high
+    cost_per_image: 0.133
+    notes: "Latest premium OpenAI image profile"
 
   # Midjourney v7 (A través de API no oficial)
   midjourney:

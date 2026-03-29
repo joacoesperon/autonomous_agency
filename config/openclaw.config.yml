@@ -17,7 +17,7 @@ project:
 # ========================================================================
 llm:
   provider: "google-gemini"  # Options: google-gemini, openai, anthropic, ollama
-  model: "gemini-2.0-flash"  # Free tier: ~20 requests/day
+  model: "gemini-2.5-flash"
   temperature: 0.7
   max_tokens: 8192
 
@@ -41,6 +41,7 @@ agents:
     heartbeat_interval: 1800  # 30 minutes in seconds
     skills:
       - "telegram_hitl"
+      - "content_script_generator"
       - "content_parser"
       - "tavily_search"
       - "image_generation"
@@ -133,7 +134,9 @@ skills:
     platforms:
       - instagram
       - twitter
-      - linkedin
+      - tiktok
+      - youtube_shorts
+      - facebook
     rate_limit: 10  # posts per hour max
 
 # ========================================================================

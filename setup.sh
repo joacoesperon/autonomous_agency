@@ -65,8 +65,8 @@ if [ ! -f ".env" ]; then
         chmod 600 .env
         echo ".env created from .env.example"
         echo "Edit .env before running the agents."
-        echo "Required at minimum: GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_OWNER_CHAT_ID"
-        echo "For the default marketer media stack: D_ID_API_KEY and REPLICATE_API_TOKEN"
+        echo "Required at minimum with the current defaults: GEMINI_API_KEY, OPENAI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_OWNER_CHAT_ID"
+        echo "Then run: python3 check_system_setup.py --mode runtime"
         echo ""
     else
         echo "ERROR: .env.example not found."
@@ -94,6 +94,9 @@ set +a
 if [ -z "${GEMINI_API_KEY:-}" ]; then
     echo "WARNING: GEMINI_API_KEY not set in .env"
 fi
+if [ -z "${OPENAI_API_KEY:-}" ]; then
+    echo "WARNING: OPENAI_API_KEY not set in .env"
+fi
 if [ -z "${TELEGRAM_BOT_TOKEN:-}" ]; then
     echo "WARNING: TELEGRAM_BOT_TOKEN not set in .env"
 fi
@@ -107,6 +110,15 @@ if python3 -c "from shared.telegram_gateway import TelegramGateway; print('OK')"
     echo "Telegram Gateway imports successfully"
 else
     echo "WARNING: Telegram Gateway import failed. Check dependencies."
+fi
+echo ""
+
+echo "Running bootstrap preflight..."
+if python3 check_system_setup.py --mode bootstrap; then
+    echo "Bootstrap preflight completed"
+else
+    echo "ERROR: Bootstrap preflight failed. Review the messages above."
+    exit 1
 fi
 echo ""
 
@@ -133,3 +145,5 @@ echo "4. Or start all enabled agents:"
 echo "   ./start_all.sh"
 echo "5. Monitor logs:"
 echo "   tail -f shared/logs/*.log"
+echo "6. Re-run runtime preflight any time:"
+echo "   python3 check_system_setup.py --mode runtime"

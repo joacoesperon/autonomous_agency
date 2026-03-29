@@ -37,6 +37,10 @@ fi
 echo "Environment loaded"
 echo ""
 
+echo "Running runtime preflight..."
+python3 check_system_setup.py --mode runtime
+echo ""
+
 echo "Starting Telegram Gateway..."
 python3 shared/telegram_gateway.py &
 GATEWAY_PID=$!

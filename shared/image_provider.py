@@ -8,7 +8,7 @@ Unified API for multiple image generation providers.
 Implemented providers:
 - Flux via Replicate
 - SDXL via Replicate
-- DALL-E via OpenAI
+- OpenAI image models (legacy DALL-E and newer GPT Image models)
 
 Configurable placeholders are kept for Midjourney and Ideogram so the
 active provider can still be selected from `shared/brand_config.yml`.
@@ -18,9 +18,11 @@ import os
 import time
 from pathlib import Path
 from typing import Any, Dict, Optional
+import base64
 
 import requests
-import yaml
+
+from shared.provider_profiles import load_brand_config
 
 
 class ImageProvider:
@@ -29,6 +31,7 @@ class ImageProvider:
     PROVIDER_ENV_VARS = {
         "flux": "REPLICATE_API_TOKEN",
         "dalle": "OPENAI_API_KEY",
+        "openai-image": "OPENAI_API_KEY",
         "midjourney": "MIDJOURNEY_API_KEY",
         "sdxl": "REPLICATE_API_TOKEN",
         "ideogram": "IDEOGRAM_API_KEY",
@@ -49,11 +52,7 @@ class ImageProvider:
         self.client = None
 
     def _load_brand_config(self) -> Dict[str, Any]:
-        config_path = Path(__file__).parent / "brand_config.yml"
-        if not config_path.exists():
-            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
-        with open(config_path, encoding="utf-8") as f:
-            return yaml.safe_load(f)
+        return load_brand_config()
 
     def _get_api_key(self, provider: Optional[str] = None) -> Optional[str]:
         provider_name = provider or self.provider
@@ -78,7 +77,7 @@ class ImageProvider:
             self.client = replicate
             return self.client
 
-        if self.provider == "dalle":
+        if self.provider in {"dalle", "openai-image"}:
             from openai import OpenAI
 
             self.client = OpenAI(api_key=api_key)
@@ -144,9 +143,9 @@ class ImageProvider:
             if self.provider == "flux":
                 self._ensure_client()
                 return self._generate_flux(full_prompt, aspect_ratio, resolved_output_path, model_override)
-            if self.provider == "dalle":
+            if self.provider in {"dalle", "openai-image"}:
                 self._ensure_client()
-                return self._generate_dalle(full_prompt, aspect_ratio, resolved_output_path, model_override)
+                return self._generate_openai_image(full_prompt, aspect_ratio, resolved_output_path, model_override)
             if self.provider == "sdxl":
                 self._ensure_client()
                 return self._generate_sdxl(full_prompt, aspect_ratio, resolved_output_path, model_override)
@@ -205,19 +204,26 @@ class ImageProvider:
             "message": f"Image generated with {model}",
         }
 
-    def _generate_dalle(
+    def _generate_openai_image(
         self,
         prompt: str,
         aspect_ratio: str,
         output_path: str,
         model_override: Optional[str],
     ) -> Dict[str, Any]:
-        size_map = {
-            "1:1": "1024x1024",
-            "16:9": "1792x1024",
-            "9:16": "1024x1792",
-        }
         model = model_override or self.provider_config["model"]
+        if str(model).startswith("gpt-image"):
+            size_map = {
+                "1:1": "1024x1024",
+                "16:9": "1536x1024",
+                "9:16": "1024x1536",
+            }
+        else:
+            size_map = {
+                "1:1": "1024x1024",
+                "16:9": "1792x1024",
+                "9:16": "1024x1792",
+            }
         size = size_map.get(aspect_ratio, self.provider_config.get("size", "1024x1024"))
         quality = self.provider_config.get("quality", "standard")
 
@@ -229,8 +235,15 @@ class ImageProvider:
             n=1,
         )
 
-        image_url = response.data[0].url
-        self._download_to_path(image_url, output_path)
+        result = response.data[0]
+        image_url = getattr(result, "url", None)
+        if image_url:
+            self._download_to_path(image_url, output_path)
+        elif getattr(result, "b64_json", None):
+            with open(output_path, "wb") as f:
+                f.write(base64.b64decode(result.b64_json))
+        else:
+            raise ValueError("OpenAI image API did not return url or b64_json")
         return {
             "success": True,
             "provider": self.provider,

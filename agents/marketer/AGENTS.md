@@ -119,7 +119,7 @@ Every 30 minutes, the agent:
      carousel_points: ["point1", "point2", ..., "point6"],
      tweet_points: ["hook", "value1", "value2", "value3", "cta"]
    }
-   Cost: 1 LLM call (Gemini 2.0 Flash)
+   Cost: 1 LLM call (Gemini 2.5 Flash)
 
 3. [VIDEO_GENERATION]
    Input: video_script
@@ -169,9 +169,9 @@ Every 30 minutes, the agent:
 | Step | Tool | Model/API | Purpose | Calls/Day | Cost/Call | Cost/Day | Cost/Month |
 |------|------|-----------|---------|-----------|-----------|----------|------------|
 | 1 | Tavily Search | Tavily API | Find trending topics | 0-1 | $0.01 | $0.01 | $0.30 |
-| 2 | **content_script_generator** | **Gemini 2.0 Flash** | **Generate script + all points** | **1** | **$0.001** | **$0.001** | **$0.03** |
+| 2 | **content_script_generator** | **Gemini 2.5 Flash** | **Generate script + all points** | **1** | **$0.001** | **$0.001** | **$0.03** |
 | 3 | video_generation | Configurable video provider | Text-to-video (AI avatar) | 1 | varies | varies | varies |
-| 4a | dynamic_prompt_generator | Gemini 2.0 Flash | Image prompts (batch) | 1 | $0.001 | $0.001 | $0.03 |
+| 4a | dynamic_prompt_generator | Gemini 2.5 Flash | Image prompts (batch) | 1 | $0.001 | $0.001 | $0.03 |
 | 4b | image_generation | Configurable image provider | Generate carousel images | 6 | varies | varies | varies |
 | **TOTAL** | | | | **10** | | **$0.16** | **$4.86** |
 
@@ -198,7 +198,7 @@ Every 30 minutes, the agent:
 ### 1. Main Content Generation Prompt (content_script_generator)
 
 **Location:** `skills/content_script_generator.py:180-268`
-**Model:** Configurable (default: Gemini 2.0 Flash Exp)
+**Model:** Configurable (default: Gemini 2.5 Flash)
 **Input:** Topic, content_type, duration, carousel_slides, num_tweets, context
 **Output:** JSON con video_script + carousel_points[] + tweet_points[]
 
@@ -339,7 +339,7 @@ STRICT COLOR REQUIREMENTS:
 ### 3. Tweet Thread Extraction Prompt (video_to_tweet_thread)
 
 **Location:** `skills/video_to_tweet_thread.py:128-163`
-**Model:** Configurable (legacy skill, usa Gemini 2.0 Flash hardcoded)
+**Model:** Configurable (uses `shared/brand_config.yml` defaults)
 **Input:** Video script
 **Output:** 5 tweets ≤280 chars
 
@@ -520,7 +520,7 @@ FACEBOOK_ACCESS_TOKEN=your_token
 
 ### Start Marketer Agent:
 ```bash
-cd autonomus_agency/
+cd autonomous_agency/
 openclaw run marketer
 ```
 

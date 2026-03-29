@@ -9,6 +9,7 @@ Implemented providers:
 - D-ID for talking-head avatar videos
 - HeyGen for avatar, talking photo, and digital twin videos
 - Google Veo for cinematic prompt-based clips
+- OpenAI Sora 2 / 2 Pro for premium synced-audio generative clips
 
 Other providers remain configurable placeholders so the workflow can be
 switched from `shared/brand_config.yml` without rewriting the skills layer.
@@ -17,11 +18,13 @@ switched from `shared/brand_config.yml` without rewriting the skills layer.
 import os
 import time
 import base64
+import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import requests
-import yaml
+
+from shared.provider_profiles import load_brand_config
 
 
 class VideoProvider:
@@ -30,6 +33,7 @@ class VideoProvider:
     PROVIDER_ENV_VARS = {
         "d-id": "D_ID_API_KEY",
         "heygen": "HEYGEN_API_KEY",
+        "openai-sora": "OPENAI_API_KEY",
         "synthesia": "SYNTHESIA_API_KEY",
         "runway": "RUNWAY_API_KEY",
         "pika": "PIKA_API_KEY",
@@ -59,11 +63,7 @@ class VideoProvider:
         self.provider_config = self.config["video_generation"][self.provider]
 
     def _load_brand_config(self) -> Dict[str, Any]:
-        config_path = Path(__file__).parent / "brand_config.yml"
-        if not config_path.exists():
-            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
-        with open(config_path, encoding="utf-8") as f:
-            return yaml.safe_load(f)
+        return load_brand_config()
 
     def _get_api_key(self, provider: Optional[str] = None) -> Optional[str]:
         provider_name = provider or self.provider
@@ -297,6 +297,13 @@ Consistency Rules:
                     add_subtitles=add_subtitles,
                     voice_config=voice_config,
                     avatar_config=avatar_config,
+                )
+            if self.provider == "openai-sora":
+                return self._generate_openai_sora(
+                    script=script,
+                    duration=resolved_duration,
+                    output_path=resolved_output_path,
+                    aspect_ratio=aspect_ratio,
                 )
             if self.provider == "synthesia":
                 return self._not_implemented("Synthesia", resolved_duration)
@@ -826,6 +833,138 @@ Consistency Rules:
             "message": f"Video generated with HeyGen and saved to {output_path}",
         }
 
+    def _generate_openai_sora(
+        self,
+        script: str,
+        duration: int,
+        output_path: str,
+        aspect_ratio: str,
+    ) -> Dict[str, Any]:
+        api_key = self._get_api_key("openai-sora")
+        if not api_key:
+            return {
+                "success": False,
+                "provider": self.provider,
+                "message": "OPENAI_API_KEY not configured",
+            }
+
+        model = self.provider_config.get("model", "sora-2")
+        size = self.provider_config.get("size")
+        if not size:
+            size = "720x1280" if aspect_ratio == "9:16" else "1280x720"
+
+        prompt = script.strip()
+        audio_instruction = self.provider_config.get(
+            "audio_instruction",
+            "Generate natural synced audio that matches the narration and scene pacing.",
+        )
+        if audio_instruction:
+            prompt = f"{prompt}\n\n{audio_instruction}"
+
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": model,
+            "prompt": prompt,
+            "seconds": duration,
+            "size": size,
+        }
+        if self.provider_config.get("fps"):
+            payload["fps"] = self.provider_config["fps"]
+        if self.provider_config.get("background"):
+            payload["background"] = self.provider_config["background"]
+
+        response = requests.post(
+            "https://api.openai.com/v1/videos",
+            headers=headers,
+            json=payload,
+            timeout=60,
+        )
+        response.raise_for_status()
+        result = response.json()
+
+        video_id = result.get("id")
+        if not video_id:
+            raise ValueError(f"OpenAI video API did not return an id: {json.dumps(result)[:400]}")
+
+        status_result = self._wait_for_openai_video(video_id=video_id, headers=headers)
+        if not status_result:
+            return {
+                "success": False,
+                "provider": self.provider,
+                "message": "Sora generation timed out after 10 minutes",
+            }
+
+        status = status_result.get("status")
+        if status != "completed":
+            error_message = status_result.get("error", {}).get("message") or status_result.get("status", "unknown")
+            return {
+                "success": False,
+                "provider": self.provider,
+                "message": f"Sora generation failed: {error_message}",
+            }
+
+        content_response = requests.get(
+            f"https://api.openai.com/v1/videos/{video_id}/content",
+            headers={"Authorization": f"Bearer {api_key}"},
+            timeout=120,
+        )
+        content_response.raise_for_status()
+        content_type = content_response.headers.get("Content-Type", "")
+        if "application/json" in content_type:
+            payload = content_response.json()
+            download_url = payload.get("url") or payload.get("download_url")
+            if not download_url:
+                raise ValueError("OpenAI video content endpoint returned JSON without a download URL")
+            download_response = requests.get(download_url, timeout=120)
+            download_response.raise_for_status()
+            binary_content = download_response.content
+        else:
+            binary_content = content_response.content
+
+        with open(output_path, "wb") as f:
+            f.write(binary_content)
+
+        cost_per_second = self.provider_config.get("cost_per_second", 0.0)
+        return {
+            "success": True,
+            "provider": self.provider,
+            "video_id": video_id,
+            "local_path": output_path,
+            "script_used": script,
+            "prompt_used": prompt,
+            "model": model,
+            "duration": duration,
+            "aspect_ratio": aspect_ratio,
+            "size": size,
+            "cost": round(float(duration) * float(cost_per_second), 4),
+            "message": f"Video generated with {model} and saved to {output_path}",
+        }
+
+    def _wait_for_openai_video(
+        self,
+        video_id: str,
+        headers: Dict[str, str],
+        timeout: int = 600,
+        poll_interval: int = 5,
+    ) -> Optional[Dict[str, Any]]:
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            response = requests.get(
+                f"https://api.openai.com/v1/videos/{video_id}",
+                headers={"Authorization": headers["Authorization"]},
+                timeout=30,
+            )
+            response.raise_for_status()
+            result = response.json()
+            status = result.get("status")
+            if status in {"completed", "failed", "cancelled"}:
+                return result
+            time.sleep(poll_interval)
+        return None
+
     def _wait_for_heygen_video(
         self,
         video_id: str,
@@ -867,9 +1006,13 @@ Consistency Rules:
         env_var = self.PROVIDER_ENV_VARS.get(self.provider)
         if self.provider == "veo":
             env_var = self.provider_config.get("project_env", "GOOGLE_CLOUD_PROJECT")
+        if self.provider == "openai-sora":
+            cost_value = round(float(self.provider_config.get("cost_per_second", 0.0)) * 60.0, 4)
+        else:
+            cost_value = self.provider_config.get("cost_per_minute", 0)
         return {
             "provider": self.provider,
-            "cost_per_minute": self.provider_config.get("cost_per_minute", 0),
+            "cost_per_minute": cost_value,
             "notes": self.provider_config.get("notes", ""),
             "config": self.provider_config,
             "api_key_env": env_var,

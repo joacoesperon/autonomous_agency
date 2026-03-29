@@ -19,17 +19,26 @@ Usage in OpenClaw:
 ========================================================================
 """
 
-import os
 import random
+import sys
+from pathlib import Path
 from typing import Dict, List, Any, Optional
 
 try:
-    import google.generativeai as genai
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    print("⚠️  ERROR: google-generativeai library not installed")
-    print("Run: pip install google-generativeai")
+    print("⚠️  WARNING: python-dotenv not installed")
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+try:
+    from shared.llm_provider import LLMProvider
+except ImportError:
+    print("⚠️  ERROR: Cannot import LLMProvider from shared/")
+    print("Make sure shared/llm_provider.py exists")
     exit(1)
 
 
@@ -103,13 +112,12 @@ class DynamicPromptGeneratorSkill:
         self.name = "dynamic_prompt_generator"
         self.description = "Generate unique, contextual image prompts with brand consistency"
 
-        self.api_key = os.getenv("GEMINI_API_KEY")
-
-        if not self.api_key:
-            print("⚠️  WARNING: GEMINI_API_KEY not set in .env")
-        else:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel('gemini-2.0-flash')
+        try:
+            self.llm = LLMProvider()
+            print(f"✅ LLM initialized: {self.llm.provider} - {self.llm.model}")
+        except Exception as e:
+            print(f"⚠️  ERROR: Failed to initialize LLM: {e}")
+            self.llm = None
 
     def execute(
         self,
@@ -140,10 +148,10 @@ class DynamicPromptGeneratorSkill:
             }
         """
 
-        if not self.api_key:
+        if not self.llm:
             return {
                 "success": False,
-                "message": "GEMINI_API_KEY not configured"
+                "message": "LLM provider not initialized. Check API keys and brand_config.yml."
             }
 
         # Validate style
@@ -195,8 +203,7 @@ class DynamicPromptGeneratorSkill:
 
         # Generate prompt using LLM
         try:
-            response = self.model.generate_content(llm_prompt)
-            generated_prompt = response.text.strip()
+            generated_prompt = self.llm.generate(llm_prompt).strip()
 
             # Remove any markdown or extra formatting
             generated_prompt = generated_prompt.replace('```', '').strip()

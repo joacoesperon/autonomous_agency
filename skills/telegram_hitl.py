@@ -63,7 +63,7 @@ class TelegramHITLSkill:
             content: Full content text (caption, etc.)
             approval_type: Type (content_post, refund, financial, etc.)
             media_url: Optional path to image/video
-            platforms: Optional list of platforms (instagram, x, linkedin)
+            platforms: Optional list of platforms (instagram, twitter, tiktok, youtube_shorts, facebook)
             options: Optional list of button options (default: ["Approve", "Deny"])
             metadata: Additional data to store
             wait: Whether to wait for approval (blocking)

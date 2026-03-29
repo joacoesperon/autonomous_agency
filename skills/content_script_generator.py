@@ -27,7 +27,6 @@ KEY BENEFIT: 3 LLM calls → 1 LLM call (3x cost reduction)
 import os
 import sys
 import json
-import yaml
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 
@@ -42,9 +41,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 try:
     from shared.llm_provider import LLMProvider
+    from shared.provider_profiles import load_brand_config
 except ImportError:
-    print("⚠️  ERROR: Cannot import LLMProvider from shared/")
-    print("Make sure shared/llm_provider.py exists")
+    print("⚠️  ERROR: Cannot import shared provider helpers")
+    print("Make sure shared/llm_provider.py and shared/provider_profiles.py exist")
     exit(1)
 
 
@@ -67,14 +67,8 @@ class ContentScriptGeneratorSkill:
             self.llm = None
 
     def _load_brand_config(self) -> Dict[str, Any]:
-        """Load brand configuration from centralized YAML"""
-        config_path = Path(__file__).parent.parent / "shared" / "brand_config.yml"
-
-        if not config_path.exists():
-            raise FileNotFoundError(f"brand_config.yml not found at {config_path}")
-
-        with open(config_path) as f:
-            return yaml.safe_load(f)
+        """Load resolved brand configuration from centralized YAML"""
+        return load_brand_config()
 
     def _build_brand_voice_section(self) -> str:
         """Build brand voice section from config"""
