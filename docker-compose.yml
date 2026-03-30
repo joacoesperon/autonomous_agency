@@ -2,7 +2,7 @@ version: '3.8'
 
 # Jess Trading Autonomous Agency — Legacy Docker Draft
 # NOTE:
-# - The supported install path for this repo is `setup.sh` + `openclaw run ...`
+# - The supported install path for this repo is `setup.sh` + `python3 register_openclaw_agents.py`
 # - This compose file still reflects an older container layout and is kept as
 #   reference only until dedicated Dockerfiles are added for the current repo.
 

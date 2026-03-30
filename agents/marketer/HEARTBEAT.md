@@ -1,12 +1,12 @@
 # 💓 Marketer Heartbeat — High-Volume Content Engine
 
-This file defines the autonomous, scheduled tasks that The Marketer executes every 30 minutes without human prompting. These tasks ensure continuous, high-volume content pipeline operation.
+This file defines the autonomous tasks that The Marketer executes whenever the future user invokes this workspace on a recurring cadence. A common setup is every 30 minutes, but the real generation cadence inside the repo is controlled by `content_schedule`.
 
 **Philosophy:** Generate abundantly → Approve selectively → Publish approved
 
 ---
 
-## Heartbeat Cycle (Every 30 Minutes)
+## Heartbeat Cycle (Typical External Cadence: Every 30 Minutes)
 
 ### TASK 1: Daily Content Generation (Priority: CRITICAL)
 
@@ -18,6 +18,7 @@ This file defines the autonomous, scheduled tasks that The Marketer executes eve
 ```bash
 1. Load scheduling + provider config:
    - Read `shared/brand_config.yml`
+   - Run `marketer_runtime.execute(action="check_generation")`
    - Check `content_schedule.auto_generation_enabled`
    - Check `content_schedule.active_days`
    - Check `content_schedule.generation_window`
@@ -32,7 +33,7 @@ This file defines the autonomous, scheduled tasks that The Marketer executes eve
    → Skip generation for this heartbeat
    → Still run queue monitoring, publishing, trends, and sync tasks
 
-4. If the current heartbeat matches an active generation slot and daily requirement is missing:
+4. If `marketer_runtime` returns `should_generate=True` for an active slot:
    → IMMEDIATELY generate using NEW optimized workflow
    → Priority: Use content_script_generator FIRST
 
@@ -198,7 +199,7 @@ KEEP generating if:
 
 ### TASK 2: Approval Queue & Publishing (Priority: HIGH)
 
-**Objective:** Manage HITL workflow and execute approved publications
+**Objective:** Manage HITL workflow and audit approved publications
 
 **Actions:**
 ```bash
@@ -213,9 +214,19 @@ KEEP generating if:
    └── Denied → Move to denied/, analyze feedback for improvement
 
 3. Publish Approved Content:
-   For each item with status="approved":
+   Primary path:
+   - When the owner clicks "Approve" in Telegram, `shared/telegram_gateway.py`
+     immediately triggers `social_media_publisher.publish_content_bundle(...)`
+   - The queue entry stores:
+     - `publish.status`
+     - `publish.started_at`
+     - `publish.completed_at`
+     - `publish.results`
 
-   A. Story:
+   Heartbeat recovery path:
+   For each item with status="approved" and `publish.status` in ["not_started", "failed", "partial"]:
+
+   A. Story (only if the approval metadata includes a story asset, or if the first carousel image is reused):
       social_media_publisher.execute(
           platforms=["instagram"],
           caption=caption,

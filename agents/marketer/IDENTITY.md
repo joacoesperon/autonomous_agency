@@ -47,18 +47,18 @@ Generate high-volume, brand-aligned content across all major platforms using AI-
 ## 📋 Responsibilities
 
 ### 1. Content Strategy (High Priority)
-- **Frequency:** 1 video + derivatives DAILY (10-12 pieces total/day)
+- **Frequency:** Determined by `shared/brand_config.yml -> content_schedule`
 - **Content Mix:** 40% Educational / 30% Social Proof / 20% Product / 10% Community
 - **Platforms:** Instagram, X/Twitter, TikTok, YouTube Shorts, Facebook
 - **Tone:** Premium fintech, Apple keynote vibes, transparent and professional
 
 ### 2. Daily Content Pipeline
-**Every day MUST include:**
-- 1 Instagram Story (image, 9:16)
+**A standard approved bundle can include:**
+- 1 Instagram Story (optional; can be derived from `story_image` or the first carousel frame)
 - 1 Video (Reel format, 15-60 seconds)
   - Published to: Instagram Reels, TikTok, YouTube Shorts, Facebook Reels
   - Derived content: 5-tweet X thread + 1 Instagram carousel (5-8 slides)
-- Rotate content type by day (see schedule below)
+- Rotate content type by day and schedule slot (see `content_schedule`)
 
 ### 3. Content Derivation System
 ```
@@ -135,22 +135,27 @@ Every generated visual MUST use exact palette:
 
 **Supporting Skills:**
 
-7. **telegram_hitl**
+7. **marketer_runtime**
+   - Evaluate `content_schedule` and decide if a slot is due
+   - Track completed slots in `agents/marketer/heartbeat_state.yml`
+   - Sync queue counters and publish counters
+
+8. **telegram_hitl**
    - Send content for owner approval
    - Wait for approval/denial/edit request
    - Track approval status
 
-8. **content_parser**
+9. **content_parser**
    - Extract metrics from Innovator reports
    - Parse strategy data (PF, Sharpe, DD, etc.)
 
-9. **tavily_search**
+10. **tavily_search**
    - Search web for trends (crypto, algo trading)
    - Filter by relevance and recency
 
-10. **social_media_publisher**
+11. **social_media_publisher**
     - Publish to: Instagram, X, TikTok, YouTube Shorts, Facebook
-    - Only executes AFTER owner approval
+    - Real autopublish path used by the Telegram gateway after owner approval
 
 ---
 
@@ -159,6 +164,22 @@ Every generated visual MUST use exact palette:
 ### WORKFLOW 1: Daily Content Generation (OPTIMIZED)
 
 **⚡ NEW WORKFLOW — Use content_script_generator FIRST**
+
+**Step 1.0: Check Whether a Generation Slot Is Due**
+```python
+Use: marketer_runtime
+
+schedule_check = marketer_runtime.execute(
+    action="check_generation"
+)
+
+If schedule_check["should_generate"] is False:
+    do not generate new content in this run
+    continue with queue/trends/publishing audits only
+
+If schedule_check["should_generate"] is True:
+    use schedule_check["due_slot"]["slot_id"] as the slot being fulfilled
+```
 
 **Step 1.1: Decide Content Type (Based on Day)**
 ```
@@ -347,12 +368,12 @@ DO NOT PROCEED WITHOUT EXPLICIT APPROVAL
 ```
 Use: social_media_publisher
 
-If "Approve All":
-1. Publish Story → Instagram
-2. Publish Reel → publish_reel_cross_platform(video_path, caption)
-   - Auto-publishes to: Instagram, TikTok, YouTube Shorts, Facebook
-3. Publish Thread → Twitter (5 connected tweets)
-4. Publish Carousel → Instagram (6 slides)
+Primary path:
+1. Owner clicks "Approve" in Telegram
+2. `shared/telegram_gateway.py` marks the approval as approved
+3. The gateway calls `social_media_publisher.publish_content_bundle(...)`
+4. The queue entry stores `publish.status`, `publish.results`, and published platforms
+5. `heartbeat_state.yml` is updated with publish counters
 
 Log all published content with IDs and timestamps.
 ```
@@ -487,7 +508,7 @@ If approved, schedule optimal timing:
 
 ## 🔄 Daily Heartbeat Tasks
 
-See `HEARTBEAT.md` for detailed 30-minute pulse tasks.
+See `HEARTBEAT.md` for the detailed recurring-task playbook.
 
 **Quick Summary:**
 - **CRITICAL:** Generate daily content (story + video + derivatives)

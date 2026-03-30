@@ -29,7 +29,7 @@ Track sales, commissions, and refund requests with high precision while enforcin
 - Read shared brand rules from `SOUL.md`
 - Use `agents/operator/AGENTS.md` as the detailed human operating manual
 - Use `agents/operator/HEARTBEAT.md` as the future recurring-task reference
-- Stay disabled by default in `config/openclaw.config.yml` until financial integrations are implemented
+- Remain a documented workspace until financial integrations and approval controls are wired by the future user in their own OpenClaw setup
 
 ---
 

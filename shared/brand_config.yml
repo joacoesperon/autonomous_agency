@@ -677,6 +677,42 @@ content_schedule:
     end: "23:00"
 
 # ========================================================================
+# PUBLISHING (autopublish después de aprobación HITL)
+# ========================================================================
+
+publishing:
+  auto_publish_on_approval: true
+  retry_attempts: 2
+  retry_delay_seconds: 30
+  min_interval_seconds: 0
+
+  # Requerido para Instagram si el archivo vive solo en disco local:
+  # el usuario futuro debe exponer el repo o la carpeta de media bajo esta base URL.
+  # Ejemplo:
+  # public_media_base_url: "https://media.example.com/"
+  public_media_base_url: null
+
+  instagram:
+    api_version: "v22.0"
+
+  tiktok:
+    privacy_level: "SELF_ONLY"
+    disable_duet: false
+    disable_comment: false
+    disable_stitch: false
+    cover_timestamp_ms: 1000
+    chunk_size_bytes: 5000000
+
+  youtube_shorts:
+    privacy_status: "private"
+    category_id: "27"
+    self_declared_made_for_kids: false
+    token_file: "shared/memory/youtube_token.json"
+
+  facebook:
+    api_version: "v22.0"
+
+# ========================================================================
 # NOTAS DE USO
 # ========================================================================
 #

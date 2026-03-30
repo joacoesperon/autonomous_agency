@@ -29,7 +29,7 @@ Turn the `EA_developer/` pipeline into a product engine that can research, desig
 - Read shared brand rules from `SOUL.md`
 - Use `agents/innovator/AGENTS.md` as the detailed human operating manual
 - Use `agents/innovator/HEARTBEAT.md` as the future recurring-task reference
-- Stay disabled by default in `config/openclaw.config.yml` until the full integration is ready
+- Remain a documented workspace until the product-creation pipeline is fully wired by the future user in their own OpenClaw setup
 
 ---
 

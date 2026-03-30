@@ -2,8 +2,10 @@
 # OpenClaw Configuration — Jess Trading Autonomous Agency
 # ========================================================================
 #
-# This file configures the OpenClaw framework for running the 4-agent
-# autonomous agency system for Jess Trading.
+# LEGACY REFERENCE:
+# This file belongs to an older repo-managed OpenClaw flow.
+# Current OpenClaw installs should register the workspaces under `agents/*`
+# and let the end user manage their own runtime/profile config separately.
 #
 # ========================================================================
 

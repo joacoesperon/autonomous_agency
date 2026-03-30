@@ -1,61 +1,33 @@
-# ========================================================================
-# Marketer Heartbeat State
-# ========================================================================
-#
-# Persistent state for the marketer agent between heartbeat runs.
-# The heartbeat reads and updates this file after every cycle.
-#
-# ========================================================================
-
-# Last time the heartbeat loop ran
-last_heartbeat_run: null
-
-# Task timestamps
+last_heartbeat_run: '2026-03-30T10:58:31.235128+02:00'
 last_content_generated: null
-last_queue_check: null
+last_queue_check: '2026-03-30T10:58:31.235128+02:00'
 last_trend_scan: null
 last_innovator_sync: null
 last_analytics_update: null
 last_brand_mention_scan: null
-
-# Schedule tracking
-next_generation_due_at: null
+next_generation_due_at: '2026-03-30T08:00:00+02:00'
 last_generation_slot: null
-
-# Inventory tracking
 known_bots: []
-
-# Content generated during the current day
 content_generated_today:
-  date: null
+  date: '2026-03-30'
   story: false
   video: false
   derivatives: false
   videos: 0
   last_video_timestamp: null
   total_pieces: 0
-
-# Weekly mix tracking
+  completed_slots: []
 weekly_content_mix:
-  week_start: null
+  week_start: '2026-03-30'
   educational: 0
   social_proof: 0
   product: 0
   community: 0
-
-content_calendar_status: "balanced"
-
-# Publishing stats
+content_calendar_status: balanced
 posts_published_today: 0
 posts_published_this_week: 0
 drafts_awaiting_approval: 0
 approval_queue_count: 0
-
-# Trend monitoring
 last_trend_search: null
-
-# Manual override
 content_paused: false
-
-# Free-form notes
-notes: "Initialized state. Ready for first heartbeat run."
+notes: Initialized state. Ready for first heartbeat run.

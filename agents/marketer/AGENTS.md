@@ -1,8 +1,10 @@
 # 📈 The Marketer — Technical Documentation (For Humans)
 
-**Last Updated:** 2026-03-25
+**Last Updated:** 2026-03-30
 **Status:** Operational
 **OpenClaw Agent:** `marketer`
+
+**Workspace Note:** In current OpenClaw installs this agent workspace is rooted at `agents/marketer`. Repo-root paths shown in this document like `shared/...` or `skills/...` should be interpreted from this workspace as `../../shared/...` and `../../skills/...`.
 
 ---
 
@@ -24,11 +26,11 @@ Every day, the Marketer automatically:
    - Video script (15-60 seconds)
    - Carousel key points (6-8 slides)
    - Tweet thread key points (5 tweets)
-3. **Creates video** with AI avatar speaking the script
+3. **Creates video** with the currently selected video profile
 4. **Generates 6-8 carousel images** from key points
 5. **Formats tweets** from key points (≤280 chars each)
 6. **Sends everything to you for approval** via Telegram
-7. **Publishes approved content** to all platforms
+7. **Publishes approved content** after Telegram approval, with autopublish handled by the gateway + publisher stack
 
 **Result:** ~12 content pieces per day (1 video + 6 images + 5 tweets) from ONE core generation cycle.
 
@@ -62,7 +64,7 @@ The agent automatically rotates through these types daily.
 ## How It Works Technically
 
 ### 1. Content Generation
-The agent uses 10 custom Python skills:
+The agent uses 11 custom Python skills/modules:
 
 **Core Skills (New Optimized Pipeline):**
 - `content_script_generator` ⭐ **NEW** → Generates complete content package in 1 LLM call
@@ -73,6 +75,7 @@ The agent uses 10 custom Python skills:
 - `dynamic_prompt_generator` → Creates unique image prompts (no templates)
 
 **Supporting Skills:**
+- `marketer_runtime` → Checks `content_schedule`, tracks completed slots, syncs queue counters, records publish results
 - `telegram_hitl` → Sends content for owner approval
 - `content_parser` → Extracts metrics from EA reports
 - `tavily_search` → Searches web for trends
@@ -94,9 +97,9 @@ Generate Content → Bundle Everything → Send to Telegram
 Nothing publishes without your explicit approval.
 
 ### 3. Heartbeat (Autonomous Tasks)
-Every 30 minutes, the agent:
-- **CRITICAL:** Generates daily content if not done yet
-- **HIGH:** Publishes approved content immediately
+Whenever the future user invokes the Marketer on a recurring cadence, the agent:
+- **CRITICAL:** Uses `marketer_runtime` + `content_schedule` to decide whether a generation slot is due
+- **HIGH:** Audits queue state and publish outcomes; fresh approvals are autopublished immediately by `shared/telegram_gateway.py`
 - **MEDIUM:** Monitors trends, checks for brand mentions
 - **LOW:** Checks for new bot launches (~1/month)
 
@@ -119,12 +122,12 @@ Every 30 minutes, the agent:
      carousel_points: ["point1", "point2", ..., "point6"],
      tweet_points: ["hook", "value1", "value2", "value3", "cta"]
    }
-   Cost: 1 LLM call (Gemini 2.5 Flash)
+   Cost: 1 LLM call (current default profile: OpenAI GPT-5.2 copy)
 
 3. [VIDEO_GENERATION]
    Input: video_script
    Output: video.mp4 (AI avatar speaking or mascot-led clip)
-   Cost: depends on `shared/brand_config.yml` video provider (D-ID by default)
+   Cost: depends on the resolved video profile in `shared/brand_config.yml` (current default: OpenAI Sora 2 Pro)
 
 4. [CAROUSEL_IMAGE_GENERATION]
    Input: carousel_points[] (from step 2)
@@ -132,7 +135,7 @@ Every 30 minutes, the agent:
      4a. Generate image prompt (dynamic_prompt_generator)
      4b. Generate image (provider from `shared/brand_config.yml`)
    Output: 6 carousel images
-   Cost: depends on configured image provider (Flux by default)
+   Cost: depends on the resolved image profile in `shared/brand_config.yml` (current default: OpenAI GPT Image 1.5 High)
 
 5. [TWEET_FORMATTING]
    Input: tweet_points[] (from step 2)
@@ -166,18 +169,21 @@ Every 30 minutes, the agent:
 
 ## LLM & API Usage Table
 
-| Step | Tool | Model/API | Purpose | Calls/Day | Cost/Call | Cost/Day | Cost/Month |
-|------|------|-----------|---------|-----------|-----------|----------|------------|
-| 1 | Tavily Search | Tavily API | Find trending topics | 0-1 | $0.01 | $0.01 | $0.30 |
-| 2 | **content_script_generator** | **Gemini 2.5 Flash** | **Generate script + all points** | **1** | **$0.001** | **$0.001** | **$0.03** |
-| 3 | video_generation | Configurable video provider | Text-to-video (AI avatar) | 1 | varies | varies | varies |
-| 4a | dynamic_prompt_generator | Gemini 2.5 Flash | Image prompts (batch) | 1 | $0.001 | $0.001 | $0.03 |
-| 4b | image_generation | Configurable image provider | Generate carousel images | 6 | varies | varies | varies |
-| **TOTAL** | | | | **10** | | **$0.16** | **$4.86** |
+The stack below is resolved from `shared/brand_config.yml`, not hardcoded in this document.
 
-¹ Flux Schnell is free but rate-limited. Actual cost depends on the provider selected in `shared/brand_config.yml`.
+| Step | Tool | Model/API | Purpose | Calls/Run | Cost |
+|------|------|-----------|---------|-----------|------|
+| 1 | Tavily Search | Tavily API | Find timely topics when needed | 0-1 | varies |
+| 2 | **content_script_generator** | Current `llm_defaults` profile | Generate script + carousel points + tweet points | 1 | varies |
+| 3 | video_generation | Current `video_generation` profile | Generate reel/short-form video | 1 | varies |
+| 4a | dynamic_prompt_generator | Current `llm_defaults` profile | Create per-slide image prompts | 1 | varies |
+| 4b | image_generation | Current `image_generation` profile | Generate carousel images | 1 per slide | varies |
+| 5 | social_media_publisher | Platform APIs | Publish approved bundle | per platform | varies |
 
-**Key Takeaway:** LLM costs are negligible. Media cost depends on the configured video/image providers.
+**Current default repo selection (2026-03-30):**
+- LLM: `openai_gpt_5_2_copy`
+- Image: `openai_gpt_image_1_5_high`
+- Video: `openai_sora_2_pro_cinematic`
 
 ### Cost Projections
 
@@ -198,7 +204,7 @@ Every 30 minutes, the agent:
 ### 1. Main Content Generation Prompt (content_script_generator)
 
 **Location:** `skills/content_script_generator.py:180-268`
-**Model:** Configurable (default: Gemini 2.5 Flash)
+**Model:** Configurable (current default repo profile: OpenAI GPT-5.2 copy)
 **Input:** Topic, content_type, duration, carousel_slides, num_tweets, context
 **Output:** JSON con video_script + carousel_points[] + tweet_points[]
 
@@ -508,10 +514,18 @@ TELEGRAM_OWNER_CHAT_ID=your_chat_id
 
 # Social Media Publishing (optional, for auto-publish after approval)
 INSTAGRAM_ACCESS_TOKEN=your_token
-X_BEARER_TOKEN=your_token
+INSTAGRAM_USER_ID=your_instagram_user_id
+PUBLIC_MEDIA_BASE_URL=https://media.example.com/
+X_API_KEY=your_key
+X_API_SECRET=your_secret
+X_ACCESS_TOKEN=your_token
+X_ACCESS_SECRET=your_secret
 TIKTOK_ACCESS_TOKEN=your_token
-YOUTUBE_API_KEY=your_key
+YOUTUBE_CLIENT_ID=your_client_id
+YOUTUBE_CLIENT_SECRET=your_client_secret
+YOUTUBE_TOKEN_FILE=shared/memory/youtube_token.json
 FACEBOOK_ACCESS_TOKEN=your_token
+FACEBOOK_PAGE_ID=your_page_id
 ```
 
 ---
@@ -521,16 +535,21 @@ FACEBOOK_ACCESS_TOKEN=your_token
 ### Start Marketer Agent:
 ```bash
 cd autonomous_agency/
-openclaw run marketer
+python3 register_openclaw_agents.py marketer
+openclaw agent --local --agent marketer --message "status check"
 ```
 
-The agent will:
-1. Start heartbeat (every 30 minutes)
-2. Generate first batch of content
-3. Send to Telegram for your approval
-4. Wait for your response
-5. Publish approved content
-6. Repeat cycle
+For current OpenClaw installs, this repo provides the Marketer workspace and supporting skills.
+The future user decides their own OpenClaw runtime model, bindings, gateway hosting, and external invocation cadence.
+The Marketer's internal cadence rules still come from `shared/brand_config.yml` via `content_schedule`.
+
+With the full stack wired by the user, the agent workflow is still:
+1. Read `shared/brand_config.yml`
+2. Generate content for active schedule slots
+3. Send to Telegram for approval when HITL is enabled
+4. Wait for approval or denial
+5. Publish approved content through the configured channels
+6. Repeat according to the user's chosen scheduler
 
 ---
 

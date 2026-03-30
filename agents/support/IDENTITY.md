@@ -29,7 +29,7 @@ Provide fast, accurate, and brand-aligned support across customer channels while
 - Read shared brand rules from `SOUL.md`
 - Use `agents/support/AGENTS.md` as the detailed human operating manual
 - Use `agents/support/HEARTBEAT.md` as the future recurring-task reference
-- Stay disabled by default in `config/openclaw.config.yml` until channel APIs and KB workflows are implemented
+- Remain a documented workspace until the future user wires support channels, KB workflows, and approvals in their own OpenClaw setup
 
 ---
 

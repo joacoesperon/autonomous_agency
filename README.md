@@ -25,7 +25,7 @@ This system orchestrates 4 specialized AI agents to automate product development
 - 24/7 operations while you sleep, travel, or focus on strategy
 
 **Current State of This Repo:**
-- Install path is oriented around `setup.sh`, `start_all.sh`, and `openclaw run ...`
+- Current OpenClaw path is workspace-based: register `agents/*` with your own OpenClaw install
 - Marketer workflow is the most complete agent and now supports configurable video/image providers
 - Talking-avatar video generation is implemented for D-ID and HeyGen
 - Prompt-based generative video is implemented for Veo on Vertex AI
@@ -76,7 +76,8 @@ This system orchestrates 4 specialized AI agents to automate product development
 - Video provider configurable via `shared/brand_config.yml`
 - Image provider configurable via `shared/brand_config.yml`
 - **HITL:** Sends ALL content to Telegram for approval before publishing
-- Heartbeat: Every 30 minutes
+- Internal generation cadence: `shared/brand_config.yml -> content_schedule`
+- External invocation cadence: user-defined (a common setup is every 30 minutes)
 
 **3. Community Manager (Support Lead)** ⚠️ **Status: Configured, needs API integration**
 - Planned support coverage across customer channels once messaging APIs are connected
@@ -123,7 +124,7 @@ Required for the default Marketer stack:
 - Get at: https://platform.openai.com
 - Save: `OPENAI_API_KEY=sk-...`
 
-**Google Gemini API** (currently used by the default OpenClaw runtime in `config/openclaw.config.yml`)
+**Google Gemini API** (optional if you choose a Gemini-based marketer profile)
 - Get at: https://aistudio.google.com/app/apikey
 - Save: `GEMINI_API_KEY=AIzaSy...`
 
@@ -175,9 +176,9 @@ The setup script:
 - ✅ Installs Python dependencies: `pip3 install -r requirements.txt`
 - ✅ Creates `.env` from `.env.example`
 - ✅ Creates required directories
-- ✅ Validates configuration
+- ✅ Runs a repo/bootstrap preflight
 - ✅ Tests Telegram Gateway
-- ✅ Initializes OpenClaw
+- ✅ Leaves OpenClaw runtime/model selection to the future user
 
 ### Step 4: Configure .env
 
@@ -187,9 +188,6 @@ nano .env
 
 Add your API keys:
 ```bash
-# OpenClaw runtime (required with the current default runtime config)
-GEMINI_API_KEY=your_key_here
-
 # Current default Marketer stack
 OPENAI_API_KEY=your_openai_key
 
@@ -212,14 +210,15 @@ REPLICATE_API_TOKEN=your_token
 # Social Media (optional - only needed for publishing)
 INSTAGRAM_ACCESS_TOKEN=your_token
 INSTAGRAM_USER_ID=your_instagram_user_id
+PUBLIC_MEDIA_BASE_URL=https://media.example.com/
 X_API_KEY=your_key
 X_API_SECRET=your_secret
 X_ACCESS_TOKEN=your_token
 X_ACCESS_SECRET=your_secret
 TIKTOK_ACCESS_TOKEN=your_token
-YOUTUBE_API_KEY=your_key
 YOUTUBE_CLIENT_ID=your_client_id
 YOUTUBE_CLIENT_SECRET=your_client_secret
+YOUTUBE_TOKEN_FILE=shared/memory/youtube_token.json
 FACEBOOK_ACCESS_TOKEN=your_token
 FACEBOOK_PAGE_ID=your_page_id
 
@@ -230,45 +229,48 @@ STRIPE_API_KEY_READ=your_key
 
 Save: `Ctrl+O`, `Enter`, `Ctrl+X`
 
-### Step 5: Start System
+### Step 5: Register Agent Workspaces with OpenClaw
 
-**Option A: Start All (Recommended)**
+The current OpenClaw flow is workspace-based. This repo provides the workspaces; the end user wires them into their own OpenClaw profile.
+
 ```bash
-./start_all.sh
+python3 register_openclaw_agents.py
 ```
 
-This starts:
-- Telegram Gateway (HITL approval system)
-- Enabled agents (Marketer by default)
-- A runtime preflight that validates the active LLM, video, image, and HITL setup before boot
+That script:
+- Registers each repo workspace under `agents/*`
+- Syncs identity metadata from each `IDENTITY.md`
+- Does not change the user's runtime model, bindings, or OpenClaw profile choices
 
-To stop: Press `Ctrl+C`
+### Step 6: Verify the Repo and Test a Local Agent Turn
 
-**Option B: Manual (Two Terminals)**
-
-Terminal 1 — Telegram Gateway:
+Check repo readiness:
 ```bash
-cd shared/
-python3 telegram_gateway.py
+python3 check_system_setup.py --mode runtime
 ```
 
-Terminal 2 — Marketer Agent:
+Inspect registered agents:
 ```bash
-openclaw run marketer
+openclaw agents list --bindings
 ```
 
-### Step 6: Verify
+Run a local one-turn smoke test with your own OpenClaw runtime:
+```bash
+openclaw agent --local --agent marketer --message "status check"
+```
+
+Optional: start the Telegram HITL gateway from this repo:
+```bash
+python3 shared/telegram_gateway.py
+```
+
+### Step 7: Verify
 
 **Test Telegram Bot:**
 1. Open Telegram
 2. Find your bot
 3. Send: `/start`
 4. Receive: "Jess Trading Agency — HITL Gateway Online"
-
-**Run preflight manually:**
-```bash
-python3 check_system_setup.py --mode runtime
-```
 
 **Check Logs:**
 ```bash
@@ -286,15 +288,20 @@ tail -f shared/logs/*.log
 
 ## ⚙️ Configuration
 
-### Main Config File: `config/openclaw.config.yml`
+### Current OpenClaw Integration
 
-Defines:
-- Agent settings (enabled/disabled, heartbeat intervals)
-- LLM configuration (model, temperature, tokens, fallback)
-- Skill settings (paths, parameters)
-- HITL configuration (Telegram, approval timeouts)
-- Security constraints (file boundaries, sandboxing)
-- Logging & error handling
+The repo no longer assumes control over the user's global OpenClaw runtime config.
+
+What this repo owns:
+- agent workspaces under `agents/*`
+- shared repo logic, prompts, providers, and Python tooling
+- helper scripts like `register_openclaw_agents.py`
+
+What the future user owns:
+- their OpenClaw runtime model/provider
+- their bindings, channels, gateway, scheduling, and profile config
+
+`config/openclaw.config.yml` is kept only as legacy reference from an older repo workflow.
 
 ### Brand + Media Config: `shared/brand_config.yml`
 
@@ -373,20 +380,7 @@ Configurable placeholders only:
 - Image: `midjourney`, `ideogram`
 - Video: `synthesia`, `runway`, `pika`
 
-**4. Change the OpenClaw runtime model separately if you want**
-
-The OpenClaw runtime is still configured independently in `config/openclaw.config.yml`.
-
-Example:
-
-```yaml
-llm:
-  provider: "openai"
-  model: "gpt-5.2"
-  api_key_env: "OPENAI_API_KEY"
-```
-
-**5. Validate before starting**
+**4. Validate before using the selected marketer stack**
 
 After any switch, run:
 
@@ -454,7 +448,7 @@ For HeyGen:
 Each agent has:
 - `agents/[name]/IDENTITY.md` — OpenClaw personality & instructions
 - `agents/[name]/AGENTS.md` — Detailed operating manual (human documentation)
-- `agents/[name]/HEARTBEAT.md` — 30-minute heartbeat tasks
+- `agents/[name]/HEARTBEAT.md` — recurring-task guide for that workspace
 
 ### Custom Skills (Python Tools)
 
@@ -465,6 +459,7 @@ Located in `skills/` directory:
 - `video_generation.py` — Configurable AI video generation
 - `image_generation.py` — Configurable AI image generation
 - `social_media_publisher.py` — Publish to social platforms
+- `marketer_runtime.py` — Enforce `content_schedule` and update Marketer state
 
 Each skill has standalone testing: `python3 skills/[skill_name].py`
 
@@ -472,89 +467,68 @@ Each skill has standalone testing: `python3 skills/[skill_name].py`
 
 ## 📊 How It Works (Marketer Example)
 
-**Every 30 minutes, Marketer:**
+**Whenever the future user invokes Marketer on a recurring cadence:**
 
-1. **Checks `shared/brand_config.yml`** to decide whether the current slot should generate content
+1. **Checks `shared/brand_config.yml` + `marketer_runtime`** to decide whether the current slot should generate content
 2. **Searches trends** using Tavily when needed
 3. **Generates script/caption** following brand voice (premium, transparent, no hype)
 4. **Creates media** using the configured providers from `shared/brand_config.yml`
-   - Video provider: D-ID by default, configurable to HeyGen or Veo
-   - Image provider: Flux by default, configurable
+   - Current default video profile: OpenAI Sora 2 Pro
+   - Current default image profile: OpenAI GPT Image 1.5 High
    - Brand palette stays centralized
 5. **Sends to Telegram** for your approval with:
    - Caption preview
    - Media preview
    - Buttons: [Approve] [Deny] [Edit]
 6. **Waits 48h** for your decision (timeout if no response)
-7. **If approved:** Publishes to configured platforms
+7. **If approved:** `shared/telegram_gateway.py` autopublishes the approved bundle and records the result in the queue/state files
 8. **Logs queue state** and publication history
 
 **Your role:** Review on your phone, click [Approve] or [Deny]. That's it.
 
 ---
 
-## 🛠️ Deployment Options
+## 🛠️ Using This Repo with OpenClaw 2026
 
-### Local Development
+### Registering Agents
+
+Use the helper script:
 
 ```bash
-# Terminal 1: Gateway
-cd shared/
-python3 telegram_gateway.py
-
-# Terminal 2: Agents
-openclaw run marketer
-# or
-./start_all.sh
+python3 register_openclaw_agents.py
 ```
 
-### Production (VPS)
+Or do it manually per workspace:
 
-**Option 1: Screen/Tmux**
 ```bash
-# Telegram Gateway
-screen -S telegram
-cd shared/ && python3 telegram_gateway.py
-# Ctrl+A, D to detach
-
-# Marketer Agent
-screen -S marketer
-openclaw run marketer
-# Ctrl+A, D to detach
-
-# Reattach: screen -r telegram
+openclaw agents add marketer --workspace /path/to/repo/agents/marketer --non-interactive
+openclaw agents set-identity --agent marketer --identity-file /path/to/repo/agents/marketer/IDENTITY.md
 ```
 
-**Option 2: Systemd Services (Recommended)**
+Repeat for the agents you want to install.
 
-Create service files:
+### Testing One Turn
+
 ```bash
-# /etc/systemd/system/jess-telegram-gateway.service
-[Unit]
-Description=Jess Trading Telegram Gateway
-After=network.target
-
-[Service]
-Type=simple
-User=your_user
-WorkingDirectory=/path/to/autonomous_agency/shared
-ExecStart=/usr/bin/python3 telegram_gateway.py
-Restart=always
-RestartSec=10
-EnvironmentFile=/path/to/autonomous_agency/.env
-
-[Install]
-WantedBy=multi-user.target
+openclaw agent --local --agent marketer --message "status check"
 ```
 
-Enable and start:
+### Telegram HITL
+
+Run the gateway from this repo only if you want the Telegram approval flow:
+
 ```bash
-sudo systemctl enable jess-telegram-gateway
-sudo systemctl start jess-telegram-gateway
-sudo systemctl status jess-telegram-gateway
+python3 shared/telegram_gateway.py
 ```
 
-Repeat for each agent.
+### Scheduling / Gateway / Bindings
+
+The future user still chooses their own OpenClaw profile, runtime model, channel bindings, and external invocation style.
+What stays inside this repo:
+- Marketer `content_schedule`
+- HITL approval queue
+- Telegram approval gateway
+- autopublish logic after approval
 
 ---
 
@@ -589,24 +563,20 @@ Repeat for each agent.
 **"Social media publishing failed"**
 - Solution: Auto-publishing currently targets Instagram, X, TikTok, YouTube Shorts, and Facebook
 - APIs require platform-specific integration:
-  - Instagram: Graph API + Business Account
+  - Instagram: Graph API + Business Account + public media URL access (`PUBLIC_MEDIA_BASE_URL`) for local generated files
   - X: Twitter API v2 + OAuth
   - TikTok: Business or creator publishing access
-  - YouTube Shorts: YouTube Data API + OAuth client
+  - YouTube Shorts: YouTube Data API + OAuth client + first-run local consent flow
   - Facebook: Graph API + Page access
 
 ### Debug Mode
 
-Enable debug logging in `config/openclaw.config.yml`:
-```yaml
-logging:
-  level: "DEBUG"  # Change from INFO
-```
-
-Check logs:
+Check repo-side logs:
 ```bash
 tail -f shared/logs/*.log
 ```
+
+For OpenClaw runtime debugging, use the user's own OpenClaw profile and CLI (`openclaw logs`, `openclaw doctor`, `openclaw config`, etc.).
 
 ### Get Help
 
@@ -682,7 +652,9 @@ Agents CANNOT access:
 - `docs/jess_trading_context_guide.md` — Visual identity, product specs
 
 **Configuration:**
-- `config/openclaw.config.yml` — Main system configuration
+- `shared/brand_config.yml` — Main marketer/provider configuration
+- `register_openclaw_agents.py` — Current OpenClaw workspace registration helper
+- `config/openclaw.config.yml` — Legacy reference from the older repo-runner workflow
 - `.env` — Environment variables (API keys)
 - `requirements.txt` — Python dependencies
 
@@ -696,7 +668,7 @@ Agents CANNOT access:
 - [x] Marketer baseline workflow
 - [x] Configurable media providers via `shared/brand_config.yml`
 - [x] Core custom skills
-- [x] Deployment scripts
+- [x] OpenClaw 2026 workspace registration helper
 - [ ] Test Marketer end-to-end on a clean machine
 
 ### Phase 2: Expand Agents
@@ -726,7 +698,7 @@ Proprietary — Jess Trading Internal Use Only
 
 ---
 
-**Last Updated:** 2026-03-23
+**Last Updated:** 2026-03-30
 **Version:** 1.0.0 (Marketer Operational, Other Agents Configured)
 
 ---

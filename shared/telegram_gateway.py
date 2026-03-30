@@ -7,9 +7,11 @@ This module manages owner approvals through Telegram and persists the
 approval queue in `shared/approval_queue.yml`.
 """
 
+import asyncio
 import json
 import logging
 import os
+import sys
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -17,6 +19,13 @@ from typing import Any, Dict, List, Optional
 
 import requests
 import yaml
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from shared.marketer_state import MarketerStateManager
+from shared.provider_profiles import load_brand_config
 
 try:
     from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -67,6 +76,11 @@ class TelegramGateway:
 
     def __init__(self, config: Optional[TelegramGatewayConfig] = None):
         self.config = config or TelegramGatewayConfig()
+        self.brand_config = load_brand_config()
+        self.marketer_state = MarketerStateManager()
+        self.auto_publish_on_approval = bool(
+            self.brand_config.get("publishing", {}).get("auto_publish_on_approval", True)
+        )
         self.app = None
         self.setup_logging()
         self.load_queue()
@@ -314,7 +328,32 @@ class TelegramGateway:
         item["status"] = action
         item["decided_at"] = datetime.now().isoformat()
         item["decided_by"] = str(chat_id)
+        publish_state = item.setdefault("publish", {})
+        if action == "approved":
+            publish_state["status"] = "queued"
+            publish_state["started_at"] = None
+            publish_state["completed_at"] = None
+            publish_state["results"] = {}
+        else:
+            publish_state.setdefault("status", "not_started")
         self.save_queue()
+        self.marketer_state.sync_approval_queue()
+
+        if action == "approved" and self._should_autopublish(item):
+            await query.message.reply_text(
+                "\n".join(
+                    [
+                        "Decision recorded: approved",
+                        f"Title: {item['title']}",
+                        f"Agent: {item['agent']}",
+                        f"ID: {item['id']}",
+                        "Autopublish queued. I'll send a follow-up once publishing finishes.",
+                    ]
+                )
+            )
+            asyncio.create_task(self._autopublish_and_notify(item["id"]))
+            self.logger.info("Approval %s updated to approved and queued for autopublish", approval_id)
+            return
 
         await query.message.reply_text(
             "\n".join(
@@ -359,10 +398,18 @@ class TelegramGateway:
                 "message_id": None,
                 "chat_id": self.config.owner_chat_id,
             },
+            "publish": {
+                "status": "not_started",
+                "started_at": None,
+                "completed_at": None,
+                "results": {},
+            },
         }
 
         self.queue_data["queue"].append(approval_record)
         self.save_queue()
+        if agent == "marketer":
+            self.marketer_state.sync_approval_queue()
         self._send_approval_notification(approval_record)
         self.logger.info("Approval requested: %s by %s (%s)", approval_id, agent, approval_type)
         return approval_id
@@ -403,6 +450,116 @@ class TelegramGateway:
         if not item:
             return None
         return item["status"]
+
+    def _should_autopublish(self, approval_record: Dict[str, Any]) -> bool:
+        if not self.auto_publish_on_approval:
+            return False
+        if approval_record.get("agent") != "marketer":
+            return False
+        approval_type = str(approval_record.get("type") or "")
+        return approval_type in {"content_bundle", "content_post", "content_campaign"}
+
+    def _derive_publish_status(self, publish_result: Dict[str, Any]) -> str:
+        if publish_result.get("success"):
+            return "published"
+
+        results = publish_result.get("results") or {}
+        has_any_success = False
+        for item in results.values():
+            if isinstance(item, dict) and item.get("success"):
+                has_any_success = True
+                break
+            sub_results = item.get("results") if isinstance(item, dict) else None
+            if isinstance(sub_results, dict) and any(sub.get("success") for sub in sub_results.values()):
+                has_any_success = True
+                break
+        return "partial" if has_any_success else "failed"
+
+    def _collect_published_platforms(self, publish_result: Dict[str, Any]) -> List[str]:
+        published = set()
+        for key, value in (publish_result.get("results") or {}).items():
+            if isinstance(value, dict):
+                if value.get("success") and key in {"instagram", "twitter", "tiktok", "youtube_shorts", "facebook"}:
+                    published.add(key)
+                for platform, nested in (value.get("results") or {}).items():
+                    if isinstance(nested, dict) and nested.get("success"):
+                        published.add(platform)
+        return sorted(published)
+
+    def _format_publish_notification(self, approval_record: Dict[str, Any], publish_result: Dict[str, Any]) -> str:
+        publish_status = approval_record.get("publish", {}).get("status", "unknown")
+        published_platforms = approval_record.get("published_platforms") or []
+        platforms_text = ", ".join(published_platforms) if published_platforms else "none"
+        return "\n".join(
+            [
+                "Autopublish finished",
+                f"Title: {approval_record['title']}",
+                f"Approval ID: {approval_record['id']}",
+                f"Publish status: {publish_status}",
+                f"Published platforms: {platforms_text}",
+                f"Message: {publish_result.get('message', 'No message returned')}",
+            ]
+        )
+
+    def _autopublish_approval_sync(self, approval_id: str) -> Dict[str, Any]:
+        self.load_queue()
+        approval_record = self._find_record(approval_id)
+        if not approval_record:
+            return {"success": False, "message": f"Approval {approval_id} not found"}
+        if approval_record.get("status") != "approved":
+            return {"success": False, "message": f"Approval {approval_id} is not approved"}
+
+        publish_state = approval_record.setdefault("publish", {})
+        if publish_state.get("status") == "published":
+            return publish_state.get("results") or {
+                "success": True,
+                "message": f"Approval {approval_id} was already published",
+            }
+
+        publish_state["status"] = "publishing"
+        publish_state["started_at"] = datetime.now().isoformat()
+        self.save_queue()
+
+        try:
+            from skills.social_media_publisher import SocialMediaPublisherSkill
+
+            publisher = SocialMediaPublisherSkill()
+            publish_result = publisher.publish_content_bundle(approval_record)
+        except Exception as exc:
+            publish_result = {"success": False, "message": f"Autopublish failed to start: {exc}"}
+
+        self.load_queue()
+        approval_record = self._find_record(approval_id)
+        if not approval_record:
+            return {"success": False, "message": f"Approval {approval_id} disappeared during autopublish"}
+
+        publish_state = approval_record.setdefault("publish", {})
+        publish_state["status"] = self._derive_publish_status(publish_result)
+        publish_state["completed_at"] = datetime.now().isoformat()
+        publish_state["results"] = publish_result
+
+        approval_record["published_at"] = publish_state["completed_at"]
+        approval_record["published_platforms"] = self._collect_published_platforms(publish_result)
+
+        self.save_queue()
+        self.marketer_state.sync_approval_queue()
+        self.marketer_state.record_publish_result(approval_id=approval_id, publish_results=publish_result)
+        return publish_result
+
+    async def _autopublish_and_notify(self, approval_id: str) -> None:
+        publish_result = await asyncio.to_thread(self._autopublish_approval_sync, approval_id)
+        self.load_queue()
+        approval_record = self._find_record(approval_id)
+        if not approval_record or not self.app:
+            return
+
+        try:
+            await self.app.bot.send_message(
+                chat_id=self.config.owner_chat_id,
+                text=self._format_publish_notification(approval_record, publish_result),
+            )
+        except Exception as exc:
+            self.logger.error("Failed to send autopublish notification for %s: %s", approval_id, exc)
 
     async def send_notification(
         self,
