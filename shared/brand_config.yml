@@ -274,9 +274,9 @@ llm_defaults:
 # ========================================================================
 
 provider_selections:
-  llm: "openai_gpt_5_2_copy"
+  llm: "claude_sonnet_4_copy"
   image: "openai_gpt_image_1_5_high"
-  video: "openai_sora_2_pro_cinematic"
+  video: "none"  # deshabilitado temporalmente — arrancamos con texto+imágenes
 
 # ========================================================================
 # LLM PROFILES (curados para copy, scripts y threads del Marketer)

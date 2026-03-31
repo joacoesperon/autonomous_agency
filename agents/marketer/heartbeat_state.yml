@@ -1,33 +1,34 @@
-last_heartbeat_run: '2026-03-30T10:58:31.235128+02:00'
-last_content_generated: null
-last_queue_check: '2026-03-30T10:58:31.235128+02:00'
+last_heartbeat_run: '2026-03-30T20:28:27.503141+02:00'
+last_content_generated: '2026-03-30T20:38:52.725916+02:00'
+last_queue_check: '2026-03-30T20:38:47.574549+02:00'
 last_trend_scan: null
 last_innovator_sync: null
 last_analytics_update: null
 last_brand_mention_scan: null
-next_generation_due_at: '2026-03-30T08:00:00+02:00'
-last_generation_slot: null
+next_generation_due_at: null
+last_generation_slot: 2026-03-30_0800
 known_bots: []
 content_generated_today:
   date: '2026-03-30'
   story: false
-  video: false
-  derivatives: false
-  videos: 0
-  last_video_timestamp: null
-  total_pieces: 0
-  completed_slots: []
+  video: true
+  derivatives: true
+  videos: 1
+  last_video_timestamp: '2026-03-30T20:38:52.725916+02:00'
+  total_pieces: 11
+  completed_slots:
+  - 2026-03-30_0800
 weekly_content_mix:
   week_start: '2026-03-30'
   educational: 0
   social_proof: 0
-  product: 0
+  product: 1
   community: 0
 content_calendar_status: balanced
 posts_published_today: 0
 posts_published_this_week: 0
-drafts_awaiting_approval: 0
-approval_queue_count: 0
+drafts_awaiting_approval: 1
+approval_queue_count: 1
 last_trend_search: null
 content_paused: false
 notes: Initialized state. Ready for first heartbeat run.

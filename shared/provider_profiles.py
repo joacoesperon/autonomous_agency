@@ -91,7 +91,7 @@ def resolve_brand_config(raw_config: Optional[Dict[str, Any]] = None) -> Dict[st
         _apply_llm_profile(config, active["llm"])
     if active["image"]:
         _apply_media_profile(config, active["image"], "image_generation", "image_profiles")
-    if active["video"]:
+    if active["video"] and active["video"] != "none":
         _apply_media_profile(config, active["video"], "video_generation", "video_profiles")
 
     config["_resolved_provider_selections"] = active
