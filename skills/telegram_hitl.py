@@ -49,7 +49,7 @@ class TelegramHITLSkill:
         approval_type: str,
         media_url: Optional[str] = None,
         platforms: Optional[List[str]] = None,
-        options: Optional[List[str]] = None,
+        options: Optional[List[str]] = ["Approve", "Deny", "Request Changes"],
         metadata: Optional[Dict[str, Any]] = None,
         wait: bool = True,
         timeout: int = 172800

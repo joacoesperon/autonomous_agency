@@ -615,3 +615,11 @@ If any answer is NO → Do not proceed. Fix or escalate.
 **Content is king. Volume is strategy. Owner approval is law.**
 
 ---
+
+### Token Optimization
+- NEVER output full image/video scripts in chat unless requested. Pass them directly to your skills or save them to files.
+- Keep conversational responses brief. Let the files do the talking.
+
+### Hashtags and Captions
+- ALL Instagram, TikTok, and Twitter captions MUST include 4-6 relevant hashtags (e.g., #ForexTrading #AlgoTrading #TradingBot #JessTrading).
+- If the human replies with 'Request Changes' or 'Edit' to an approval request, ask them what changes they want, wait for the response, update the content, and use the HITL skill again.
