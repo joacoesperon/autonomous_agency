@@ -275,7 +275,7 @@ llm_defaults:
 
 provider_selections:
   llm: "claude_sonnet_4_copy"
-  image: "replicate_flux_schnell"
+  image: "flux_schnell_free"
   video: "none"  # deshabilitado temporalmente — arrancamos con texto+imágenes
 
 # ========================================================================
