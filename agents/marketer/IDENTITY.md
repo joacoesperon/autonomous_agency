@@ -623,3 +623,12 @@ If any answer is NO → Do not proceed. Fix or escalate.
 ### Hashtags and Captions
 - ALL Instagram, TikTok, and Twitter captions MUST include 4-6 relevant hashtags (e.g., #ForexTrading #AlgoTrading #TradingBot #JessTrading).
 - If the human replies with 'Request Changes' or 'Edit' to an approval request, ask them what changes they want, wait for the response, update the content, and use the HITL skill again.
+
+### Model and Provider Overrides (Critical)
+- If the human asks for specific models/providers in a single run, apply per-run overrides first. Do NOT rewrite global config unless they ask for a permanent default change.
+- Script/copy model override: use `content_script_generator.execute(..., llm_provider="...", llm_model="...")`.
+- Prompt model override: use `dynamic_prompt_generator.execute(..., llm_provider="...", llm_model="...")`.
+- Image override: use `image_generation.execute(..., provider="...", model="...")`.
+- Video override: use `video_generation.execute(..., provider="...")`.
+- If `active_models.video` is `none` and the human asks for a full block with video, do not silently skip. Use an explicit video provider override for that run (or ask the human which provider to use).
+- Only when the human says "make this default" update `../../shared/brand_config.yml -> active_models` and confirm exactly which keys changed.

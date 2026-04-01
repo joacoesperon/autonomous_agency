@@ -45,6 +45,8 @@ class LLMProvider:
         "anthropic": "claude",
         "google": "gemini",
         "google-gemini": "gemini",
+        "ollama": "openai",
+        "openai-compatible": "openai",
     }
 
     def __init__(
@@ -70,7 +72,12 @@ class LLMProvider:
         # Use provided values or fall back to config
         configured_provider = provider or self.config["llm_defaults"]["provider"]
         self.provider = self._normalize_provider_name(configured_provider)
-        self.model = model or self.config["llm_defaults"]["model"]
+
+        configured_model = model or self.config["llm_defaults"]["model"]
+        # Allow OpenAI-compatible local runtimes (like Ollama) to override model via env.
+        if model is None and self.provider == "openai":
+            configured_model = os.getenv("OPENAI_MODEL", configured_model)
+        self.model = configured_model
         self.temperature = temperature if temperature is not None else self.config["llm_defaults"]["temperature"]
         self.max_tokens = max_tokens or self.config["llm_defaults"]["max_tokens"]
 
@@ -85,11 +92,34 @@ class LLMProvider:
         normalized = provider_name.strip().lower()
         return self.PROVIDER_ALIASES.get(normalized, normalized)
 
+    def _get_openai_base_url(self) -> Optional[str]:
+        """Resolve OpenAI-compatible base URL (OpenAI, Ollama, or other compatible APIs)."""
+        return os.getenv("OPENAI_BASE_URL") or os.getenv("OLLAMA_BASE_URL")
+
+    def _resolve_openai_api_key(self, current_api_key: Optional[str]) -> Optional[str]:
+        """
+        Resolve API key for OpenAI-compatible clients.
+
+        For local OpenAI-compatible runtimes (e.g. Ollama), allow a dummy key when
+        no real OpenAI key is present.
+        """
+        if current_api_key:
+            return current_api_key
+
+        base_url = self._get_openai_base_url() or ""
+        if "localhost" in base_url or "127.0.0.1" in base_url:
+            return os.getenv("OLLAMA_API_KEY") or "ollama"
+
+        return current_api_key
+
     def _init_client(self):
         """Initialize the appropriate LLM client"""
 
         env_var = self.PROVIDER_ENV_VARS.get(self.provider)
-        api_key = os.getenv(env_var)
+        api_key = os.getenv(env_var) if env_var else None
+
+        if self.provider == "openai":
+            api_key = self._resolve_openai_api_key(api_key)
 
         if not api_key:
             # Try fallback provider
@@ -98,9 +128,16 @@ class LLMProvider:
                 fallback_provider = self._normalize_provider_name(fallback_provider)
                 print(f"⚠️  WARNING: {env_var} not set. Trying fallback: {fallback_provider}")
                 self.provider = fallback_provider
-                self.model = self.config["llm_defaults"].get("fallback_model", self.model)
+                fallback_model = self.config["llm_defaults"].get("fallback_model", self.model)
+                if self.provider == "openai":
+                    # Respect local OpenAI-compatible runtime model override (e.g. Ollama).
+                    fallback_model = os.getenv("OPENAI_MODEL", fallback_model)
+                self.model = fallback_model
                 env_var = self.PROVIDER_ENV_VARS.get(self.provider)
-                api_key = os.getenv(env_var)
+                api_key = os.getenv(env_var) if env_var else None
+
+                if self.provider == "openai":
+                    api_key = self._resolve_openai_api_key(api_key)
 
                 if not api_key:
                     raise ValueError(f"{env_var} not set in environment")
@@ -114,6 +151,9 @@ class LLMProvider:
 
         elif self.provider == "openai":
             from openai import OpenAI
+            base_url = self._get_openai_base_url()
+            if base_url:
+                return OpenAI(api_key=api_key, base_url=base_url)
             return OpenAI(api_key=api_key)
 
         elif self.provider == "claude":

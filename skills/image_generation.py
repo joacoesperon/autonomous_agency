@@ -16,6 +16,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from shared.image_provider import ImageProvider
+from shared.provider_profiles import load_brand_config
 
 
 class ImageGenerationSkill:
@@ -25,6 +26,20 @@ class ImageGenerationSkill:
         self.name = "image_generation"
         self.description = (
             "Generate brand-compliant images using the provider configured in shared/brand_config.yml"
+        )
+        self.config = load_brand_config()
+
+    def _build_visual_hint(self) -> str:
+        visual = self.config.get("visual_identity", {})
+        palette = visual.get("color_palette", {})
+        aesthetic = visual.get("aesthetic", {})
+        return (
+            "Use brand visual identity from config: "
+            f"primary {palette.get('primary', '#101010')}, "
+            f"secondary {palette.get('secondary', '#45B14F')}, "
+            f"tertiary {palette.get('tertiary', '#A7A7A7')}, "
+            f"accent {palette.get('accent', '#2979FF')}. "
+            f"Aesthetic: {aesthetic.get('style', 'minimal fintech')}"
         )
 
     def execute(
@@ -63,11 +78,12 @@ class ImageGenerationSkill:
         }
         aspect_ratio = aspect_ratio_map.get(platform, "1:1")
         prompt = f"""
-        Minimalist fintech trading dashboard showing {symbol} chart.
-        Main element: candlestick chart with bullish Neon Green candles.
+        Professional trading dashboard showing {symbol} chart.
+        Main element: candlestick chart highlighting a positive trend.
         Side panel with performance metric: '{profit_factor:.2f} PF' in large text.
-        Strategy name '{strategy_name}' in Light Gray subtitle.
+        Strategy name '{strategy_name}' as subtitle.
         Clean, premium, professional. No clutter.
+        {self._build_visual_hint()}
         """
         return self.execute(
             prompt=prompt,
@@ -131,11 +147,17 @@ class ImageGenerationSkill:
                 aspect_ratio = prompt_result.get("aspect_ratio", "1:1")
                 dynamic_used = True
             else:
-                prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
+                prompt = (
+                    f"Professional trading visualization about {topic}, {style} style. "
+                    f"{self._build_visual_hint()}"
+                )
                 aspect_ratio = "1:1"
                 dynamic_used = False
         except ImportError:
-            prompt = f"Minimalist fintech visualization about {topic}, {style} style, brand colors"
+            prompt = (
+                f"Professional trading visualization about {topic}, {style} style. "
+                f"{self._build_visual_hint()}"
+            )
             aspect_ratio = "1:1"
             dynamic_used = False
 

@@ -36,39 +36,15 @@ if str(PROJECT_ROOT) not in sys.path:
 
 try:
     from shared.llm_provider import LLMProvider
+    from shared.provider_profiles import load_brand_config
 except ImportError:
     print("⚠️  ERROR: Cannot import LLMProvider from shared/")
-    print("Make sure shared/llm_provider.py exists")
+    print("Make sure shared/llm_provider.py and shared/provider_profiles.py exist")
     exit(1)
 
 
 class DynamicPromptGeneratorSkill:
     """Skill for generating contextual, brand-compliant image prompts"""
-
-    # Brand visual guidelines (strict)
-    BRAND_GUIDELINES = """
-    Jess Trading Brand Visual Guidelines (STRICT):
-
-    COLOR PALETTE:
-    - Carbon Black (#101010): Primary background, 80% of visual, dark mode aesthetic
-    - Neon Green (#45B14F): Highlights only (profits, key metrics), max 20% of visual
-    - Light Gray (#A7A7A7): Body text, labels, secondary information
-    - Electric Blue (#2979FF): CTAs ONLY (buttons, action prompts)
-
-    AESTHETIC:
-    - Minimalist fintech / Apple keynote style
-    - Dark mode, premium, professional
-    - Clean typography, generous white space
-    - Glassmorphism effects, subtle gradients
-    - No stock photos, no generic imagery
-    - No bright colors outside palette
-
-    FORBIDDEN:
-    - Red, orange, yellow, purple (except as part of charts showing loss)
-    - Stock trader photos, lambos, cash stacks
-    - Cluttered layouts, multiple fonts
-    - Low-quality or pixelated images
-    """
 
     # Visual style categories
     STYLE_APPROACHES = {
@@ -111,6 +87,7 @@ class DynamicPromptGeneratorSkill:
     def __init__(self):
         self.name = "dynamic_prompt_generator"
         self.description = "Generate unique, contextual image prompts with brand consistency"
+        self.config = load_brand_config()
 
         try:
             self.llm = LLMProvider()
@@ -119,13 +96,53 @@ class DynamicPromptGeneratorSkill:
             print(f"⚠️  ERROR: Failed to initialize LLM: {e}")
             self.llm = None
 
+    def _resolve_llm(
+        self,
+        llm_provider: Optional[str] = None,
+        llm_model: Optional[str] = None,
+    ) -> Optional[LLMProvider]:
+        if llm_provider or llm_model:
+            return LLMProvider(provider=llm_provider, model=llm_model)
+        return self.llm
+
+    def _build_brand_guidelines(self) -> str:
+        visual = self.config.get("visual_identity", {})
+        palette = visual.get("color_palette", {})
+        aesthetic = visual.get("aesthetic", {})
+        constraints = visual.get("image_constraints", {})
+        brand_name = self.config.get("brand_name", "the brand")
+
+        forbidden_words = self.config.get("brand_voice", {}).get("forbidden_words", [])
+        forbidden_text = ", ".join(forbidden_words[:8]) if forbidden_words else "none"
+
+        return f"""
+    {brand_name} visual guidelines (STRICT):
+
+    COLOR PALETTE:
+    - Primary background: {palette.get('primary', '#101010')}
+    - Highlight color: {palette.get('secondary', '#45B14F')} (max {constraints.get('highlight_percentage', 20)}% of image)
+    - Text color: {palette.get('tertiary', '#A7A7A7')}
+    - CTA color: {palette.get('accent', '#2979FF')}
+
+    AESTHETIC:
+    - Style: {aesthetic.get('style', 'Minimalist premium fintech')}
+    - Reference: {aesthetic.get('reference', 'Apple keynote presentation style')}
+
+    CONSTRAINTS:
+    - Background rule: {constraints.get('background_rule', 'Always dark background')}
+    - Max colors: {constraints.get('max_colors', 4)}
+    - Forbidden language cues: {forbidden_text}
+    """
+
     def execute(
         self,
         topic: str,
         style: str = "minimal",
         platform: str = "instagram_post",
         content_type: str = "educational",
-        additional_context: Optional[str] = None
+        additional_context: Optional[str] = None,
+        llm_provider: Optional[str] = None,
+        llm_model: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Generate a unique, brand-compliant image prompt.
@@ -148,7 +165,15 @@ class DynamicPromptGeneratorSkill:
             }
         """
 
-        if not self.llm:
+        try:
+            llm = self._resolve_llm(llm_provider=llm_provider, llm_model=llm_model)
+        except Exception as e:
+            return {
+                "success": False,
+                "message": f"Failed to initialize LLM override: {e}"
+            }
+
+        if not llm:
             return {
                 "success": False,
                 "message": "LLM provider not initialized. Check API keys and brand_config.yml."
@@ -168,10 +193,11 @@ class DynamicPromptGeneratorSkill:
         style_approach = random.choice(self.STYLE_APPROACHES[style])
 
         # Build LLM prompt for generating image prompt
+        brand_name = self.config.get("brand_name", "the brand")
         llm_prompt = f"""
-        You are an expert AI image prompt engineer for Jess Trading, a premium algorithmic trading brand.
+        You are an expert AI image prompt engineer for {brand_name}, a premium algorithmic trading brand.
 
-        {self.BRAND_GUIDELINES}
+        {self._build_brand_guidelines()}
 
         TASK: Generate a detailed image generation prompt for the following:
 
@@ -182,7 +208,7 @@ class DynamicPromptGeneratorSkill:
         {f"ADDITIONAL CONTEXT: {additional_context}" if additional_context else ""}
 
         REQUIREMENTS:
-        1. Strictly follow the brand color palette (Carbon Black, Neon Green, Light Gray, Electric Blue)
+        1. Strictly follow the configured brand color palette and visual identity.
         2. Create a {style_approach} based on the topic
         3. Be specific about composition, lighting, and mood
         4. Include exact hex codes in the prompt
@@ -195,15 +221,12 @@ class DynamicPromptGeneratorSkill:
 
         The prompt should be 2-4 sentences, detailed but concise.
 
-        EXAMPLE (for reference, create something different):
-        "Minimalist fintech dashboard showing EURUSD candlestick chart, Carbon Black #101010 background with subtle radial gradient fading to #000000, sharp Neon Green #45B14F bullish candles indicating profitable pattern, Light Gray #A7A7A7 axis labels and price levels, clean geometric UI elements with glassmorphism effect, premium trading terminal aesthetic, 4k resolution, {aspect_ratio} format"
-
         NOW GENERATE THE PROMPT FOR THE GIVEN TOPIC:
         """
 
         # Generate prompt using LLM
         try:
-            generated_prompt = self.llm.generate(llm_prompt).strip()
+            generated_prompt = llm.generate(llm_prompt).strip()
 
             # Remove any markdown or extra formatting
             generated_prompt = generated_prompt.replace('```', '').strip()

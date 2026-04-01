@@ -9,6 +9,34 @@
 #
 # ========================================================================
 
+# ========================================================================
+# QUICK MODEL SWITCH (EDITA SOLO ESTO PARA CAMBIAR MODELOS)
+# ========================================================================
+# Formato por linea: "provider:model" o "none"
+# copy  = guion + caption + hashtags + tweets
+# image = generacion de imagen
+# video = generacion de video (usar "none" para desactivarlo por default)
+
+active_models:
+  copy: "claude:claude-sonnet-4-20250514"
+  image: "flux:black-forest-labs/flux-schnell"
+  video: "none"
+
+# ========================================================================
+# BRAND SOURCE (Drive-first opcional con fallback local)
+# ========================================================================
+# local_only: usa solo este YAML
+# drive_snapshot: mergea secciones desde docs/brand_context_live.yml
+# Nota: el snapshot se genera con shared/brand_context_sync.py
+
+brand_source:
+  mode: "local_only"  # local_only | drive_snapshot
+  override_yaml_path: "docs/brand_context_live.yml"
+  override_sections:
+    - "brand_voice"
+    - "visual_identity"
+  strict: false
+
 brand_name: "Jess Trading"
 brand_tagline: "Systematic trading. Disciplined execution."
 
@@ -257,8 +285,12 @@ disclaimers:
   full: "Past performance ≠ future results. Trading involves risk. Not financial advice."
 
 # ========================================================================
-# LLM CONFIGURATION (modelo a usar por defecto)
+# LLM CONFIGURATION (fallback avanzado)
 # ========================================================================
+
+# Nota: este bloque es base/fallback.
+# En uso normal, `active_models.copy` tiene prioridad.
+# Si no existe `active_models.copy`, se usa `provider_selections.llm`.
 
 llm_defaults:
   provider: "gemini"  # gemini | openai | claude
@@ -270,8 +302,11 @@ llm_defaults:
   fallback_model: "gpt-4o-mini"
 
 # ========================================================================
-# PROVIDER SELECTIONS (forma preferida de cambiar stack del Marketer)
+# PROVIDER SELECTIONS (legacy/avanzado)
 # ========================================================================
+
+# Nota: este bloque queda para compatibilidad con perfiles curados.
+# Solo aplica cuando NO definis el canal equivalente en `active_models`.
 
 provider_selections:
   llm: "claude_sonnet_4_copy"
@@ -726,14 +761,3 @@ publishing:
 #   colors = config['visual_identity']['color_palette']
 #
 # ========================================================================
-
-  replicate_flux_schnell:
-    label: "Replicate Flux Schnell"
-    description: "Generación extremadamente rápida y barata en Replicate."
-    best_for: "Volumen alto, prototipado y pruebas locales."
-    as_of: "2026-03-31"
-    provider: "flux"
-    config:
-      model: "black-forest-labs/flux-schnell"
-      cost_per_image: 0.003
-      notes: "Default for free testing, requires REPLICATE_API_TOKEN"

@@ -8,7 +8,7 @@ Converts video content into Instagram carousel (5-10 slides).
 This skill analyzes a video script and generates a carousel post where:
 - Each slide highlights one key point
 - Visual consistency across all slides
-- Brand-compliant design (Carbon Black + Neon Green)
+- Brand-compliant design from shared/brand_config.yml
 - Text overlays with key takeaways
 - Perfect for educational and product content
 
@@ -28,13 +28,11 @@ from typing import Dict, List, Any, Optional
 from pathlib import Path
 
 try:
-    import replicate
-    import requests
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError as e:
     print(f"⚠️  ERROR: Required library not installed: {e}")
-    print("Run: pip install replicate requests pyyaml")
+    print("Run: pip install python-dotenv pyyaml")
     exit(1)
 
 # Add parent directory to path for shared imports
@@ -43,9 +41,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 try:
     from shared.llm_provider import LLMProvider
     from shared.provider_profiles import load_brand_config
+    from shared.image_provider import ImageProvider
 except ImportError:
     print("⚠️  ERROR: Cannot import shared provider helpers")
-    print("Make sure shared/llm_provider.py and shared/provider_profiles.py exist")
+    print("Make sure shared/llm_provider.py, shared/provider_profiles.py and shared/image_provider.py exist")
     exit(1)
 
 
@@ -67,12 +66,12 @@ class VideoToCarouselSkill:
             print(f"⚠️  ERROR: Failed to initialize LLM: {e}")
             self.llm = None
 
-        # Check Replicate API
-        self.replicate_api_key = os.getenv("REPLICATE_API_TOKEN")
-        if not self.replicate_api_key:
-            print("⚠️  WARNING: REPLICATE_API_TOKEN not set in .env")
-        else:
-            os.environ["REPLICATE_API_TOKEN"] = self.replicate_api_key
+        # Initialize centralized image provider wrapper
+        try:
+            self.image_provider = ImageProvider()
+        except Exception as e:
+            print(f"⚠️  ERROR: Failed to initialize ImageProvider: {e}")
+            self.image_provider = None
 
     def _load_brand_config(self) -> Dict[str, Any]:
         """Load resolved brand configuration from centralized YAML"""
@@ -103,10 +102,16 @@ class VideoToCarouselSkill:
             }
         """
 
-        if not self.llm or not self.replicate_api_key:
+        if not self.llm:
             return {
                 "success": False,
-                "message": "LLM provider or REPLICATE_API_TOKEN not configured"
+                "message": "LLM provider not configured"
+            }
+
+        if not self.image_provider:
+            return {
+                "success": False,
+                "message": "Image provider not configured"
             }
 
         # Validate inputs
@@ -300,6 +305,8 @@ class VideoToCarouselSkill:
 
         # Get brand colors from config
         colors = self.config["visual_identity"]["color_palette"]
+        aesthetic = self.config.get("visual_identity", {}).get("aesthetic", {})
+        aesthetic_reference = aesthetic.get("reference", "configured brand aesthetic")
 
         # Build prompt based on slide type
         if slide_type == "title":
@@ -309,7 +316,7 @@ class VideoToCarouselSkill:
             Large bold text in center: "{point}"
             Text color: White or {colors['secondary']}.
             Subtle geometric accent (thin lines or dots).
-            Clean, premium, Apple keynote aesthetic.
+              Clean, premium, {aesthetic_reference}.
             Square format 1080x1080px.
             """
         elif slide_type == "conclusion":
@@ -343,53 +350,17 @@ class VideoToCarouselSkill:
         - Accents: {colors['secondary']} or {colors['accent']} only
         """
 
-        # Generate image using Replicate
-        try:
-            output = replicate.run(
-                "black-forest-labs/flux-schnell",
-                input={
-                    "prompt": full_prompt,
-                    "aspect_ratio": "1:1",
-                    "output_format": "jpg",
-                    "output_quality": 90,
-                    "num_outputs": 1
-                }
-            )
+        output_path = os.path.join(output_dir, f"slide_{slide_number:02d}.jpg")
+        result = self.image_provider.generate(
+            prompt=full_prompt,
+            aspect_ratio="1:1",
+            output_path=output_path,
+            validate_brand=False,
+        )
 
-            # Get image URL
-            if isinstance(output, list) and len(output) > 0:
-                image_url = output[0]
-            else:
-                image_url = str(output)
-
-        except Exception as e:
-            return {
-                "success": False,
-                "message": f"Image generation failed: {e}"
-            }
-
-        # Download image
-        try:
-            output_path = os.path.join(output_dir, f"slide_{slide_number:02d}.jpg")
-
-            response = requests.get(image_url, timeout=30)
-            response.raise_for_status()
-
-            with open(output_path, 'wb') as f:
-                f.write(response.content)
-
-            return {
-                "success": True,
-                "local_path": output_path,
-                "image_url": image_url,
-                "message": f"Slide {slide_number} generated"
-            }
-
-        except Exception as e:
-            return {
-                "success": False,
-                "message": f"Failed to download slide {slide_number}: {e}"
-            }
+        if result.get("success"):
+            result["message"] = f"Slide {slide_number} generated"
+        return result
 
     def generate_from_video_result(
         self,

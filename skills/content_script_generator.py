@@ -66,6 +66,21 @@ class ContentScriptGeneratorSkill:
             print(f"⚠️  ERROR: Failed to initialize LLM: {e}")
             self.llm = None
 
+    def _resolve_llm(
+        self,
+        llm_provider: Optional[str] = None,
+        llm_model: Optional[str] = None,
+    ) -> Optional[LLMProvider]:
+        """
+        Resolve LLM instance for a run.
+
+        If overrides are provided, instantiate a temporary provider/model;
+        otherwise use the default initialized client.
+        """
+        if llm_provider or llm_model:
+            return LLMProvider(provider=llm_provider, model=llm_model)
+        return self.llm
+
     def _load_brand_config(self) -> Dict[str, Any]:
         """Load resolved brand configuration from centralized YAML"""
         return load_brand_config()
@@ -123,7 +138,9 @@ class ContentScriptGeneratorSkill:
         duration: int = 30,
         carousel_slides: int = 6,
         num_tweets: int = 5,
-        context: Optional[Dict[str, Any]] = None
+        context: Optional[Dict[str, Any]] = None,
+        llm_provider: Optional[str] = None,
+        llm_model: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Generate complete content package in ONE LLM call.
@@ -149,7 +166,15 @@ class ContentScriptGeneratorSkill:
             }
         """
 
-        if not self.llm:
+        try:
+            llm = self._resolve_llm(llm_provider=llm_provider, llm_model=llm_model)
+        except Exception as e:
+            return {
+                "success": False,
+                "message": f"Failed to initialize LLM override: {e}",
+            }
+
+        if not llm:
             return {
                 "success": False,
                 "message": "LLM provider not initialized. Check API keys."
@@ -298,7 +323,7 @@ Now generate the content package:
 
         # Call LLM
         try:
-            generated_text = self.llm.generate(prompt, json_mode=True)
+            generated_text = llm.generate(prompt, json_mode=True)
 
             # Remove markdown formatting if present
             if generated_text.startswith("```json"):
@@ -340,7 +365,7 @@ Now generate the content package:
                 "estimated_duration": duration,
                 "carousel_slides": carousel_slides,
                 "num_tweets": num_tweets,
-                "llm_provider": self.llm.get_provider_info(),
+                "llm_provider": llm.get_provider_info(),
                 "message": f"Content package generated successfully ({duration}s video, {carousel_slides} slides, {num_tweets} tweets)"
             }
 
